@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'NotoSansThai';
+  font-style: normal;
+  font-weight: normal;
+  src: local('NotoSansThai Regular'),
+    url(@/assets/fonts/NotoSansThai-Regular.ttf) format('opentype')
+}
+
+[class*='text-'],
+[class^='swal2'],
+body {
+  font-family: 'NotoSansThai', sans-serif !important;
+}
