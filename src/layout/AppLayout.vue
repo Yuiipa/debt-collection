@@ -1,6 +1,6 @@
 <template>
-  <v-main class="overflow-auto">
-    <v-container fill-height fluid>
+  <v-main class="overflow-auto pa-0 ma-0">
+    <v-container fill-height fluid class="pa-0">
     <router-view :key="route.fullPath"></router-view>
     </v-container>
   </v-main>
