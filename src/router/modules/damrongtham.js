@@ -42,6 +42,11 @@ const useRoutesDamrongtham = [
         component: () => import('@/views/appeal/HomeAppeal.vue'),
       },
       {
+        path: '/appeal/form_appeal',
+        name: 'debt-form-appeal',
+        component: () => import('@/views/appeal/FormAppeal.vue'),
+      },
+      {
         path: '/appeal/change_password',
         name: 'debt-change-password',
         component: () => import('@/views/appeal/ChangePassword.vue'),
