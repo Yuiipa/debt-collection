@@ -29,6 +29,36 @@ const useRoutesDamrongtham = [
         name: 'debt-home-registration',
         component: () => import('@/views/registration/HomeDebt.vue'),
       },
+      {
+        path: '/debt/Request',
+        name: 'debt-request-registration',
+        component: () => import('@/views/registration/Request.vue'),
+      },
+      {
+        path: '/debt/User',
+        name: 'debt-user-registration',
+        component: () => import('@/views/registration/User.vue'),
+      },
+      {
+        path: '/debt/Report',
+        name: 'debt-report-registration',
+        component: () => import('@/views/registration/report/Main.vue'),
+      },
+      {
+        path: '/debt/System',
+        name: 'debt-system-registration',
+        component: () => import('@/views/registration/System.vue'),
+      },
+      {
+        path: '/debt/Setting',
+        name: 'debt-setting-registration',
+        component: () => import('@/views/registration/Setting.vue'),
+      },
+      {
+        path: '/debt/ReserveData',
+        name: 'debt-reservedata-registration',
+        component: () => import('@/views/registration/ReserveData.vue'),
+      },
     ]
   },
   {
@@ -47,9 +77,54 @@ const useRoutesDamrongtham = [
         component: () => import('@/views/appeal/FormAppeal.vue'),
       },
       {
+        path: '/appeal/Form_Appeal',
+        name: 'debt-form-appeal',
+        component: () => import('@/views/appeal/FormAppeal.vue'),
+      },
+      {
+        path: '/appeal/Process_appeal',
+        name: 'debt-process-appeal',
+        component: () => import('@/views/appeal/ProcessAppeal.vue'),
+      },
+      {
+        path: '/appeal/Report/meeting',
+        name: 'debt-report-appeal',
+        component: () => import('@/views/appeal/Report.vue'),
+      },
+      {
+        path: '/appeal/Report/evaluate',
+        name: 'debt-report-appeal',
+        component: () => import('@/views/appeal/Report.vue'),
+      },
+      {
+        path: '/appeal/Report/performance',
+        name: 'debt-report-appeal',
+        component: () => import('@/views/appeal/Report.vue'),
+      },
+      {
+        path: '/appeal/Report/other',
+        name: 'debt-report-appeal',
+        component: () => import('@/views/appeal/Report.vue'),
+      },
+      {
+        path: '/appeal/CenterAppeal',
+        name: 'debt-center-appeal',
+        component: () => import('@/views/appeal/CenterAppeal.vue'),
+      },
+      {
+        path: '/appeal/Search_Register/Register',
+        name: 'debt-search-appeal',
+        component: () => import('@/views/appeal/SearchRegister.vue'),
+      },
+      {
+        path: '/appeal/Search_Register/UnRegister',
+        name: 'debt-home-appeal',
+        component: () => import('@/views/appeal/SearchRegister.vue'),
+      },
+      {
         path: '/appeal/change_password',
         name: 'debt-change-password',
-        component: () => import('@/views/appeal/ChangePassword.vue'),
+        component: () => import('@/views/registration/ChangePassword.vue'),
       },
     ]
   }

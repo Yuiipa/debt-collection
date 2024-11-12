@@ -7,22 +7,6 @@
         </span>
       </v-col>
     </v-row>
-    <v-row class="px-16 pt-4">
-      <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
-        <v-text-field
-          v-model="searchQuery"
-          label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
-          variant="outlined"
-          density="compact"
-          hide-details
-          append-inner-icon="mdi-magnify"
-          class="full-width-input"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="1" class="align-center justify-end d-flex">
-        <v-btn > ค้นหา </v-btn>
-      </v-col>
-    </v-row>
     <v-row>
       <v-col>
         <div class="px-10">
@@ -44,21 +28,22 @@
     </v-row>
   </div>
 </template>
-  
-  <script setup>
+
+<script setup>
+
 const headers = [
   {
-    title: 'ชื่อ',
-    key: 'name',
+    text: 'ชื่อ',
+    value: 'name',
     align: 'start',
     sortable: true,
     width: '150px',
   },
-  { title: 'แคลอรี่', key: 'calories', align: 'center', sortable: true },
-  { title: 'ไขมัน (g)', key: 'fat', align: 'center', sortable: true },
-  { title: 'คาร์บ (g)', key: 'carbs', align: 'center', sortable: true },
-  { title: 'โปรตีน (g)', key: 'protein', align: 'center', sortable: true },
-  { title: 'เหล็ก (%)', key: 'iron', align: 'center', sortable: true },
+  { text: 'แคลอรี่', value: 'calories', align: 'center', sortable: true },
+  { text: 'ไขมัน (g)', value: 'fat', align: 'center', sortable: true },
+  { text: 'คาร์บ (g)', value: 'carbs', align: 'center', sortable: true },
+  { text: 'โปรตีน (g)', value: 'protein', align: 'center', sortable: true },
+  { text: 'เหล็ก (%)', value: 'iron', align: 'center', sortable: true },
 ]
 
 const items = [
@@ -96,11 +81,11 @@ const items = [
   },
 ]
 </script>
-  
+
 <style scoped>
 .v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  background-color: #1A237E;
+
   cursor: pointer;
   font-weight: bold;
 }
@@ -110,16 +95,13 @@ const items = [
   border-radius: 24px !important;
   overflow: hidden;
 }
-
 .v-table :deep(table > thead) {
   background-color: #ffffff;
   cursor: pointer;
   font-weight: bold;
 }
-
 .v-table ::v-deep tr:nth-child(even) {
-  background-color: #f1f1f1e5;
+  background-color: #F1F1F1E5;
+
 }
 </style>
-
-  
