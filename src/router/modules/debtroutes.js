@@ -1,3 +1,56 @@
+const routeReport = [
+  {
+    path: '/debt/Request_All',
+    name: 'debt-Request_All-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Registration',
+    name: 'debt-Registration-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/ChangeBusiness',
+    name: 'debt-ChangeBusiness-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Substitute',
+    name: 'debt-Substitute-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/ChangeRoster',
+    name: 'debt-ChangeRoster-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Quit_Business',
+    name: 'debt-Quit_Business-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Renew_request',
+    name: 'debt-Renew_request-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Blame_Business',
+    name: 'debt-Blame_Business-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Cancel_Quit',
+    name: 'debt-Cancel_Quit-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+  {
+    path: '/debt/Revoke',
+    name: 'debt-Revoke-registration',
+    component: () => import('@/views/registration/ReportDebt.vue'),
+  },
+]
+
 const routesDebt = [
     {
         path: '/',
@@ -19,11 +72,7 @@ const routesDebt = [
             name: 'debt-user-registration',
             component: () => import('@/views/registration/User.vue'),
           },
-          {
-            path: '/debt/Report',
-            name: 'debt-report-registration',
-            component: () => import('@/views/registration/report/Main.vue'),
-          },
+          ...routeReport,
           {
             path: '/debt/System',
             name: 'debt-system-registration',
@@ -35,13 +84,15 @@ const routesDebt = [
             component: () => import('@/views/registration/Setting.vue'),
           },
           {
-            path: '/debt/ReserveData',
+            path: '/debt/Backup',
             name: 'debt-reservedata-registration',
             component: () => import('@/views/registration/ReserveData.vue'),
           },
         ]
       },
 ]
+
+
 
 
 export default routesDebt
