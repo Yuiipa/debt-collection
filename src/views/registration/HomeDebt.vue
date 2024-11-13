@@ -10,7 +10,6 @@
     <v-row class="px-16 pt-4">
       <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
         <v-text-field
-          v-model="searchQuery"
           label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
           variant="outlined"
           density="compact"

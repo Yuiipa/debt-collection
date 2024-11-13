@@ -1,44 +1,7 @@
 <template>
   <!-- Navigation Drawer -->
-  <v-navigation-drawer
-    v-if="!isHomeRoute"
-    v-model="drawer"
-    :permanent="!$vuetify.display.mobile"
-  >
-    <v-list>
-      <v-list-item-group>
-        <v-list-item
-          v-for="(item, index) in currentSidebar"
-          :key="index"
-        >
-          <!-- Main Menu Item -->
-          <v-list-item-content>
-            <v-list-item-title @click="item.children ? toggleSubmenu(index) : navigateTo(item)">
-              <v-icon v-if="item.icon" left>{{ item.icon }}</v-icon>
-              {{ item.title }}
-              <v-icon v-if="item.children" class="ml-2" small>{{ expanded[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-            </v-list-item-title>
-          </v-list-item-content>
-
-          <!-- Nested Submenu Items -->
-          <v-list v-if="item.children && expanded[index]" class="ml-4">
-            <v-list-item
-              v-for="(subItem, subIndex) in item.children"
-              :key="subIndex"
-              @click="navigateTo(subItem)"
-            >
-              <v-list-item-content>
-                <v-list-item-title>{{ subItem.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-navigation-drawer>
-
-  <v-main>
-    <v-row class="py-2 px-10">
+  <v-app-bar prominent elevation="1" class="py-2">
+    <v-row class="px-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
         v-if="!isHomeRoute"
@@ -54,7 +17,7 @@
       <v-col cols="9">
         <div class="d-flex justify-start align-center">
           <div class="d-flex align-center">
-            <v-avatar size="70" class="mr-3">
+            <v-avatar size="60" class="mr-3">
               <v-img src="/logo.ico" />
             </v-avatar>
             <div class="d-none d-md-flex">
@@ -93,8 +56,7 @@
             <v-list-item
               v-for="(item, index) in listService"
               :key="index"
-              @click="navigateTo(item)"
-              prepend-icon="mdi-email"
+              @click="$router.push({ name: item.name })"
             >
               <v-list-item-title class="text-indigo-darken-4">
                 {{ item.title }}
@@ -104,7 +66,55 @@
         </v-menu>
       </v-col>
     </v-row>
+  </v-app-bar>
+  <v-navigation-drawer
+    v-model="drawer"
+    :permanent="!$vuetify.display.mobile"
+    app
+    class="pt-2"
+    v-if="!isHomeRoute"
+  >
+    <v-list>
+      <!-- วนลูปเมนูหลัก -->
+      <template v-for="(item, index) in currentSidebar" :key="index">
+        <!-- ตรวจสอบว่า item มี children หรือไม่ -->
+        <v-list-group v-if="item.children" :prepend-icon="item.icon" no-action>
+          <template v-slot:activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              :title="item.title"
+              @click="navigate(item.name)"
+            >
+            </v-list-item>
+          </template>
 
+          <!-- วนลูปเมนูย่อยภายใน children -->
+          <v-list-item
+            v-for="(child, idx) in item.children"
+            :key="idx"
+            :title="child.title"
+            :class="{ 'selected-item': isSelected(child) }"
+            :prepend-icon="child.icon"
+            @click="navigate(child.name)"
+          >
+            <template #title>
+              <span class="multiline-title">{{ child.title }}</span>
+            </template></v-list-item
+          >
+        </v-list-group>
+
+        <!-- ถ้าไม่มี children ให้แสดงเป็นเมนูปกติ -->
+        <v-list-item
+          v-else
+          :title="item.title"
+          :class="{ 'selected-item': isSelected(item) }"
+          :prepend-icon="item.icon"
+          @click="navigate(item.name)"
+        ></v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
+  <v-main>
     <!-- Conditionally render slot only if not on /home route -->
     <slot v-if="!isHomeRoute" />
   </v-main>
@@ -115,7 +125,8 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const drawer = ref(true)
-const expanded = ref({}) // To track expanded state of each menu item
+const router = useRouter()
+const route = useRoute()
 
 const listService = [
   { title: 'เปลี่ยนรหัสผ่าน', name: 'debt-change-password' },
@@ -123,54 +134,156 @@ const listService = [
   { title: 'ออกจากระบบ', name: 'debt-home' },
 ]
 
-// Updated SideBar structure with nested menus
 const SideBar = [
   { title: 'หน้าหลัก', name: 'debt-home-registration', icon: 'mdi-home' },
-  { title: 'คำขอทำรายการ', name: 'debt-request-registration', icon: 'mdi-file-document' },
-  { title: 'จัดการผู้ใช้งาน', name: 'debt-user-registration', icon: 'mdi-account' },
-  { 
-    title: 'รายงาน', 
-    name: 'debt-report-registration', 
+  {
+    title: 'คำขอทำรายการ',
+    icon: 'mdi-file-document',
+    children: [
+      { title: 'คำขอทำรายการทั้งหมด', name: 'debt-request-registration' },
+      {
+        title: 'คำขอจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'คำขอเลิกประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      { title: 'ขอต่ออายุประกอบธุรกิจ', name: 'debt-request-registration' },
+      {
+        title: 'ประวัติกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'ยกเลิกคำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-request-registration',
+      },
+    ],
+  },
+  {
+    title: 'จัดการผู้ใช้งาน',
+    name: 'debt-user-registration',
+    icon: 'mdi-account',
+  },
+  {
+    title: 'รายงาน',
     icon: 'mdi-chart-bar',
     children: [
-      { title: 'การประชุมคณะกรรมการ', name: 'debt-report-meeting' },
-      { title: 'การประเมินผลการปฏิบัติงาน', name: 'debt-report-evaluation' },
-      { title: 'ผลการดำเนินงาน', name: 'debt-report-progress' },
-      { title: 'อื่น ๆ', name: 'debt-report-others' },
-    ]
+      {
+        title: 'รายงานข้อมูลผู้ประกอบธุรกิจทวงถามหนี้',
+        children: [
+          { title: 'การประชุมคณะกรรมการ', name: 'debt-report-appeal-meeting' },
+          {
+            title: 'การประเมินผลการปฏิบัติงาน',
+            name: 'debt-report-appeal-evaluate',
+          },
+          { title: 'ผลการดำเนินงาน', name: 'debt-report-appeal-performance' },
+          { title: 'อื่น ๆ', name: 'debt-report-appeal-other' },
+        ],
+      },
+      {
+        title: 'รายงานการร้องเรียนผู้ทวงถามหนี้',
+        name: 'debt-report-evaluation',
+      },
+      { title: 'รายงานผลอื่นๆ', name: 'debt-report-progress' },
+    ],
   },
-  { title: 'จัดการระบบ', name: 'debt-system-registration', icon: 'mdi-menu' },
+  {
+    title: 'จัดการระบบ',
+    icon: 'mdi-menu',
+    children: [
+      { title: 'ข้อมูลระบบ', name: 'debt-request-registration' },
+      {
+        title: 'ข้อมูลคำขอทำรายการ',
+        name: 'debt-request-registration',
+      },
+      {
+        title: 'ข้อมูลรายงานเรื่องร้องเรียน',
+        name: 'debt-request-registration',
+      },
+    ],
+  },
   { title: 'ตั้งค่า', name: 'debt-setting-registration', icon: 'mdi-cog' },
-  { title: 'สำรองข้อมูล', name: 'debt-reservedata-registration', icon: 'mdi-database' },
+  {
+    title: 'สำรองข้อมูล',
+    name: 'debt-reservedata-registration',
+    icon: 'mdi-database',
+  },
 ]
 
 const SideBar2 = [
   { title: 'หน้าหลัก', name: 'debt-home-appeal', icon: 'mdi-home' },
-  { title: 'คำขอทำรายการ', name: 'debt-form-appeal', icon: 'mdi-file-document' },
-  { title: 'จัดการผู้ใช้งาน', name: 'debt-process-appeal', icon: 'mdi-account' },
-  { title: 'รายงาน', name: 'debt-report-appeal', icon: 'mdi-chart-bar' },
+  {
+    title: 'คำขอทำรายการ',
+    name: 'debt-form-appeal',
+    icon: 'mdi-file-document',
+  },
+  {
+    title: 'จัดการผู้ใช้งาน',
+    name: 'debt-process-appeal',
+    icon: 'mdi-account',
+  },
+  {
+    title: 'รายงาน',
+    icon: 'mdi-chart-bar',
+    children: [
+      { title: 'การประชุมคณะกรรมการ', name: 'debt-report-appeal-meeting' },
+      {
+        title: 'การประเมินผลการปฏิบัติงาน',
+        name: 'debt-report-appeal-evaluate',
+      },
+      { title: 'ผลการดำเนินงาน', name: 'debt-report-appeal-performance' },
+      { title: 'อื่น ๆ', name: 'debt-report-appeal-other' },
+    ],
+  },
   { title: 'จัดการระบบ', name: 'debt-center-appeal', icon: 'mdi-cog' },
   { title: 'ตั้งค่า', name: 'debt-search-appeal', icon: 'mdi-settings' },
 ]
 
-const route = useRoute()
-const router = useRouter()
-
-// Determine which sidebar to use based on the route path
 const currentSidebar = computed(() => {
   return route.path.startsWith('/debt') ? SideBar : SideBar2
 })
 
-// Check if the current route starts with /home
+function navigate(routeName) {
+  router.push({ name: routeName })
+}
+
 const isHomeRoute = computed(() => route.path.startsWith('/home'))
 
-// Navigation function to handle route changes
-function navigateTo(item) {
-  router.push({ name: item.name });
-}
-
-// Toggle submenu expansion
-function toggleSubmenu(index) {
-  expanded.value[index] = !expanded.value[index];
+// ฟังก์ชันเพื่อตรวจสอบว่ารายการเมนูใดถูกเลือก
+function isSelected(item) {
+  return route.name === item.name
 }
 </script>
+
+<style scoped>
+.selected-item {
+  background-color: rgba(209, 211, 229, 0.7); /* เปลี่ยนสีพื้นหลังที่เลือก */
+  color: #1a237e; /* เปลี่ยนสีตัวอักษรที่เลือก */
+  border-right: 10px solid #1a237e; /* เพิ่มเส้นขอบด้านขวาสีน้ำเงินเมื่อเมนูถูกเลือก */
+}
+.selected-group {
+  color: #1a237e; /* สีน้ำเงินสำหรับตัวอักษร */
+}
+
+.multiline-title {
+  white-space: normal; /* อนุญาตให้ขึ้นบรรทัดใหม่ได้ */
+  word-break: break-word; /* ตัดคำอัตโนมัติเมื่อข้อความยาว */
+}
+</style>

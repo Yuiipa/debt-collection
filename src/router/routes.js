@@ -1,4 +1,8 @@
-import damrongtham from './modules/damrongtham'
+import routesHome from './modules/homeroutes'
+import routesAppeal from './modules/appealroutes'
+import routesDebt from './modules/debtroutes'
 export default [
-  ...damrongtham,
+  ...routesHome,
+  ...routesAppeal,
+  ...routesDebt
 ]

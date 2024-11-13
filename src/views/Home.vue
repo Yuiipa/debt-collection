@@ -3,7 +3,7 @@
   <v-col class="pa-0">
     
     <Header />
-    <v-container>
+    <v-container class="pt-7">
       <div style="height: 300px">
         <HomeChart :systems="mockSystems" />
       </div>

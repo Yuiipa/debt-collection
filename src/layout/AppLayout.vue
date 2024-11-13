@@ -1,6 +1,7 @@
 <template>
+  
   <Header>
-    <div fill-height fluid class="pa-0">
+    <div fill-height fluid class="pt-7">
       <router-view :key="route.fullPath"></router-view>
     </div>
   </Header>
