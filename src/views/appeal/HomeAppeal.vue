@@ -5,7 +5,7 @@
   >
     <span
       class="d-flex align-center justify-center"
-      style="font-size: 40px; color: white; height: 125px"
+      style="font-size: 40px; color: white; height: 100px"
     >
       ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘
     </span>

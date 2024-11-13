@@ -51,7 +51,12 @@ const routesAppeal = [
             },
             {
                 path: '/appeal/Search_Register/Register',
-                name: 'debt-search-appeal',
+                name: 'debt-search-appeal-register',
+                component: () => import('@/views/appeal/SearchRegister.vue'),
+            },
+            {
+                path: '/appeal/Search_Register/Unregister',
+                name: 'debt-search-appeal-unregister',
                 component: () => import('@/views/appeal/SearchRegister.vue'),
             },
             {

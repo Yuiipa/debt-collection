@@ -1,6 +1,6 @@
 <template>
   <v-form ref="form">
-    <v-card class="ma-8 custom-card">
+    <v-card class="ma-8 mx-16 custom-card">
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลผู้ยื่นเรื่องร้องเรียน
@@ -192,7 +192,7 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-8 custom-card">
+    <v-card class="ma-8 mx-16 custom-card">
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลเกี่ยวข้องผู้ร้องเรียน
@@ -309,16 +309,87 @@
         </v-col>
       </v-row>
     </v-card>
+
+    <v-card class="ma-8 mx-16 custom-card">
+      <div class="py-4">
+        <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
+          เอกสารหลักฐานเกี่ยวกับเรื่องร้องเรียนดังกล่าว
+        </span>
+      </div>
+
+      <v-divider
+        class="border-opacity-100 mx-6"
+        thickness="2"
+        style="color: #000"
+      />
+
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">สำเนาบัตรประจำตัวประชาชน</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="สำเนาบัตรประจำตัวประชาชน"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">สำเนาสัญญากู้ยืมเงิน (ถ้ามี)</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="สำเนาสัญญากู้ยืมเงิน (ถ้ามี)"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">
+            บัญชีรายชื่อพยานและที่อยู่พร้อมเบอร์โทรศัพท์
+          </div>
+          <v-text-field
+            variant="outlined"
+            placeholder="บัญชีรายชื่อพยานและที่อยู่พร้อมเบอร์โทรศัพท์"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">หนังสือมอบอำนาจ</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="หนังสือมอบอำนาจ"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+      <v-row class="ma-1 mx-4 pb-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">
+            เอกสารหลักฐานอื่นๆ (ถ้ามี) ระบุ
+          </div>
+          <v-text-field
+            variant="outlined"
+            placeholder="เอกสารหลักฐานอื่นๆ (ถ้ามี) ระบุ"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+    </v-card>
   </v-form>
 </template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup() {},
-}
-</script>
 
 <style scoped>
 .custom-card {

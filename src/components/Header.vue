@@ -228,32 +228,56 @@ const SideBar = [
 ]
 
 const SideBar2 = [
-  { title: 'หน้าหลัก', name: 'debt-home-appeal', icon: 'mdi-home' },
+  { title: 'หน้าหลัก', name: 'debt-home-appeal', icon: 'mdi-home-outline' },
   {
-    title: 'คำขอทำรายการ',
+    title: 'รับเรื่องร้องเรียน',
     name: 'debt-form-appeal',
-    icon: 'mdi-file-document',
+    icon: 'mdi-file-document-edit-outline',
   },
   {
-    title: 'จัดการผู้ใช้งาน',
+    title: 'ดำเนินการเรื่องร้องเรียน',
     name: 'debt-process-appeal',
-    icon: 'mdi-account',
+    icon: 'mdi-rocket-launch-outline',
   },
   {
     title: 'รายงาน',
-    icon: 'mdi-chart-bar',
+    icon: 'mdi-chart-bell-curve-cumulative',
     children: [
-      { title: 'การประชุมคณะกรรมการ', name: 'debt-report-appeal-meeting' },
       {
-        title: 'การประเมินผลการปฏิบัติงาน',
+        title: 'การประชุมคณะกรรมการกำกับการทวงถามหนี้',
+        name: 'debt-report-appeal-meeting',
+      },
+      {
+        title:
+          'การประเมินผลการปฏิบัติงานตาม พ.ร.บ. การทวงถามหนี้ พ.ศ.๒๕๕๘ (ตัวชี้วัด)',
         name: 'debt-report-appeal-evaluate',
       },
-      { title: 'ผลการดำเนินงาน', name: 'debt-report-appeal-performance' },
+      {
+        title: 'ผลการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้',
+        name: 'debt-report-appeal-performance',
+      },
       { title: 'อื่น ๆ', name: 'debt-report-appeal-other' },
     ],
   },
-  { title: 'จัดการระบบ', name: 'debt-center-appeal', icon: 'mdi-cog' },
-  { title: 'ตั้งค่า', name: 'debt-search-appeal', icon: 'mdi-settings' },
+  {
+    title: 'เรื่องร้องเรียนจากศูนย์ดำรงธรรม',
+    name: 'debt-center-appeal',
+    icon: 'mdi-file-document-multiple-outline',
+  },
+  {
+    title: 'ประวัติการกระทำผิดของผู้ทวงถามหนี้',
+    icon: 'mdi-clipboard-text-clock-outline',
+    children: [
+      {
+        title: 'ผู้ประกอบการทวงถามหนี้',
+        name: 'debt-search-appeal-register',
+      },
+      {
+        title: 'ผู้ทวงถามหนี้ประเภทอื่น',
+        name: 'debt-search-appeal-unregister',
+      },
+    ],
+  },
 ]
 
 const currentSidebar = computed(() => {
