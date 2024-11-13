@@ -1,15 +1,21 @@
 <template>
   <v-form ref="form">
-    <v-card class="ma-4">
-      <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
-        ข้อมูลผู้ยื่นเรื่องร้องเรียน
-      </span>
+    <v-card class="ma-8 custom-card">
+      <div class="py-4">
+        <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
+          ข้อมูลผู้ยื่นเรื่องร้องเรียน
+        </span>
+      </div>
 
-      <v-divider class="border-opacity-100 mx-6" style="color: #1a237e" />
+      <v-divider
+        class="border-opacity-100 mx-6"
+        thickness="2"
+        style="color: #000"
+      />
 
-      <v-row class="ma-1">
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             เขียนที่
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -22,9 +28,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             คำนำหน้าชื่อ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -36,8 +42,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             ชื่อ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -49,8 +55,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             นามสกุล
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -62,8 +68,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             อายุ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -76,9 +82,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             เลขประจำตัวประชาชน
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -90,8 +96,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             บ้านเลขที่
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -103,8 +109,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             หมู่ที่
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -116,8 +122,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             ถนน/ตรอก/ซอย
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -130,9 +136,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4 pb-4">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             จังหวัด
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -144,8 +150,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             อำเภอ/เขต
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -157,8 +163,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             ตำบล/แขวง
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -170,8 +176,8 @@
             density="compact"
           />
         </v-col>
-        <v-col md="3" cols="12" class="mb-2">
-          <div class="mb-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">
             โทรศัพท์
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -186,16 +192,22 @@
       </v-row>
     </v-card>
 
-    <v-card class="ma-4">
-      <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
-        ข้อมูลเกี่ยวข้องผู้ร้องเรียน
-      </span>
+    <v-card class="ma-8 custom-card">
+      <div class="py-4">
+        <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
+          ข้อมูลเกี่ยวข้องผู้ร้องเรียน
+        </span>
+      </div>
 
-      <v-divider class="border-opacity-100 mx-6" style="color: #1a237e" />
+      <v-divider
+        class="border-opacity-100 mx-6"
+        thickness="2"
+        style="color: #000"
+      />
 
-      <v-row class="ma-1">
-        <v-col md="6" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">
             ข้อร้องเรียน
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -208,9 +220,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col md="6" cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">
             ชื่อธุรกิจ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -223,9 +235,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">
             รายละเอียดเรื่องร้องเรียน
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
@@ -239,8 +251,8 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col cols="12" class="mb-2">
+      <v-row class="ma-1 mx-4">
+        <v-col cols="12">
           <div class="mb-2 font-weight-bold">
             เกิดเหตุที่
             <div style="color: red" class="d-inline-flex">*</div>
@@ -255,12 +267,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col cols="12" class="mb-2">
-          <div class="mb-2">
-            อื่น ๆ (ถ้ามี)
-            <div style="color: red" class="d-inline-flex">*</div>
-          </div>
+      <v-row class="ma-1 mx-4">
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">อื่น ๆ (ถ้ามี)</div>
           <v-textarea
             variant="outlined"
             placeholder="อื่น ๆ (ถ้ามี)"
@@ -271,12 +280,9 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col cols="12" class="mb-2">
-          <div class="mb-2">
-            ความคิดเห็นเจ้าหน้าที่
-            <div style="color: red" class="d-inline-flex">*</div>
-          </div>
+      <v-row class="ma-1 mx-4">
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">ความคิดเห็นเจ้าหน้าที่</div>
           <v-textarea
             variant="outlined"
             placeholder="ความคิดเห็นเจ้าหน้าที่"
@@ -287,11 +293,10 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1">
-        <v-col cols="12" class="mb-2">
-          <div class="mb-2">
+      <v-row class="ma-1 mx-4 pb-4">
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">
             ความคิดเห็น/คำสั่งหัวหน้าหน่วยงาน
-            <div style="color: red" class="d-inline-flex">*</div>
           </div>
           <v-textarea
             variant="outlined"
@@ -306,3 +311,17 @@
     </v-card>
   </v-form>
 </template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {},
+}
+</script>
+
+<style scoped>
+.custom-card {
+  border-radius: 20px;
+}
+</style>

@@ -1,14 +1,20 @@
 <template>
-  <div class="d-flex justify-space-between">
-    <span class="font-weight-medium text-h5 pt-2" style="color: #1a237e">
+  <div
+    style="background-color: #1a237e; color: white"
+    class="d-flex justify-center"
+  >
+    <span
+      class="d-flex align-center justify-center"
+      style="font-size: 40px; color: white; height: 125px"
+    >
       บันทึกเรื่องร้องเรียน
     </span>
   </div>
-  <v-card class="rounded-0 elevation-3 mx-8">
+  <div>
     <v-stepper v-model="step">
       <v-stepper-header>
         <v-stepper-item
-          title="บันทึกเรื่องร้องเรียน"
+          :title="$vuetify.display.mdAndUp ? 'บันทึกเรื่องร้องเรียน' : ''"
           value="1"
           :complete="step > 0"
         >
@@ -17,7 +23,9 @@
         <v-divider></v-divider>
 
         <v-stepper-item
-          title="อัปโหลดแบบฟอร์มเรื่องร้องเรียน"
+          :title="
+            $vuetify.display.mdAndUp ? 'อัปโหลดแบบฟอร์มเรื่องร้องเรียน' : ''
+          "
           value="2"
           :complete="step > 1"
         ></v-stepper-item>
@@ -25,7 +33,7 @@
         <v-divider></v-divider>
 
         <v-stepper-item
-          title="สารบบการรับเรื่องร้องเรียน"
+          :title="$vuetify.display.mdAndUp ? 'สารบบการรับเรื่องร้องเรียน' : ''"
           value="3"
           :complete="step > 2"
         ></v-stepper-item>
@@ -33,7 +41,7 @@
         <v-divider></v-divider>
 
         <v-stepper-item
-          title="หน่วยงานรับเรื่องร้องเรียน"
+          :title="$vuetify.display.mdAndUp ? 'หน่วยงานรับเรื่องร้องเรียน' : ''"
           value="4"
           :complete="step > 3"
         ></v-stepper-item>
@@ -42,11 +50,17 @@
       <template v-if="step == 1"> <FormUpload /> </template>
       <template v-if="step == 2"> หน้าที่3 </template>
       <template v-if="step == 3"> หน้าที่4 </template>
+      <div class="d-flex justify-end mr-8">
+        <v-btn x-large color="grey-darken-1 mr-4" v-if="step > 0" @click="step--"
+          >ย้อนกลับ</v-btn
+        >
+        <v-btn x-large color="#1a237e" @click="step++" v-if="step < 3"
+          >ถัดไป</v-btn
+        >
+        <v-btn x-large color="success" v-if="step >= 3">save</v-btn>
+      </div>
     </v-stepper>
-    <v-btn v-if="step > 0" @click="step--">back</v-btn>
-    <v-btn x-large color="primary" @click="step++" v-if="step < 3">next</v-btn>
-    <v-btn x-large color="gray" v-if="step >= 3">save</v-btn>
-  </v-card>
+  </div>
 </template>
 
 <script setup>
