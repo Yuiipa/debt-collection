@@ -1,6 +1,6 @@
 <template>
   <!-- Navigation Drawer -->
-  <v-app-bar prominent elevation="1" class="py-2">
+  <v-app-bar prominent elevation="1" class="py-2" color="#1A237E">
     <v-row class="px-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
@@ -71,7 +71,9 @@
     v-model="drawer"
     :permanent="!$vuetify.display.mobile"
     app
+    :width="270"
     class="pt-2"
+    
     v-if="!isHomeRoute"
   >
     <v-list>
@@ -84,6 +86,7 @@
               v-bind="props"
               :title="item.title"
               @click="navigate(item.name)"
+              style="padding-left: 8px"
             >
             </v-list-item>
           </template>
@@ -110,11 +113,13 @@
           :class="{ 'selected-item': isSelected(item) }"
           :prepend-icon="item.icon"
           @click="navigate(item.name)"
-        ></v-list-item>
+          style="padding-left: 8px"
+        >
+        </v-list-item>
       </template>
     </v-list>
   </v-navigation-drawer>
-  <v-main>
+  <v-main app style="background-color: #fafafa; min-height: 100vh;">
     <!-- Conditionally render slot only if not on /home route -->
     <slot v-if="!isHomeRoute" />
   </v-main>
@@ -140,39 +145,42 @@ const SideBar = [
     title: 'คำขอทำรายการ',
     icon: 'mdi-file-document',
     children: [
-      { title: 'คำขอทำรายการทั้งหมด', name: 'debt-request-registration' },
+      { title: 'คำขอทำรายการทั้งหมด', name: 'debt-Request_All-registration' },
       {
         title: 'คำขอจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-Registration-registration',
       },
       {
         title: 'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-ChangeBusiness-registration',
       },
       {
         title: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
-        name: 'debt-request-registration',
+        name: 'debt-Substitute-registration',
       },
       {
         title: 'บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-ChangeRoster-registration',
       },
       {
         title: 'คำขอเลิกประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-Quit_Business-registration',
       },
-      { title: 'ขอต่ออายุประกอบธุรกิจ', name: 'debt-request-registration' },
+      {
+        title: 'ขอต่ออายุประกอบธุรกิจ',
+        name: 'debt-Renew_request-registration',
+      },
       {
         title: 'ประวัติกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-Blame_Business-registration',
       },
       {
         title: 'ยกเลิกคำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-Cancel_Quit-registration',
       },
       {
         title: 'คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
-        name: 'debt-request-registration',
+        name: 'debt-Revoke-registration',
       },
     ],
   },
@@ -310,4 +318,5 @@ function isSelected(item) {
   white-space: normal; /* อนุญาตให้ขึ้นบรรทัดใหม่ได้ */
   word-break: break-word; /* ตัดคำอัตโนมัติเมื่อข้อความยาว */
 }
+
 </style>

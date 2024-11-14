@@ -6,23 +6,41 @@
   </div>
   <div>
     <v-row class="px-16 pt-4">
-      <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
+      <v-col
+        cols="12"
+        sm="2"
+        class="align-center justify-start d-flex justify-md-end"
+      >
+        <div>เลขที่คำขอ</div>
+      </v-col>
+      <v-col cols="12" sm="3" class="pa-0 d-flex align-center">
         <v-text-field
-          label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
           variant="outlined"
           density="compact"
           hide-details
-          append-inner-icon="mdi-magnify"
           class="full-width-input"
         ></v-text-field>
       </v-col>
-      <v-col cols="6" sm="1" class="align-center justify-end d-flex">
-        <v-btn> ค้นหา </v-btn>
+      <v-col
+        cols="12"
+        sm="2"
+        class="align-center justify-start d-flex justify-md-end"
+      >
+        <div>ประเภทคำขอ</div>
       </v-col>
-      <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+      <v-col cols="12" sm="3" class="pa-0 d-flex align-center">
+        <v-text-field
+          variant="outlined"
+          density="compact"
+          hide-details
+          class="full-width-input"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="6" sm="2" class="align-center justify-start d-flex pl-8">
         <v-btn color="green">
-          <v-icon left size="18">mdi-account-plus</v-icon>
-          เพิ่มผู้ใช้งาน
+          <v-icon left size="18">mdi-magnify</v-icon>
+          ค้นหา
         </v-btn>
       </v-col>
     </v-row>
@@ -45,10 +63,15 @@
 
             <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
             <template v-slot:[`item.process`]="{ item }">
-              <v-btn size='small' color="green" class="mr-1" @click="editItem(item)">
+              <v-btn
+                size="small"
+                color="green"
+                class="mr-1"
+                @click="editItem(item)"
+              >
                 <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
               </v-btn>
-              <v-btn size='small' color="red" @click="deleteItem(item)">
+              <v-btn size="small" color="red" @click="deleteItem(item)">
                 <v-icon left size="18">mdi-delete</v-icon> ลบ
               </v-btn>
             </template>
@@ -58,8 +81,8 @@
     </v-row>
   </div>
 </template>
-  
-  <script setup>
+    
+    <script setup>
 import { ref } from 'vue'
 
 const headers = [
@@ -127,8 +150,8 @@ function deleteItem(item) {
   console.log('ลบ:', item)
 }
 </script>
-  
-  <style scoped>
+    
+    <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
@@ -152,4 +175,4 @@ function deleteItem(item) {
   background-color: #f1f1f1e5;
 }
 </style>
-  
+    

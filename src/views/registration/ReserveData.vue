@@ -1,17 +1,11 @@
 <template>
-  <div
-    style="background-color: #1a237e; color: white"
-    class="d-flex justify-center"
-  >
-    <span
-      class="d-flex align-center justify-center"
-      style="font-size: 40px; color: white; height: 100px"
-    >
+  <div class="d-flex justify-start mt-4 px-10">
+    <span class="d-flex align-center justify-center text-blue-darken-4 " style="font-size: 40px">
       สำรองข้อมูล
     </span>
   </div>
   <v-container class="d-flex justify-center">
-    <div class="mt-8 pa-6 elevation-3 rounded-lg w-100">
+    <div class=" pa-8 elevation-3 rounded-lg w-100">
       <v-row class="d-flex justify-center">
         <v-col cols="4" class="text-start">
           <span style="color: red">*</span> ข้อมูล

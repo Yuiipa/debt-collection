@@ -2,12 +2,12 @@ const routeReport = [
   {
     path: '/debt/Request_All',
     name: 'debt-Request_All-registration',
-    component: () => import('@/views/registration/ReportDebt.vue'),
+    component: () => import('@/components/menuRegister/report/requestAll.vue'),
   },
   {
     path: '/debt/Registration',
     name: 'debt-Registration-registration',
-    component: () => import('@/views/registration/ReportDebt.vue'),
+    component: () => import('@/components/menuRegister/report/Registration.vue'),
   },
   {
     path: '/debt/ChangeBusiness',
@@ -61,6 +61,11 @@ const routesDebt = [
             path: '/debt/Home_Debt',
             name: 'debt-home-registration',
             component: () => import('@/views/registration/HomeDebt.vue'),
+          },
+          {
+            path: '/debt/Home_Debt/detail_business',
+            name: 'debt-home-registration-detail_business',
+            component: () => import('@/components/menuRegister/home/HomeData.vue'),
           },
           {
             path: '/debt/Request_All',
