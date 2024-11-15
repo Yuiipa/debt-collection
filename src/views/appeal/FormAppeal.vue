@@ -51,11 +51,11 @@
       <template v-if="step == 2"> <DirextoryUpload /> </template>
       <template v-if="step == 3"> <ReceivingAgency /> </template>
       <div class="d-flex justify-end mr-16 mb-6">
-        <v-btn color="grey-darken-1" v-if="step > 0" @click="step--"
+        <v-btn size="x-large" color="grey-darken-1" class="mr-4" v-if="step > 0" @click="step--"
           >ย้อนกลับ</v-btn
         >
-        <v-btn color="#1a237e" @click="step++" v-if="step < 3">ถัดไป</v-btn>
-        <v-btn color="success" v-if="step >= 3">save</v-btn>
+        <v-btn size="x-large" color="#1a237e" @click="step++" v-if="step < 3">ถัดไป</v-btn>
+        <v-btn size="x-large" color="success" v-if="step >= 3">save</v-btn>
       </div>
     </v-stepper>
   </div>

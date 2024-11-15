@@ -8,71 +8,73 @@
         ข้อมูลการจดทะเบียน
       </v-card-title>
     </v-card>
-    <v-row class="d-flex justify-start align-center mt-6 px-4">
-      <v-col cols="5">
-        <v-text-field
-          v-model="search"
-          label="ค้นหาด้วยชื่อธุรกิจ ประเภท จังหวัด"
-          prepend-inner-icon="mdi-magnify"
-          variant="outlined"
-          hide-details
-          single-line
-          density="compact"
-        />
-      </v-col>
-      <v-col cols="1" class="d-flex justify-start">
-        <v-btn
-          color="#1a237e"
-          class="white--text"
-          style="height: 40px; width: 100px"
+    <div class="px-16">
+      <v-row class="d-flex justify-start align-center mt-6 px-4">
+        <v-col cols="5">
+          <v-text-field
+            v-model="search"
+            label="ค้นหาด้วยชื่อธุรกิจ ประเภท จังหวัด"
+            prepend-inner-icon="mdi-magnify"
+            variant="outlined"
+            hide-details
+            single-line
+            density="compact"
+          />
+        </v-col>
+        <v-col cols="1" class="d-flex justify-start">
+          <v-btn
+            color="#1a237e"
+            class="white--text"
+            style="height: 40px; width: 100px"
+          >
+            ค้นหา
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-card class="mt-4 rounded-xl">
+        <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :search="search"
+          :items-per-page="10"
+          v-model:options="pagination"
+          hide-default-header
         >
-          ค้นหา
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :search="search"
-      :items-per-page="10"
-      v-model:options="pagination"
-      hide-default-header
-      class="mt-4"
-      dense
-    >
-      <template v-slot:thead>
-        <thead>
-          <tr>
-            <th
-              v-for="header in headers"
-              :key="header.key"
-              :align="header.align || 'start'"
-              class="text-white"
-              style="background-color: #1a237e; text-align: center"
-              :id="key"
+          <template v-slot:thead>
+            <thead>
+              <tr>
+                <th
+                  v-for="header in headers"
+                  :key="header.key"
+                  :align="header.align || 'start'"
+                  class="text-white"
+                  style="background-color: #1a237e; text-align: center"
+                  :id="key"
+                >
+                  {{ header.title }}
+                </th>
+              </tr>
+            </thead>
+          </template>
+          <template v-slot:[`item.num`]="{ index }">
+            {{ calculateIndex(index) }}
+          </template>
+          <template v-slot:[`item.locate`]="{ item }">
+            {{ splitlocate(item.locate) }}
+          </template>
+          <template v-slot:[`item.info`]="{ item }">
+            <v-btn
+              append-icon="mdi-chevron-right"
+              variant="plain"
+              style="font-size: 14px"
+              @click="openDialog(item)"
             >
-              {{ header.title }}
-            </th>
-          </tr>
-        </thead>
-      </template>
-      <template v-slot:[`item.num`]="{ index }">
-        {{ calculateIndex(index) }}
-      </template>
-      <template v-slot:[`item.locate`]="{ item }">
-        {{ splitlocate(item.locate) }}
-      </template>
-      <template v-slot:[`item.info`]="{ item }">
-        <v-btn
-          append-icon="mdi-chevron-right"
-          variant="plain"
-          style="font-size: 14px"
-          @click="openDialog(item)"
-        >
-          ข้อมูล
-        </v-btn>
-      </template>
-    </v-data-table>
+              ข้อมูล
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card>
+    </div>
 
     <v-dialog v-model="dialog" max-width="800px" persistent>
       <v-card>

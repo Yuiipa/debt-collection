@@ -50,6 +50,11 @@ const routesAppeal = [
                 component: () => import('@/views/appeal/CenterAppeal.vue'),
             },
             {
+                path: '/appeal/CenterAppeal/Details',
+                name: 'debt-center-appeal-details',
+                component: () => import('@/components/menuAppeal/centerAppeal/CenterAppealDetails.vue')
+            },
+            {
                 path: '/appeal/Search_Register/Register',
                 name: 'debt-search-appeal-register',
                 component: () => import('@/views/appeal/SearchRegister.vue'),
