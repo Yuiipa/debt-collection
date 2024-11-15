@@ -93,6 +93,11 @@ const routesDebt = [
             name: 'debt-reservedata-registration',
             component: () => import('@/views/registration/ReserveData.vue'),
           },
+          {
+            path: '/home',
+            name: 'debt-home',
+            component: () => import('@/views/Home.vue'),
+          },
         ]
       },
 ]

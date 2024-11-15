@@ -4,7 +4,7 @@
     <v-row class="px-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
-        v-if="!isHomeRoute"
+        v-if="!isHomeRoute && !isMenuPage"
         cols="1"
         class="text-center d-flex justify-center align-center"
       >
@@ -74,7 +74,7 @@
     :width="270"
     class="pt-2"
     
-    v-if="!isHomeRoute"
+    v-if="!isHomeRoute && !isMenuPage"
   >
     <v-list>
       <!-- วนลูปเมนูหลัก -->
@@ -121,7 +121,7 @@
   </v-navigation-drawer>
   <v-main app style="background-color: #fafafa; min-height: 100vh;">
     <!-- Conditionally render slot only if not on /home route -->
-    <slot v-if="!isHomeRoute" />
+    <slot  />
   </v-main>
 </template>
 
@@ -297,7 +297,7 @@ function navigate(routeName) {
 }
 
 const isHomeRoute = computed(() => route.path.startsWith('/home'))
-
+const isMenuPage = computed(() => route.path.startsWith('/menu_page'))
 // ฟังก์ชันเพื่อตรวจสอบว่ารายการเมนูใดถูกเลือก
 function isSelected(item) {
   return route.name === item.name

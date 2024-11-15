@@ -1,8 +1,6 @@
 <template>
   <!-- <v-container fill-height fluid> -->
   <v-col class="pa-0">
-    
-    <Header />
     <v-container class="pt-7">
       <div style="height: 300px">
         <HomeChart :systems="mockSystems" />
@@ -39,7 +37,6 @@
   </v-col>
 </template>
 <script setup>
-import Header from '@/components/Header'
 import HomeChart from '@/components/charts/HomeChart'
 
 

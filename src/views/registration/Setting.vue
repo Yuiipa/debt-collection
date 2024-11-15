@@ -1,37 +1,32 @@
 <template>
   <div class="d-flex justify-start mt-4 px-10">
-    <span class="d-flex align-center justify-center text-blue-darken-4 " style="font-size: 40px">
+    <span
+      class="d-flex align-center justify-center text-blue-darken-4"
+      style="font-size: 40px"
+    >
       การตั้งค่า
     </span>
   </div>
   <v-container class="d-flex justify-center">
-    <div class=" pa-6 elevation-3 rounded-lg w-100 d-flex justify-center">
-      <v-simple-table class="custom-table">
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th id="" class="py-4">โปรแกรม</th>
-              <th id=""></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(program, index) in programs" :key="index">
-              <td class="px-2">{{ program.label }}</td>
-              <td class="pl-4">
-                <v-switch
-                  v-model="program.switch"
-                  color="blue"
-                  inset
-                  dense
-                  hide-details
-                  style="min-width: 70px;"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
-    </div>
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" sm="11" md="8" v-for="(program, index) in programs" :key="index">
+        <div
+          class="pa-5 elevation-3 rounded-lg w-100 d-flex justify-space-between"
+        >
+          <span class="d-flex align-center text-h6">
+            {{ program.label }}
+          </span>
+          <v-switch
+            v-model="program.switch"
+            color="#39AB4E"
+            inset
+            dense
+            hide-details
+            style="min-width: 70px"
+          />
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -41,14 +36,26 @@ import { reactive } from 'vue'
 const programs = reactive([
   { label: 'คำขอจดทะเบียนการประกอบธุรกิจทางอามานนี้', switch: false },
   { label: 'คำขอเปลี่ยนแปลงรายการจดทะเบียน', switch: false },
-  { label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ', switch: false },
+  {
+    label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
+    switch: false,
+  },
   { label: 'คำขอจดทะเบียนการประกอบธุรกิจทางอามานนี้', switch: false },
   { label: 'คำขอเปลี่ยนแปลงรายการจดทะเบียน', switch: false },
-  { label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ', switch: false },
-  { label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ', switch: false },
+  {
+    label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
+    switch: false,
+  },
+  {
+    label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
+    switch: false,
+  },
   { label: 'คำขอจดทะเบียนการประกอบธุรกิจทางอามานนี้', switch: false },
   { label: 'คำขอเปลี่ยนแปลงรายการจดทะเบียน', switch: false },
-  { label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ', switch: false },
+  {
+    label: 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ',
+    switch: false,
+  },
 ])
 </script>
 
