@@ -54,13 +54,57 @@
       </v-card>
     </div>
   </v-container>
+  <v-dialog v-model="dialog" width="80%">
+    <v-card class="pa-0">
+      <CenterAppealDetails v-model="selectItem" />
+      <v-divider class="mt-4" :thickness="5" color="#1a237e" />
+      <v-card-actions class="d-flex justify-space-between pb-4">
+        <v-btn
+          style="
+            width: 167px;
+            height: 47px;
+            background-color: #1a237e;
+            color: white;
+          "
+          class="ml-4"
+          @click="dialog = false"
+        >
+          <div class="text-h6">ปิด</div>
+        </v-btn>
+        <div>
+          <v-btn
+            style="
+              width: 167px;
+              height: 47px;
+              background-color: #1a237e;
+              color: white;
+            "
+            class="mr-4"
+          >
+            <div class="text-h6">นำเข้าระบบ</div>
+          </v-btn>
+          <v-btn
+            class="mr-4"
+            style="
+              width: 167px;
+              height: 47px;
+              background-color: #e22427;
+              color: white;
+            "
+          >
+            <div class="text-h6">ไม่มีมูลความผิด</div>
+          </v-btn>
+        </div>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import CenterAppealDetails from '@/components/menuAppeal/centerAppeal/CenterAppealDetails.vue'
 
+const dialog = ref(false)
 const selectItem = ref({})
 const search = ref('')
 
@@ -123,7 +167,8 @@ const centerappeal = [
 ]
 
 function openDetails(item) {
-  router.push({ name: 'debt-center-appeal-details' })
+  selectItem.value = item
+  dialog.value = true
 }
 
 const pagination = ref({
