@@ -12,7 +12,7 @@
           </div>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn color="secondary">
+          <v-btn color="secondary" @click="exportPdf()">
             พิมพ์
             <v-icon class="pl-2" right>mdi-printer</v-icon>
           </v-btn>
@@ -321,10 +321,18 @@
   </v-form>
   <History />
   <Request />
+  <div class="pb-10">
+    
+  </div>
 </template>
     
 <script setup>
 import History from './History.vue'
 import Request from './Request.vue'
+import { generatePDF as generateCollectPDF } from '@/prints/register/DataBusiness'
+
+async function exportPdf() {
+  await generateCollectPDF()
+}
 </script>
     
