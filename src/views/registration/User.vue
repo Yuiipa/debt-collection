@@ -1,6 +1,9 @@
 <template>
   <div class="d-flex justify-start mt-4 px-10">
-    <span class="d-flex align-center justify-center text-blue-darken-4 " style="font-size: 40px">
+    <span
+      class="d-flex align-center justify-center text-blue-darken-4"
+      style="font-size: 40px"
+    >
       จัดการข้อมูลผู้ใช้งาน
     </span>
   </div>
@@ -21,7 +24,7 @@
       </v-col>
       <v-col cols="6" sm="2" class="align-center justify-end d-flex">
         <v-btn color="green">
-          <v-icon left size="18">mdi-account-plus</v-icon>
+          <v-icon left size="18" @click="openEditDialog()">mdi-account-plus</v-icon>
           เพิ่มผู้ใช้งาน
         </v-btn>
       </v-col>
@@ -45,10 +48,15 @@
 
             <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
             <template v-slot:[`item.process`]="{ item }">
-              <v-btn size='small' color="green" class="mr-1" @click="editItem(item)">
+              <v-btn
+                size="small"
+                color="green"
+                class="mr-1"
+                @click="openEditDialog()"
+              >
                 <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
               </v-btn>
-              <v-btn size='small' color="red" @click="deleteItem(item)">
+              <v-btn size="small" color="red" @click="deleteItem(item)">
                 <v-icon left size="18">mdi-delete</v-icon> ลบ
               </v-btn>
             </template>
@@ -57,10 +65,22 @@
       </v-col>
     </v-row>
   </div>
+  <edit-dialog
+    v-model:showDialog="showEditDialog"
+    :item="items"
+    @saved="handleSave"
+  ></edit-dialog>
 </template>
   
   <script setup>
 import { ref } from 'vue'
+import EditDialog from '@/components/menuRegister/user/Dialog.vue'
+
+const showEditDialog = ref(false)
+
+const openEditDialog = () => {
+  showEditDialog.value = true
+}
 
 const headers = [
   { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
@@ -118,10 +138,6 @@ const items = ref([
     document: '',
   },
 ])
-
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
 
 function deleteItem(item) {
   console.log('ลบ:', item)
