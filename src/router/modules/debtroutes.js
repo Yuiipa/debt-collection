@@ -9,6 +9,11 @@ const routeReportForm = [
     name: 'debt-Substitute-form',
     component: () => import('@/components/menuRegister/requestForm/Substitute.vue'),
   },
+  {
+    path: '/debt/ChangeRoster/form',
+    name: 'debt-ChangeRoster-form',
+    component: () => import('@/components/menuRegister/requestForm/ChangeRoster.vue'),
+  },
 ]
 
 const routeReport = [
@@ -86,7 +91,6 @@ const routesDebt = [
         name: 'debt-request-registration',
         component: () => import('@/views/registration/Request.vue'),
       },
-
       {
         path: '/debt/Users',
         name: 'debt-user-registration',

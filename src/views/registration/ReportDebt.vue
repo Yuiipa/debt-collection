@@ -128,7 +128,7 @@ onMounted(() => {
   } else if (currentPath === '/debt/Substitute') {
     name_route.value = 'debt-Substitute-form'
   } else if (currentPath === '/debt/ChangeRoster') {
-    name_route.value = 'debt-ChangeRoster-registration'
+    name_route.value = 'debt-ChangeRoster-form'
   } else if (currentPath === '/debt/Quit_Business') {
     name_route.value = 'debt-Quit_Business-registration'
   } else if (currentPath === '/debt/Renew_request') {

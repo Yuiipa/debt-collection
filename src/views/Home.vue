@@ -11,7 +11,7 @@
             <v-btn
               class="w-100 text-h6"
               large
-               @click="$router.push({ name: 'debt-poppulation' })"
+              @click="$router.push({ name: 'debt-poppulation' })"
               height="100px"
               color="#1e5a8d"
             >
@@ -38,7 +38,6 @@
 </template>
 <script setup>
 import HomeChart from '@/components/charts/HomeChart'
-
 
 const mockSystems = [
   { name: 'บุคคลธรรมดา', usage: 100, color: '#42A5F5' },
