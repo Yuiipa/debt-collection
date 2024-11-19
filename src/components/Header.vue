@@ -13,14 +13,15 @@
           mdi-menu
         </v-icon>
       </v-col>
+      <div class="d-flex v-col-3 d-lg-none "></div>
 
-      <v-col cols="9">
-        <div class="d-flex justify-start align-center">
+      <v-col cols="4" lg="8">
+        <div class="d-flex justify-center justify-lg-start align-center">
           <div class="d-flex align-center">
             <v-avatar size="60" class="mr-3">
               <v-img src="/logo.ico" />
             </v-avatar>
-            <div class="d-none d-md-flex">
+            <div class="d-none d-lg-flex">
               <div class="text-left">
                 <span style="font-size: 16px; display: block">
                   ระบบฐานข้อมูลตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๔๔๕
@@ -40,12 +41,15 @@
 
       <v-col
         v-if="!isHomeRoute"
-        cols="2"
-        class="d-flex justify-center align-center"
+        cols="4"
+        lg="3"
+        class="d-flex justify-end align-center"
       >
         <v-icon class="px-2" large>mdi-bell</v-icon>
         <v-icon large>mdi-fullscreen</v-icon>
-        <span class="pr-2" style="margin-left: 8px"> น.ส. รุ่งนภา สะสม </span>
+        <span class="pr-2 d-none d-md-flex" style="margin-left: 8px">
+          น.ส. รุ่งนภา สะสม
+        </span>
         <v-menu transition="open-on-focus">
           <template v-slot:activator="{ props }">
             <v-avatar size="38" v-bind="props">
@@ -73,7 +77,6 @@
     app
     :width="270"
     class="pt-2"
-    
     v-if="!isHomeRoute && !isMenuPage"
   >
     <v-list>
@@ -119,9 +122,9 @@
       </template>
     </v-list>
   </v-navigation-drawer>
-  <v-main app style="background-color: #fafafa; min-height: 100vh;">
+  <v-main app style="background-color: #fafafa; min-height: 100vh">
     <!-- Conditionally render slot only if not on /home route -->
-    <slot  />
+    <slot />
   </v-main>
 </template>
 
@@ -318,5 +321,4 @@ function isSelected(item) {
   white-space: normal; /* อนุญาตให้ขึ้นบรรทัดใหม่ได้ */
   word-break: break-word; /* ตัดคำอัตโนมัติเมื่อข้อความยาว */
 }
-
 </style>

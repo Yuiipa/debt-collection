@@ -22,19 +22,17 @@
           style="background-color: white"
         >
           <v-row class="d-flex align-center justify-space-between pb-6">
-            <!-- Span ที่มีข้อความ -->
             <span color="#1A237E" class="text-h5 text-blue-darken-4">
               ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘
             </span>
 
-            <!-- ปุ่ม 3 ปุ่ม -->
             <div class="d-flex" style="gap: 8px">
-              <v-btn color="primary">
+              <v-btn color="primary" >
                 Excel
                 <v-icon class="pl-2" right>mdi-file-excel</v-icon>
               </v-btn>
 
-              <v-btn color="secondary">
+              <v-btn color="secondary" @click="exportPdf()">
                 พิมพ์
                 <v-icon class="pl-2" right>mdi-printer</v-icon>
               </v-btn>
@@ -152,12 +150,31 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const showFilter = ref(false);
+import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
+
+async function exportPdf() {
+  const generateExampleData = (count) => {
+    const exampleData = [];
+    for (let i = 1; i <= count; i++) {
+        exampleData.push({
+            businessName: `นายชัยวัฒน์ สุขนิยม ${i}`,
+            registrationNumber: `55/${2555 + i}`,
+            businessType: "บุคคลธรรมดา",
+            location: `บ้านเลขที่ ${55 + i} หมู่ที่ 4 ต.สุขพุก อ.กำเนิดแก้ว จ.ร้อยเอ็ด`,
+            registrationDate: `3 พฤษภาคม ${2558 + i}`,
+            phoneNumber: "",
+        });
+    }
+    return exampleData;
+};
+  await generateCollectPDF(generateExampleData(25))
+}
 
 const toggleFilter = () => {
   showFilter.value = !showFilter.value;
 };
 const router = useRouter()
-function navigate(routeName) {
+function navigate() {
   router.push({ name: 'debt-home-registration-detail_business' })
 }
 const headers = [
