@@ -1,38 +1,15 @@
 <template>
-  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-space-between ma-2 text-h5 font-weight-bold"
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
       <span>ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
-      <div>
-        <v-btn
-          variant="outlined"
-          append-icon="mdi-file-excel"
-          style="color: green"
-          class="mr-4 rounded-lg"
-          size="large"
-          id="excel"
-        >
-          Excel
-        </v-btn>
-        <v-btn
-          variant="outlined"
-          append-icon="mdi-printer"
-          style="color: orange"
-          class="rounded-lg"
-          size="large"
-          id="print"
-          @click="exportPDF()"
-        >
-          พิมพ์
-        </v-btn>
-      </div>
     </v-card-title>
-    <v-row class="ma-1 mx-4 my-2">
+    <v-row class="ma-1 mx-8 my-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-        <datepicker
+        <v-text-field
           variant="outlined"
           placeholder="ตั้งแต่วันที่"
           persistent-placeholder
@@ -42,7 +19,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-        <datepicker
+        <v-text-field
           variant="outlined"
           placeholder="ถึงวันที่"
           persistent-placeholder
@@ -57,46 +34,72 @@
           >ค้นหา</v-btn
         >
       </v-col>
+      <v-col md="3" cols="12" class="d-flex justify-end align-end mb-1">
+        <div>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-file-excel"
+            style="color: green"
+            class="mr-4 rounded-lg"
+            size="large"
+            id="excel"
+          >
+            Excel
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-printer"
+            style="color: orange"
+            class="rounded-lg"
+            size="large"
+            id="print"
+            @click="exportPDF()"
+          >
+            พิมพ์
+          </v-btn>
+        </div>
+      </v-col>
     </v-row>
-    <v-data-table
-      :headers="headers"
-      :items="processappeal"
-      :search="search"
-      :items-per-page="5"
-      :footer-props="{
-        'items-per-page-options': [5, 10, 15],
-      }"
-    >
-      <template v-slot:[`item.num`]="{ index }">
-        {{ calculateIndex(index) }}
-      </template>
-      <template v-slot:[`item.status`]="{ item }">
-        <v-btn
-          v-if="item.status === '0'"
-          variant="outlined"
-          style="font-size: 14px; color: orange"
-          class="rounded-pill"
-          id="missdoc"
-        >
-          ขาดเอกสารสำคัญ
-        </v-btn>
-        <v-btn
-          v-if="item.status === '1'"
-          variant="outlined"
-          style="font-size: 14px; color: green"
-          class="rounded-pill"
-          id="comdoc"
-        >
-          เอกสารครบถ้วน
-        </v-btn>
-      </template>
-    </v-data-table>
+    <v-card variant="flat" class="mx-4">
+      <v-data-table
+        :headers="headers"
+        :items="processappeal"
+        :search="search"
+        :items-per-page="10"
+        :footer-props="{
+          'items-per-page-options': [5, 10, 15],
+        }"
+      >
+        <template v-slot:[`item.num`]="{ index }">
+          {{ calculateIndex(index) }}
+        </template>
+        <template v-slot:[`item.status`]="{ item }">
+          <v-btn
+            v-if="item.status === '0'"
+            variant="outlined"
+            style="font-size: 14px; color: orange"
+            class="rounded-pill"
+            id="missdoc"
+          >
+            ขาดเอกสารสำคัญ
+          </v-btn>
+          <v-btn
+            v-if="item.status === '1'"
+            variant="outlined"
+            style="font-size: 14px; color: green"
+            class="rounded-pill"
+            id="comdoc"
+          >
+            เอกสารครบถ้วน
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
   </v-card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import datepicker from '@/components/helpers/Datepicker.vue'
 import { generatePDF } from '@/prints/appeal/HomeAppeal.js'
 
 const search = ref('')
@@ -151,7 +154,7 @@ const processappeal = [
     process: '',
   },
   {
-    id: '10001/2567',
+    id: '10002/2567',
     writtingAt: 'กรมการปกครอง',
     datetime: '10/01/2567',
     complainname: 'นายadf adf',
@@ -186,6 +189,44 @@ const processappeal = [
     other: '',
     complaintPlace: 'กรุงเทพมหานคร',
     status: '1',
+    process: '',
+  },
+  {
+    id: '10003/2567',
+    writtingAt: 'กรมการปกครอง',
+    datetime: '01/01/2567',
+    complainname: 'นายทดสอบ ทดสอบ',
+    complainPID: '1-11111-1111-11-1',
+    complainAge: '22',
+    complainHno: '2001',
+    complainMoo: 'เขารู',
+    complainSoi: 'เขารูปช้าง',
+    complainDistrict: 'ตำบลคลองสิบ',
+    complainTown: 'อำเภอหนองจอก',
+    complainProvince: 'กรุงเทพมหานคร',
+    complainTel: '2444678911',
+    defendant: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
+    defendantPID: '3110401055021',
+    defendantName: 'นางนปภา ถิรายุวัฒน์',
+    defendantAge: '0',
+    defendantNationality: '',
+    defendantHno: '',
+    defendantMoo: 'เขารู',
+    defendantSoi: '',
+    defendantRoad: 'เขารูปช้าง',
+    defendantDistrict: 'ตำบลคลองสิบ',
+    defendantTown: 'อำเภอหนองจอก',
+    defendantProvince: 'กรุงเทพมหานคร',
+    defendantTel: '2444678911',
+    defendantFax: '',
+    defendantMail: '',
+    topic:
+      '- (๕ วรรคหนึ่ง) ประกอบธุรกิจทวงถามหนี้ โดยไม่จดทะเบียนการประกอบธุรกิจทวงถามหนี้ต่อนายทะเบียน',
+    details: 'เขารูปช้าง',
+    crimeScene: 'เขารูปช้าง',
+    other: '',
+    complaintPlace: 'สมุทรปราการ',
+    status: '0',
     process: '',
   },
 ]

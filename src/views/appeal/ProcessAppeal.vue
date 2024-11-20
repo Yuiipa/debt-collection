@@ -1,20 +1,12 @@
 <template>
-  <v-container class="pa-0" style="max-width: 100%">
-    <v-card class="elevation-0">
-      <!-- <v-card-title
-        class="d-flex justify-center align-center text-center font-weight-medium text-h5"
-        style="color: #ffffff; background-color: #1a237e; height: 80px"
-      >
-        การดำเนินการเรื่องร้องเรียน
-      </v-card-title> -->
-      <v-card-title
-        class="d-flex justify-space-between ma-2 text-h5 font-weight-bold"
-        style="color: #1a237e"
-      >
-        <span>การดำเนินการเรื่องร้องเรียน</span>
-      </v-card-title>
-    </v-card>
-    <div class="px-16">
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e;"
+    >
+      <span>การดำเนินการเรื่องร้องเรียน</span>
+    </v-card-title>
+    <div class="px-4">
       <v-row class="ma-1 mx-4 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
@@ -126,7 +118,8 @@
         </v-data-table>
       </v-card>
     </div>
-  </v-container>
+  </v-card>
+
   <v-dialog v-model="dialog">
     <v-card class="pa-0">
       <ProcessAppealDetails v-model="selectItem" />

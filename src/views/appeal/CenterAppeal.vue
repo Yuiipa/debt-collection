@@ -1,20 +1,12 @@
 <template>
-  <v-container class="pa-0" style="max-width: 100%">
-    <v-card class="elevation-0">
-      <!-- <v-card-title
-        class="d-flex justify-center align-center text-center font-weight-medium text-h5"
-        style="color: #ffffff; background-color: #1a237e; height: 80px"
-      >
-        เรื่องร้องเรียนจากศูนย์ดำรงธรรม
-      </v-card-title> -->
-      <v-card-title
-        class="d-flex justify-space-between ma-2 text-h5 font-weight-bold"
-        style="color: #1a237e"
-      >
-        <span>เรื่องร้องเรียนจากศูนย์ดำรงธรรม</span>
-      </v-card-title>
-    </v-card>
-    <div class="px-16">
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e;"
+    >
+      <span>ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
+    </v-card-title>
+    <div class="px-4">
       <v-card class="mt-4 rounded-lg">
         <v-data-table
           :headers="headers"
@@ -59,7 +51,8 @@
         </v-data-table>
       </v-card>
     </div>
-  </v-container>
+  </v-card>
+
   <v-dialog v-model="dialog" width="80%">
     <v-card class="pa-0">
       <CenterAppealDetails v-model="selectItem" />

@@ -2,7 +2,7 @@
   <v-container class="pa-0" style="max-width: 100%">
     <v-card class="elevation-0">
       <v-card-title
-        class="d-flex justify-center align-center text-center font-weight-medium text-h5"
+        class="d-flex justify-center align-center text-center font-weight-medium text-h4"
         style="color: #ffffff; background-color: #1a237e; height: 80px"
       >
         ข้อมูลการจดทะเบียน
@@ -38,24 +38,7 @@
           :search="search"
           :items-per-page="10"
           v-model:options="pagination"
-          hide-default-header
         >
-          <template v-slot:thead>
-            <thead>
-              <tr>
-                <th
-                  v-for="header in $vuetify.display.mdAndUp
-                    ? headers
-                    : headers2"
-                  :key="header.key"
-                  class="text-white"
-                  style="background-color: #1a237e; text-align: center"
-                >
-                  {{ header.title }}
-                </th>
-              </tr>
-            </thead>
-          </template>
           <template v-slot:[`item.num`]="{ index }">
             {{ calculateIndex(index) }}
           </template>
@@ -300,16 +283,19 @@ const calculateIndex = (index) => {
 </script>
 
 <style scoped>
-.v-data-table tbody tr {
-  border-bottom: 1px solid #ddd;
+.v-table ::v-deep th {
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+}
+.v-table ::v-deep tr:nth-child(even) {
+  background-color: #f1f1f1e5;
 }
 
-.v-data-table tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.v-data-table tbody tr:nth-child(even) {
+.v-table :deep(table > thead) {
   background-color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .primary--text {
