@@ -1,35 +1,72 @@
 <template>
-  <v-col class="pa-0">
-  
-    <v-container>
-      <div class="d-flex text-center pt-10">
-        <v-row justify="center" align="center" class="my-6">
-          <v-col cols="12" md="5" class="d-flex justify-center">
-            <v-btn
-              class="w-100 text-h5"
-              large
-              @click="$router.push({ name: 'debt-home-registration' })"
-              height="140px"
-              color="#1e5a8d"
+  <div class="d-flex">
+    <div class="login-background w-50 d-flex" />
+    <div class="w-50 d-flex menu">
+      <v-row>
+        <v-col cols="12" class="d-flex align-center text-h4 font-weight-bold">
+          <v-row>
+            <v-col
+              cols="12"
+              class="d-flex justify-center text-h4 font-weight-bold"
             >
-              การจดทะเบียน
-            </v-btn>
-          </v-col>
-
-          <v-col cols="12" md="5" class="d-flex justify-center">
-            <v-btn
-              class="w-100 text-h5"
-              large
-              @click="$router.push({ name: 'debt-home-appeal' })"
-              height="140px"
-              color="#b0892b"
+              ยินดีต้อนรับ
+            </v-col>
+            <v-col
+              cols="12"
+              class="d-flex justify-center text-h4 font-weight-bold"
             >
-              การรายงานเรื่องร้องเรียน<br />
-              และผลประกอบการด้านอื่นๆ
-            </v-btn>
-          </v-col>
-        </v-row>
-      </div>
-    </v-container>
-  </v-col>
+              น.ส. รุ่งนภา สะสม
+            </v-col>
+            <v-col cols="12" class="d-flex justify-center">
+              <v-btn
+                variant="outlined"
+                append-icon="mdi-file-document-edit"
+                width="80%"
+                height="100px"
+                style="color: white"
+                class="text-h4"
+                id="regis"
+                @click="$router.push({ name: 'debt-home-registration' })"
+              >
+                การจดทะเบียน
+              </v-btn>
+            </v-col>
+            <v-col cols="12" class="d-flex justify-center">
+              <v-btn
+                variant="outlined"
+                append-icon="mdi-chart-line-variant"
+                width="80%"
+                height="100px"
+                style="color: white"
+                class="text-h4"
+                id="appeal"
+                @click="$router.push({ name: 'debt-home-appeal' })"
+              >
+                การรายงานเรื่องร้องเรียนและผลการปฏิบัติงานอื่นๆ
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.login-background {
+  background-image: url('/src/assets/money-bg.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.menu {
+  background-color: #111751;
+  color: white;
+}
+.v-btn#regis {
+  background-color: #1e5a8d !important;
+}
+.v-btn#appeal {
+  background-color: #b0892b !important;
+}
+</style>

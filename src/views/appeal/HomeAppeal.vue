@@ -1,7 +1,7 @@
 <template>
-  <v-card class="ma-4 mt-8">
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-space-between ma-2 text-h5"
+      class="d-flex justify-space-between ma-2 text-h5 font-weight-bold"
       style="color: #1a237e"
     >
       <span>ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
@@ -12,15 +12,18 @@
           style="color: green"
           class="mr-4 rounded-lg"
           size="large"
+          id="excel"
         >
           Excel
         </v-btn>
         <v-btn
           variant="outlined"
-          append-icon="mdi-printer-outline"
+          append-icon="mdi-printer"
           style="color: orange"
           class="rounded-lg"
           size="large"
+          id="print"
+          @click="exportPDF()"
         >
           พิมพ์
         </v-btn>
@@ -29,7 +32,7 @@
     <v-row class="ma-1 mx-4 my-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-        <v-text-field
+        <datepicker
           variant="outlined"
           placeholder="ตั้งแต่วันที่"
           persistent-placeholder
@@ -39,7 +42,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-        <v-text-field
+        <datepicker
           variant="outlined"
           placeholder="ถึงวันที่"
           persistent-placeholder
@@ -59,26 +62,11 @@
       :headers="headers"
       :items="processappeal"
       :search="search"
-      :items-per-page="10"
-      v-model:options="pagination"
-      hide-default-header
+      :items-per-page="5"
+      :footer-props="{
+        'items-per-page-options': [5, 10, 15],
+      }"
     >
-      <template v-slot:thead>
-        <thead>
-          <tr>
-            <th
-              v-for="header in headers"
-              :key="header.key"
-              :align="header.align || 'start'"
-              class="text-white"
-              style="background-color: #1a237e; text-align: center"
-              id
-            >
-              {{ header.title }}
-            </th>
-          </tr>
-        </thead>
-      </template>
       <template v-slot:[`item.num`]="{ index }">
         {{ calculateIndex(index) }}
       </template>
@@ -88,6 +76,7 @@
           variant="outlined"
           style="font-size: 14px; color: orange"
           class="rounded-pill"
+          id="missdoc"
         >
           ขาดเอกสารสำคัญ
         </v-btn>
@@ -96,6 +85,7 @@
           variant="outlined"
           style="font-size: 14px; color: green"
           class="rounded-pill"
+          id="comdoc"
         >
           เอกสารครบถ้วน
         </v-btn>
@@ -106,6 +96,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import datepicker from '@/components/helpers/Datepicker.vue'
+import { generatePDF } from '@/prints/appeal/HomeAppeal.js'
 
 const search = ref('')
 
@@ -116,7 +108,7 @@ const headers = ref([
   { align: 'center', key: 'defendantName', title: 'ชื่อผู้ถูกร้อง' },
   { align: 'center', key: 'complaintPlace', title: 'สถานที่ร้องเรียน' },
   { align: 'center', key: 'datetime', title: 'วันที่ร้องเรียน' },
-  { align: 'center', key: 'status', title: 'สถานะ' },
+  { align: 'center', key: 'status', sortable: false, title: 'สถานะ' },
 ])
 
 const processappeal = [
@@ -206,4 +198,38 @@ const pagination = ref({
 const calculateIndex = (index) => {
   return (pagination.value.page - 1) * pagination.value.itemsPerPage + index + 1
 }
+
+const exportPDF = () => {
+  const item = processappeal[0]
+  generatePDF(item)
+}
 </script>
+
+<style scoped>
+.v-table ::v-deep th {
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+}
+.v-table ::v-deep tr:nth-child(even) {
+  background-color: #f1f1f1e5;
+}
+
+.v-table :deep(table > thead) {
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.v-btn#excel:hover,
+.v-btn#comdoc:hover {
+  background-color: green !important;
+  color: white !important;
+}
+
+.v-btn#print:hover,
+.v-btn#missdoc:hover {
+  background-color: orange !important;
+  color: white !important;
+}
+</style>

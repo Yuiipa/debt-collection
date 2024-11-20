@@ -25,15 +25,15 @@
           <v-btn
             color="#1a237e"
             class="white--text"
-            style="height: 40px; width: 100px"
+            style="height: 40px; width: 100%"
           >
             ค้นหา
           </v-btn>
         </v-col>
       </v-row>
-      <v-card class="mt-4 rounded-xl">
+      <v-card class="mt-4 rounded-lg">
         <v-data-table
-          :headers="headers"
+          :headers="$vuetify.display.mdAndUp ? headers : headers2"
           :items="desserts"
           :search="search"
           :items-per-page="10"
@@ -44,12 +44,12 @@
             <thead>
               <tr>
                 <th
-                  v-for="header in headers"
+                  v-for="header in $vuetify.display.mdAndUp
+                    ? headers
+                    : headers2"
                   :key="header.key"
-                  :align="header.align || 'start'"
                   class="text-white"
                   style="background-color: #1a237e; text-align: center"
-                  :id="key"
                 >
                   {{ header.title }}
                 </th>
@@ -133,7 +133,7 @@ const fields = {
   licdate: 'วัน เดือน ปี ที่ได้จดทะเบียน',
   liclocate: 'สถานที่จดทะเบียน',
   locate: 'ที่ตั้งสถานประกอบธุรกิจ',
-  tel: 'โทรศัพท์',
+  call: 'โทรศัพท์',
   fax: 'โทรสาร',
   mail: 'จดหมายอิเลคทรอนิกส์',
 }
@@ -142,8 +142,18 @@ const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
   { key: 'name', title: 'ชื่อธุรกิจ' },
   { key: 'type', title: 'ประเภทการประกอบธุรกิจ' },
-  { key: 'tel', title: 'เบอร์โทรศัพท์ติดต่อ' },
+  { key: 'call', title: 'เบอร์โทรศัพท์ติดต่อ' },
   { align: 'center', key: 'locate', title: 'ที่ตั้งสถานประกอบธุรกิจ' },
+  {
+    align: 'center',
+    key: 'info',
+    sortable: false,
+    title: 'ข้อมูลการจดทะเบียน',
+  },
+])
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { key: 'name', title: 'ชื่อธุรกิจ' },
   {
     align: 'center',
     key: 'info',

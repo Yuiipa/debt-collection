@@ -1,5 +1,5 @@
 <template>
-  <div
+  <!-- <div
     style="background-color: #1a237e; color: white"
     class="d-flex justify-center"
   >
@@ -9,7 +9,13 @@
     >
       บันทึกเรื่องร้องเรียน
     </span>
-  </div>
+  </div> -->
+  <v-card-title
+    class="d-flex justify-space-between ma-2 text-h5 font-weight-bold"
+    style="color: #1a237e"
+  >
+    <span>บันทึกเรื่องร้องเรียน</span>
+  </v-card-title>
   <div>
     <v-stepper v-model="step" style="background-color: #fafafa">
       <v-stepper-header>
@@ -51,10 +57,17 @@
       <template v-if="step == 2"> <DirextoryUpload /> </template>
       <template v-if="step == 3"> <ReceivingAgency /> </template>
       <div class="d-flex justify-end mr-16 mb-6">
-        <v-btn size="x-large" color="grey-darken-1" class="mr-4" v-if="step > 0" @click="step--"
+        <v-btn
+          size="x-large"
+          color="grey-darken-1"
+          class="mr-4"
+          v-if="step > 0"
+          @click="step--"
           >ย้อนกลับ</v-btn
         >
-        <v-btn size="x-large" color="#1a237e" @click="step++" v-if="step < 3">ถัดไป</v-btn>
+        <v-btn size="x-large" color="#1a237e" @click="step++" v-if="step < 3"
+          >ถัดไป</v-btn
+        >
         <v-btn size="x-large" color="success" v-if="step >= 3">save</v-btn>
       </div>
     </v-stepper>
