@@ -1,6 +1,11 @@
 <template>
   <!-- Navigation Drawer -->
-  <v-app-bar prominent elevation="1" class="py-2" color="#1A237E">
+  <v-app-bar
+    prominent
+    elevation="1"
+    class="py-2"
+    :color="isPop ? '#fff' : '#1A237E'"
+  >
     <v-row class="px-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
@@ -13,7 +18,7 @@
           mdi-menu
         </v-icon>
       </v-col>
-      <div class="d-flex v-col-3 d-lg-none "></div>
+      <div class="d-flex v-col-3 d-lg-none"></div>
 
       <v-col cols="4" lg="8">
         <div class="d-flex justify-center justify-lg-start align-center">
@@ -37,6 +42,15 @@
             </div>
           </div>
         </div>
+      </v-col>
+
+      <v-col cols="4" class="d-flex justify-end align-center" v-if="isPop">
+        <v-btn size="large" height="60px" @click="$router.push({ name: 'debt-home' })">
+          หน้าหลัก
+        </v-btn>
+        <v-btn size="large" height="60px" @click="$router.push({ name: 'debt-login' })">
+          เข้าสู่ระบบ
+        </v-btn>
       </v-col>
 
       <v-col
@@ -299,6 +313,7 @@ function navigate(routeName) {
   router.push({ name: routeName })
 }
 
+const isPop = computed(() => route.path === '/home/population')
 const isHomeRoute = computed(() => route.path.startsWith('/home'))
 const isMenuPage = computed(() => route.path.startsWith('/menu_page'))
 // ฟังก์ชันเพื่อตรวจสอบว่ารายการเมนูใดถูกเลือก
