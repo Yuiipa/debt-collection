@@ -1,12 +1,11 @@
 <template>
-  <div class="d-flex justify-start mt-4 px-10">
-    <span
-      class="d-flex align-center justify-center text-blue-darken-4"
-      style="font-size: 40px"
+ <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+   <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e;"
     >
-      การตั้งค่า
-    </span>
-  </div>
+      <span> การตั้งค่า </span>
+    </v-card-title>
   <v-container class="d-flex justify-center">
     <v-row class="d-flex justify-center">
       <v-col cols="12" sm="11" md="8" v-for="(program, index) in programs" :key="index">
@@ -28,6 +27,7 @@
       </v-col>
     </v-row>
   </v-container>
+  </v-card>
 </template>
 
 <script setup>

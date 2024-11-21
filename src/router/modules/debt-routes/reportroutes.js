@@ -2,7 +2,7 @@ const routeReport = [
     {
       path: '/debt/Report/count_business',
       name: 'debt-report-count-business',
-      component: () => import('@/views/registration/ReportDebt.vue'),
+      component: () => import('@/components/menuRegister/report/CountBusiness.vue'),
     },
     {
       path: '/debt/Report/count_request',

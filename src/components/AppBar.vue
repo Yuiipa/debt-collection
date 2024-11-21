@@ -5,7 +5,7 @@
     class="py-2"
     :color="isPop ? '#fff' : '#1A237E'"
   >
-    <v-row class="px-10">
+    <v-row class="px-2 px-md-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
         v-if="!isHomeRoute && !isMenuPage"
@@ -15,10 +15,9 @@
         <!-- Icon to open/close the Navigation Drawer -->
         <v-icon color="grey" large @click="toggleDrawer"> mdi-menu </v-icon>
       </v-col>
-      <div class="d-flex v-col-3 d-lg-none"></div>
 
-      <v-col cols="4" lg="8">
-        <div class="d-flex justify-center justify-lg-start align-center">
+      <v-col cols="6" md="8">
+        <div class="d-flex justify-start align-center">
           <div class="d-flex align-center">
             <v-avatar size="60" class="mr-3">
               <v-img src="/logo.ico" />
@@ -40,8 +39,7 @@
           </div>
         </div>
       </v-col>
-
-      <v-col cols="4" class="d-flex justify-end align-center" v-if="isPop">
+      <v-col cols="5" class="d-flex justify-end align-center" v-if="isPop">
         <v-btn
           size="large"
           height="60px"
@@ -60,8 +58,8 @@
 
       <v-col
         v-if="!isHomeRoute"
-        cols="4"
-        lg="3"
+        cols="5"
+        md="3"
         class="d-flex justify-end align-center"
       >
         <v-icon class="px-2" large>mdi-bell</v-icon>
@@ -110,8 +108,9 @@
           v-if="item.children"
           :title="!subDrawer ? item.title : ''"
           :prepend-icon="item.icon"
+
           @click="selectMenu(item)"
-          class="menu-item"
+          :class="{ 'selected-item': isSelected(item) }"
         >
         </v-list-item>
 
@@ -122,7 +121,6 @@
           :prepend-icon="item.icon"
           :class="{ 'selected-item': isSelected(item) }"
           @click="navigate(item.name)"
-          class="menu-item"
         >
         </v-list-item>
       </template>
@@ -147,19 +145,17 @@
           <v-list-group
             v-if="child.children"
             :prepend-icon="child.icon"
+            
             no-action
           >
             <template v-slot:activator="{ props }">
               <v-list-item
                 v-bind="props"
-                :class="{ 'selected-item': isSelected(child) }"
                 @click="navigate(child.name)"
               >
-                <v-list-item-content>
-                  <v-list-item-title class="wrap-text">{{
-                    child.title
-                  }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title class="wrap-text">{{
+                  child.title
+                }}</v-list-item-title>
               </v-list-item>
             </template>
 
@@ -171,11 +167,9 @@
               :prepend-icon="grandChild.icon"
               @click="navigate(grandChild.name)"
             >
-              <v-list-item-content>
-                <v-list-item-title class="wrap-text">{{
-                  grandChild.title
-                }}</v-list-item-title>
-              </v-list-item-content>
+              <v-list-item-title class="wrap-text">{{
+                grandChild.title
+              }}</v-list-item-title>
             </v-list-item>
           </v-list-group>
 
@@ -186,11 +180,9 @@
             :prepend-icon="child.icon"
             @click="navigate(child.name)"
           >
-            <v-list-item-content>
-              <v-list-item-title class="wrap-text">{{
-                child.title
-              }}</v-list-item-title>
-            </v-list-item-content>
+            <v-list-item-title class="wrap-text">{{
+              child.title
+            }}</v-list-item-title>
           </v-list-item>
         </template>
       </template>
@@ -229,14 +221,29 @@ function toggleDrawer() {
 }
 
 function navigate(routeName) {
-  // ตรวจสอบว่าชื่อ Route เป็น children ของเมนูที่เลือกหรือไม่
+  // ฟังก์ชันช่วยเพื่อตรวจสอบว่า routeName อยู่ใน children ใดๆ ของเมนูหรือไม่
+  function isRouteInChildren(children, routeName) {
+    return children.some((child) => {
+      // ตรวจสอบ child ชั้นแรก
+      if (child.name === routeName) {
+        return true
+      }
+      // ตรวจสอบ children ของ child ถ้ามี
+      if (child.children) {
+        return isRouteInChildren(child.children, routeName)
+      }
+      return false
+    })
+  }
+
+  // ตรวจสอบว่า routeName เป็น children หรือ children ของ children ของ selectedMenu หรือไม่
   const isChildRoute =
     selectedMenu.value &&
     selectedMenu.value.children &&
-    selectedMenu.value.children.some((child) => child.name === routeName)
+    isRouteInChildren(selectedMenu.value.children, routeName)
 
   if (!isChildRoute) {
-    subDrawer.value = false // ปิดเมนูย่อยถ้าไม่ใช่ children
+    subDrawer.value = false // ปิดเมนูย่อยถ้า routeName ไม่ใช่ children
   }
 
   router.push({ name: routeName }) // เปลี่ยน Route
@@ -254,7 +261,17 @@ const isHomeRoute = computed(() => route.path.startsWith('/home'))
 const isMenuPage = computed(() => route.path.startsWith('/menu_page'))
 
 function isSelected(item) {
-  return route.name === item.name
+  // ถ้าเมนูตรงกับ route ปัจจุบัน
+  if (route.name === item.name) {
+    return true;
+  }
+
+  // ตรวจสอบ children
+  if (item.children) {
+    return item.children.some((child) => isSelected(child));
+  }
+
+  return false;
 }
 </script>
 
@@ -264,6 +281,12 @@ function isSelected(item) {
   color: #1a237e; /* เปลี่ยนสีตัวอักษรที่เลือก */
   border-right: 10px solid #1a237e; /* เพิ่มเส้นขอบด้านขวาสีน้ำเงินเมื่อเมนูถูกเลือก */
 }
+
+.selected-item2 {
+  background-color: rgba(209, 211, 229, 0.7); /* เปลี่ยนสีพื้นหลังที่เลือก */
+  color: #1a237e; /* เปลี่ยนสีตัวอักษรที่เลือก */
+}
+
 
 .menu-item {
   display: flex;

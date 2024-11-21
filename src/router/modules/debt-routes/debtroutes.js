@@ -1,5 +1,6 @@
 import routeRequest from './requestroutes'
 import routeReport from './reportroutes'
+import routeSystem from './systemroutes'
 
 const routesDebt = [
   {
@@ -25,11 +26,7 @@ const routesDebt = [
       },
       ...routeRequest,
       ...routeReport,
-      {
-        path: '/debt/System',
-        name: 'debt-system-registration',
-        component: () => import('@/views/registration/System.vue'),
-      },
+      ...routeSystem,
       {
         path: '/debt/Setting',
         name: 'debt-setting-registration',
@@ -39,12 +36,7 @@ const routesDebt = [
         path: '/debt/Backup',
         name: 'debt-reservedata-registration',
         component: () => import('@/views/registration/ReserveData.vue'),
-      },
-      {
-        path: '/home',
-        name: 'debt-home',
-        component: () => import('@/views/Home.vue'),
-      },
+      }
     ]
   },
 ]

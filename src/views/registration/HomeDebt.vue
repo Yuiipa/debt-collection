@@ -1,150 +1,146 @@
 <template>
-  <div class="d-flex justify-start align-end mt-4 px-10">
-    <span>
-      <span class="text-blue-darken-4 text-h4"> หน้าหลัก </span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-book-open</v-icon>
-      <span>หนังสืออ่านบัตร</span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-credit-card</v-icon>
-      <span>เครื่องอ่านบัตร</span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-link-variant</v-icon>
-      <span>Linkage</span>
-    </span>
-  </div>
-
-  <div class="pt-2 px-10">
-    <v-row>
-      <v-col>
-        <div
-          class="pt-6 px-6 rounded-lg elevation-3"
-          style="background-color: white"
-        >
-          <v-row class="d-flex align-center justify-space-between">
-            <span color="#1A237E" class="text-h5 text-blue-darken-4">
-              ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘
-            </span>
-
-            <div class="d-flex" style="gap: 8px">
-              <v-btn color="primary">
-                Excel
-                <v-icon class="pl-2" right>mdi-file-excel</v-icon>
-              </v-btn>
-
-              <v-btn color="secondary" @click="exportPdf()">
-                พิมพ์
-                <v-icon class="pl-2" right>mdi-printer</v-icon>
-              </v-btn>
-
-              <v-btn color="success" @click="toggleFilter">
-                ตัวกรอง
-                <v-icon class="pl-2" right>mdi-filter</v-icon>
-              </v-btn>
-            </div>
-          </v-row>
-
-          <!-- ตัวกรอง -->
-          <v-expand-transition class="mt-6">
-            <div v-if="showFilter">
-              <v-row>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">เลขที่คำขอ</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">
-                    เลขประจำตัวประชาชนผู้ประกอบธุรกิจ
-                  </div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </div>
-          </v-expand-transition>
-
-          <v-row>
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="rounded-table pt-6"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
-            >
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-              <template v-slot:[`item.data`]="{ item }">
-                <v-btn variant="plain" small @click="navigate(item)">
-                  ข้อมูล >
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e"
+    >
+      <span> ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
+    </v-card-title>
+    <div class="px-10 pt-2">
+      <v-row>
+        <v-col>
+          <div>
+            <v-row class="d-flex align-center justify-space-between">
+              <div class="d-flex" style="gap: 8px">
+                <v-btn color="primary">
+                  Excel
+                  <v-icon class="pl-2" right>mdi-file-excel</v-icon>
                 </v-btn>
-              </template>
-              <template v-slot:[`item.status`]="{ item }">
-                <v-switch
-                  v-model="item.status"
-                  color="primary"
-                  inset
-                  dense
-                  hide-details
-                  :false-value="false"
-                  :true-value="true"
-                ></v-switch>
-              </template>
-            </v-data-table>
-          </v-row>
-        </div>
-      </v-col>
-    </v-row>
-  </div>
+
+                <v-btn color="secondary" @click="exportPdf()">
+                  พิมพ์
+                  <v-icon class="pl-2" right>mdi-printer</v-icon>
+                </v-btn>
+
+                <v-btn color="success" @click="toggleFilter">
+                  ตัวกรอง
+                  <v-icon class="pl-2" right>mdi-filter</v-icon>
+                </v-btn>
+              </div>
+              <span>
+                <v-icon class="ml-4 mr-1" size="24">mdi-book-open</v-icon>
+                <span>หนังสืออ่านบัตร</span>
+
+                <v-icon class="ml-4 mr-1" size="24">mdi-credit-card</v-icon>
+                <span>เครื่องอ่านบัตร</span>
+
+                <v-icon class="ml-4 mr-1" size="24">mdi-link-variant</v-icon>
+                <span>Linkage</span>
+              </span>
+            </v-row>
+
+            <!-- ตัวกรอง -->
+            <v-expand-transition class="mt-6">
+              <div v-if="showFilter">
+                <v-row>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">เลขที่คำขอ</div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">
+                      เลขประจำตัวประชาชนผู้ประกอบธุรกิจ
+                    </div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" class="pl-2 py-0">
+                    <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
+                    <v-text-field
+                      class="v-col-12"
+                      variant="outlined"
+                      density="compact"
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-expand-transition>
+
+            <v-row>
+              <v-data-table
+                :headers="headers"
+                :items="items"
+                class="rounded-table mt-6"
+                :items-per-page="5"
+                :footer-props="{
+                  'items-per-page-options': [5, 10, 15],
+                }"
+              >
+                <template v-slot:[`item.index`]="{ index }">
+                  <span>{{ index + 1 }}</span>
+                </template>
+                <template v-slot:[`item.data`]="{ item }">
+                  <v-btn variant="plain" small @click="navigate(item)">
+                    ข้อมูล >
+                  </v-btn>
+                </template>
+                <template v-slot:[`item.status`]="{ item }">
+                  <v-switch
+                    v-model="item.status"
+                    color="primary"
+                    inset
+                    dense
+                    hide-details
+                    :false-value="false"
+                    :true-value="true"
+                  ></v-switch>
+                </template>
+              </v-data-table>
+            </v-row>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+  </v-card>
 </template>
 <script setup>
 import { ref } from 'vue'

@@ -1,47 +1,39 @@
 <template>
-    <div class="d-flex justify-start mt-4 px-10">
-      <span class="d-flex align-center justify-center text-blue-darken-4 " style="font-size: 40px">
-        จัดการข้อมูลผู้ใช้งาน
-      </span>
-    </div>
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e"
+    >
+      <span> คำขอทำรายการทั้งหมด </span>
+    </v-card-title>
     <div>
-      <v-row class="px-16 pt-4">
-        <v-col
-          cols="12"
-          sm="2"
-          class="align-center justify-start d-flex justify-md-end"
-        >
-          <div>เลขที่คำขอ</div>
-        </v-col>
-        <v-col cols="12" sm="3" class="pa-0 d-flex align-center">
+      <v-row class="ma-1 mx-8 my-2">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">เลขที่คำขอ</div>
           <v-text-field
             variant="outlined"
-            density="compact"
+            placeholder="ตั้งแต่วันที่"
+            persistent-placeholder
             hide-details
-            class="full-width-input"
-          ></v-text-field>
+            density="compact"
+          />
         </v-col>
-        <v-col
-          cols="12"
-          sm="2"
-          class="align-center justify-start d-flex justify-md-end"
-        >
-          <div>ประเภทคำขอ</div>
-        </v-col>
-        <v-col cols="12" sm="3" class="pa-0 d-flex align-center">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ประเภทคำขอ</div>
           <v-text-field
             variant="outlined"
-            density="compact"
+            placeholder="ถึงวันที่"
+            persistent-placeholder
             hide-details
-            class="full-width-input"
-          ></v-text-field>
+            density="compact"
+          />
         </v-col>
-  
-        <v-col cols="6" sm="2" class="align-center justify-start d-flex pl-8">
-          <v-btn color="green">
-            <v-icon left size="18">mdi-magnify</v-icon>
-            ค้นหา
-          </v-btn>
+        <v-col md="3" cols="12" class="d-flex align-end mb-1">
+          <v-btn
+            prepend-icon="mdi-magnify"
+            style="background-color: #1a237e; color: white"
+            >ค้นหา</v-btn
+          >
         </v-col>
       </v-row>
       <v-row>
@@ -60,7 +52,7 @@
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-  
+
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
@@ -80,98 +72,99 @@
         </v-col>
       </v-row>
     </div>
-  </template>
+  </v-card>
+</template>
       
       <script setup>
-  import { ref } from 'vue'
-  
-  const headers = [
-    { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
-    {
-      title: 'เลขประจำตัวประชาชน',
-      key: 'pid',
-      align: 'start',
-      sortable: true,
-      width: '190px',
-    },
-    { title: 'คำนำหน้านาม', key: 'title', align: 'start', sortable: true },
-    { title: 'ชื่อ', key: 'firstName', align: 'start', sortable: true },
-    { title: 'นามสกุล', key: 'lastName', align: 'start', sortable: true },
-    {
-      title: 'ตำแหน่งผู้ปฎิบัติงาน',
-      key: 'position',
-      align: 'start',
-      sortable: true,
-    },
-    { title: 'เอกสารแนบ', key: 'document', align: 'start', sortable: false },
-    { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
-  ]
-  
-  const items = ref([
-    {
-      pid: 8466851084319,
-      title: 'นาย',
-      firstName: 'สมหมาย',
-      lastName: 'บุญยงค์',
-      position: 'เจ้าหน้าที่ปฏิบัติการ',
-      document: '',
-    },
-    {
-      pid: 8466851084319,
-      title: 'นาย',
-      firstName: 'สมคิด',
-      lastName: 'เพชรพันธ์',
-      position: 'ทนาย',
-      document: '',
-    },
-    {
-      pid: 8466851084319,
-      title: 'น.ส.',
-      firstName: 'สมทรง',
-      lastName: 'เพชรพันธ์',
-      position: 'เจ้าหน้าที่ปฏิบัติการ',
-      document: '',
-    },
-    {
-      pid: 8466851084319,
-      title: 'นาย',
-      firstName: 'สมทรง',
-      lastName: 'เพชรพันธ์',
-      position: 'นิติกรชำนาญการ',
-      document: '',
-    },
-  ])
-  
-  function editItem(item) {
-    console.log('แก้ไข:', item)
-  }
-  
-  function deleteItem(item) {
-    console.log('ลบ:', item)
-  }
-  </script>
+import { ref } from 'vue'
+
+const headers = [
+  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'เลขประจำตัวประชาชน',
+    key: 'pid',
+    align: 'start',
+    sortable: true,
+    width: '190px',
+  },
+  { title: 'คำนำหน้านาม', key: 'title', align: 'start', sortable: true },
+  { title: 'ชื่อ', key: 'firstName', align: 'start', sortable: true },
+  { title: 'นามสกุล', key: 'lastName', align: 'start', sortable: true },
+  {
+    title: 'ตำแหน่งผู้ปฎิบัติงาน',
+    key: 'position',
+    align: 'start',
+    sortable: true,
+  },
+  { title: 'เอกสารแนบ', key: 'document', align: 'start', sortable: false },
+  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
+]
+
+const items = ref([
+  {
+    pid: 8466851084319,
+    title: 'นาย',
+    firstName: 'สมหมาย',
+    lastName: 'บุญยงค์',
+    position: 'เจ้าหน้าที่ปฏิบัติการ',
+    document: '',
+  },
+  {
+    pid: 8466851084319,
+    title: 'นาย',
+    firstName: 'สมคิด',
+    lastName: 'เพชรพันธ์',
+    position: 'ทนาย',
+    document: '',
+  },
+  {
+    pid: 8466851084319,
+    title: 'น.ส.',
+    firstName: 'สมทรง',
+    lastName: 'เพชรพันธ์',
+    position: 'เจ้าหน้าที่ปฏิบัติการ',
+    document: '',
+  },
+  {
+    pid: 8466851084319,
+    title: 'นาย',
+    firstName: 'สมทรง',
+    lastName: 'เพชรพันธ์',
+    position: 'นิติกรชำนาญการ',
+    document: '',
+  },
+])
+
+function editItem(item) {
+  console.log('แก้ไข:', item)
+}
+
+function deleteItem(item) {
+  console.log('ลบ:', item)
+}
+</script>
       
       <style scoped>
-  .v-table :deep(th) {
-    background-color: #1a237e;
-    color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .rounded-table {
-    border-top-left-radius: 12px !important;
-    border-top-right-radius: 12px !important;
-    overflow: hidden;
-  }
-  
-  .v-table :deep(table > thead) {
-    background-color: #ffffff;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .v-table ::v-deep tr:nth-child(even) {
-    background-color: #f1f1f1e5;
-  }
-  </style>
+.v-table :deep(th) {
+  background-color: #1a237e;
+  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
+.v-table :deep(table > thead) {
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.v-table ::v-deep tr:nth-child(even) {
+  background-color: #f1f1f1e5;
+}
+</style>

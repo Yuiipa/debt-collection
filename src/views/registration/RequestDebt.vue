@@ -1,57 +1,60 @@
 <template>
-  <div class="d-flex justify-start mt-4 px-10">
-    <span
-      class="d-flex align-center justify-center text-blue-darken-4"
-      style="font-size: 34px"
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e"
     >
-      {{title_route}}
-    </span>
-  </div>
-  <div>
-    <v-row class="px-16 pt-4">
-      <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
-        <v-text-field
-          label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
-          variant="outlined"
-          density="compact"
-          hide-details
-          append-inner-icon="mdi-magnify"
-          class="full-width-input"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="6" sm="2" class="align-center justify-start d-flex">
-        <v-btn left class="px-6" style="background-color: #1a237e; color: white"
-          >ค้นหา</v-btn
-        >
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <div class="px-10">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            class="elevation-1 rounded-table"
-            :items-per-page="5"
-            :footer-props="{
-              'items-per-page-options': [5, 10, 15],
-            }"
+      <span> {{ title_route }}</span>
+    </v-card-title>
+    <div>
+      <v-row class="px-16">
+        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
+          <v-text-field
+            label="ค้นหา"
+            variant="outlined"
+            density="compact"
+            hide-details
+            append-inner-icon="mdi-magnify"
+            class="full-width-input"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="6" sm="2" class="align-center justify-start d-flex">
+          <v-btn
+            left
+            class="px-6"
+            style="background-color: #1a237e; color: white"
+            >ค้นหา</v-btn
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <v-icon style="font-size: 16px" span class="pr-6"
-                >mdi-chevron-up</v-icon
-              ><span span class="pr-12">{{ index + 1 }}</span>
-            </template>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div class="px-10">
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              class="elevation-1 rounded-table"
+              :items-per-page="5"
+              :footer-props="{
+                'items-per-page-options': [5, 10, 15],
+              }"
+            >
+              <!-- ลำดับที่ -->
+              <template v-slot:[`item.index`]="{ index }">
+                <v-icon style="font-size: 16px" span class="pr-6"
+                  >mdi-chevron-up</v-icon
+                ><span span class="pr-12">{{ index + 1 }}</span>
+              </template>
 
-            <template v-slot:[`item.select`]="{ item }">
-              <v-btn small @click="navigate(item)">เลือก</v-btn>
-            </template>
-          </v-data-table>
-        </div>
-      </v-col>
-    </v-row>
-  </div>
+              <template v-slot:[`item.select`]="{ item }">
+                <v-btn small @click="navigate(item)">เลือก</v-btn>
+              </template>
+            </v-data-table>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+  </v-card>
 </template>
   
   <script setup>
@@ -120,10 +123,12 @@ onMounted(() => {
   // ตัวอย่างเงื่อนไขการเปลี่ยนเส้นทาง
   if (currentPath === '/debt/ChangeBusiness') {
     name_route.value = 'debt-ChangeBusiness-form'
-    title_route.value = 'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้'
+    title_route.value =
+      'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้'
   } else if (currentPath === '/debt/Substitute') {
     name_route.value = 'debt-Substitute-form'
-    title_route.value = 'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้'
+    title_route.value =
+      'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้'
   } else if (currentPath === '/debt/ChangeRoster') {
     name_route.value = 'debt-ChangeRoster-form'
     title_route.value = 'บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้'
@@ -136,9 +141,10 @@ onMounted(() => {
   } else if (currentPath === '/debt/Blame_Business') {
     name_route.value = 'debt-BlameBusiness-form'
     title_route.value = 'ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้'
-  }else if (currentPath === '/debt/Cancel_Quit') {
+  } else if (currentPath === '/debt/Cancel_Quit') {
     name_route.value = 'debt-CancelQuit-form'
-    title_route.value = 'ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้'
+    title_route.value =
+      'ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้'
   }
 })
 

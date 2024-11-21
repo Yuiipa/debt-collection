@@ -1,18 +1,21 @@
 <template>
-  <div class="d-flex justify-start mt-4 px-10">
-    <span class="d-flex align-center justify-center text-blue-darken-4 " style="font-size: 40px">
-      สำรองข้อมูล
-    </span>
-  </div>
+  
+  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+    <v-card-title
+      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      style="color: #1a237e"
+    >
+      <span> สำรองข้อมูล</span>
+    </v-card-title>
   <v-container class="d-flex justify-center">
     <div class=" pa-8 elevation-3 rounded-lg w-100">
       <v-row class="d-flex justify-center">
-        <v-col cols="4" class="text-start">
+        <v-col cols="12" md="4" class="text-start">
           <span style="color: red">*</span> ข้อมูล
         </v-col>
       </v-row>
       <v-row class="d-flex justify-center">
-        <v-col cols="4">
+        <v-col cols="12" md="4">
           <v-autocomplete
             placeholder="กรุณาเลือกผู้ตรวจ"
             variant="outlined"
@@ -36,4 +39,5 @@
       </v-row>
     </div>
   </v-container>
+  </v-card>
 </template>
