@@ -1,280 +1,61 @@
 <template>
-    <v-form ref="form">
-      <div class="d-flex justify-start align-end mt-4 px-10">
-        <span>
-          <span class="text-blue-darken-4" style="font-size: 40px">
-            คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
-          </span>
-        </span>
-      </div>
-      <div
-        class="ma-8 mt-2 pa-6 elevation-3 rounded-lg"
-        style="background-color: white"
-      >
+  <div class="d-flex justify-start mt-4 px-10">
+    <span
+      class="d-flex align-center justify-center text-blue-darken-4 text-h4"
+    >
+    {{title_route}}
+    </span>
+  </div>
+  <v-container class="d-flex justify-start">
+    <div class="elevation-3 rounded-lg w-100">
+      <!-- Tab Items -->
+
+      <div class="pa-8">
         <v-row>
-          <v-col cols="10">
-            <div class="font-weight-bold text-h6 text-blue-darken-1">
-              ขอเปลี่ยนแปลงตามแบบ ทคน.๑/๑
-            </div>
-          </v-col>
-        </v-row>
-        <v-divider
-          class="opacity-100 mt-6 mb-10"
-          :thickness="2"
-          color="grey"
-        ></v-divider>
-        <v-row class="d-flex justify-end">
-          <v-col cols="12" md="3" class="pl-2 py-0">
-            <div class="v-col-12 py-0 font-weight-bold">เขียนที่</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="6" class="pl-2 py-0">
-            <div class="v-col-12 py-0 font-weight-bold">ข้าพเจ้า</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6" class="pl-2 py-0">
-            <div class="v-col-12 py-0 font-weight-bold">
-              ซึ่งได้จดทะเบียนการประกอบธุรกิจทวงถามหนี้ ทะเบียนเลขที่
-            </div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            ประสงค์จะเปลี่ยนแปลงรายการจดทะเบียนที่ได้จดทะเบียนไว้ดังนี้
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="5" class="d-flex align-center">
-            <v-checkbox
-              class="mr-2"
-              density="compact"
-              hide-details="auto"
-            ></v-checkbox>
-            <span>เปลี่ยนชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้ เป็น </span>
-          </v-col>
+          <div class="d-flex justify-end align-center pl-4">
+            <span>เลขทะเบียน</span>
+          </div>
           <v-text-field
             class="v-col-12 v-col-md-4"
             variant="outlined"
             density="compact"
             hide-details="auto"
           ></v-text-field>
+          <div  class="d-flex justify-end align-center pl-4">
+            <span>ชื่อธุรกิจ</span>
+          </div>
+          <v-text-field
+          class="v-col-12 v-col-md-4"
+          variant="outlined"
+          density="compact"
+          hide-details="auto"
+        ></v-text-field>
         </v-row>
         <v-row>
-          <v-col cols="12" class="d-flex align-center">
-            <v-checkbox
-              class="mr-2"
+          <v-col class="py-0">
+            <span> {{ subtitle_route }} </span>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <v-file-input
+              label="ลากไฟล์มาวางตรงนี้ หรือคลิกเพื่อเลือกไฟล์"
+              show-size
+              variant="outlined"
               density="compact"
-              hide-details="auto"
-            ></v-checkbox>
-            <span>เปลี่ยนแปลงที่ตั้งสถานประกอบธุรกิจทวงถามหนี้ เป็น</span>
+              truncate-length="15"
+              multiple
+              @change="handleFileChange"
+            ></v-file-input>
           </v-col>
         </v-row>
         <v-row>
           <v-col
             cols="12"
-            class="d-flex align-center rounded bg-blue text-white pa-3"
+            class="d-flex align-center justify-center font-weight-bold py-0"
+            style="font-size: 18px"
           >
-            <span>เปลี่ยนชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้ เป็น </span>
-          </v-col>
-        </v-row>
-        <v-row class="mt-6">
-          <v-col cols="12" md="6" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">ที่อยู่ อาคาร เป็น</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="3" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">ชั้นที่</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="3" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">เลขที่</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">หมู่ที่</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">ซอย/ตรอก</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">ถนน</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">จังหวัด</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">เขต/อำเภอ</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">แขวง/ตำบล</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">โทรศัพท์</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">โทรสาร</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="4" class="py-0 px-0">
-            <div class="v-col-12 py-0 font-weight-bold">จดหมายอิเล็กทรอนิกส์</div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-divider
-          class="opacity-100 mt-6 mb-10"
-          :thickness="2"
-          color="blue"
-        ></v-divider>
-        <v-row>
-          <v-col cols="12" md="5" class="d-flex align-center">
-            <v-checkbox
-              class="mr-2"
-              density="compact"
-              hide-details="auto"
-            ></v-checkbox>
-            <span>เปลี่ยนแปลงผู้แทนคณะบุคคล/ห้างหุ้นส่วนสามัญ/นิติบุคคลเป็น</span>
-          </v-col>
-          <v-text-field
-            class="v-col-4"
-            variant="outlined"
-            density="compact"
-            hide-details="auto"
-          ></v-text-field>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="5" class="d-flex align-center">
-            <v-checkbox
-              class="mr-2"
-              density="compact"
-              hide-details="auto"
-            ></v-checkbox>
-            <span>เปลี่ยนแปลงหัวหน้าสำนักงานทนายความเป็น</span>
-          </v-col>
-          <v-text-field
-            class="v-col-4"
-            variant="outlined"
-            density="compact"
-            hide-details="auto"
-          ></v-text-field>
-        </v-row>
-        <v-row>
-          <v-col>
-            <div class="v-col-12 py-0 font-weight-bold">เอกสารแนบ</div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" md="6" class="pl-2 py-0">
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6" class="pl-2 py-0">
-            <div class="v-col-12 py-0 font-weight-bold"></div>
-            <v-text-field
-              class="v-col-12"
-              variant="outlined"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" class="d-flex align-center font-weight-bold">
-            <span>เปลี่ยนแปลงหัวหน้าสำนักงานทนายความเป็น</span>
+            <span>คำสั่งนายทะเบียน</span>
           </v-col>
           <v-textarea
             class="v-col-12"
@@ -294,10 +75,41 @@
           </v-col>
         </r-row>
       </div>
-    </v-form>
-    <div class="pb-10"></div>
-  </template>
-      
-  <script setup>
-  </script>
-      
+    </div>
+  </v-container>
+</template>
+
+<script setup>
+import { ref,onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+
+const title_route = ref('')
+const subtitle_route = ref('')
+
+const handleFileChange = (files) => {
+  console.log('Selected files:', files)
+  // ดำเนินการกับไฟล์ เช่น อัปโหลด
+}
+
+onMounted(() => {
+  const currentPath = route.path // ใช้ useRoute เพื่อดึง path ปัจจุบัน
+
+  // ตัวอย่างเงื่อนไขการเปลี่ยนเส้นทาง
+  if (currentPath === '/debt/Quit_Business/form') {
+    title_route.value = 'คำขอเลิกประกอบธุรกิจทวงถามหนี้'
+    subtitle_route.value = 'หนังสือแจ้งความประสงค์เลิกประกอบธุรกิจทวงถามหนี้'
+  } else if (currentPath === '/debt/Renew_request/form') {
+    title_route.value = 'ขอต่ออายุประกอบธุรกิจทวงถามหนี้'
+    subtitle_route.value = 'หนังสือแจ้งความประสงค์ขอต่ออายุประกอบธุรกิจทวงถามหนี้'
+  } else if (currentPath === '/debt/Cancel_Quit/form') {
+    title_route.value = 'ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้'
+    subtitle_route.value = 'มติที่ประชุมคณะกรรมการทวงถามหนี้'
+  }
+})
+</script>
+
+<style scoped>
+/* เพิ่มสไตล์เพิ่มเติมถ้าต้องการ */
+</style>

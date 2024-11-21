@@ -1,73 +1,279 @@
 <template>
-  <v-card>
-    <v-layout>
-      <v-app-bar
-        color="primary"
-        prominent
+  <v-app-bar
+    prominent
+    elevation="1"
+    class="py-2"
+    :color="isPop ? '#fff' : '#1A237E'"
+  >
+    <v-row class="px-10">
+      <!-- Conditionally render this section if the path does not start with /home -->
+      <v-col
+        v-if="!isHomeRoute && !isMenuPage"
+        cols="1"
+        class="text-center d-flex justify-center align-center"
       >
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <!-- Icon to open/close the Navigation Drawer -->
+        <v-icon color="grey" large @click="toggleDrawer"> mdi-menu </v-icon>
+      </v-col>
+      <div class="d-flex v-col-3 d-lg-none"></div>
 
-        <v-toolbar-title>My files</v-toolbar-title>
+      <v-col cols="4" lg="8">
+        <div class="d-flex justify-center justify-lg-start align-center">
+          <div class="d-flex align-center">
+            <v-avatar size="60" class="mr-3">
+              <v-img src="/logo.ico" />
+            </v-avatar>
+            <div class="d-none d-lg-flex">
+              <div class="text-left">
+                <span style="font-size: 16px; display: block">
+                  ระบบฐานข้อมูลตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๔๔๕
+                  กรมการปกครอง กระทรวงมหาดไทย
+                </span>
+                <span style="font-size: 15px; display: block">
+                  Database on Dept Collection Act, B.E.2558
+                </span>
+                <span style="font-size: 15px; display: block">
+                  Department Of Provincial Administration, Ministry of Interior
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-col>
 
-        <v-spacer></v-spacer>
+      <v-col cols="4" class="d-flex justify-end align-center" v-if="isPop">
+        <v-btn
+          size="large"
+          height="60px"
+          @click="$router.push({ name: 'debt-home' })"
+        >
+          หน้าหลัก
+        </v-btn>
+        <v-btn
+          size="large"
+          height="60px"
+          @click="$router.push({ name: 'debt-login' })"
+        >
+          เข้าสู่ระบบ
+        </v-btn>
+      </v-col>
 
-        <template v-if="$vuetify.display.mdAndUp">
-          <v-btn icon="mdi-magnify" variant="text"></v-btn>
+      <v-col
+        v-if="!isHomeRoute"
+        cols="4"
+        lg="3"
+        class="d-flex justify-end align-center"
+      >
+        <v-icon class="px-2" large>mdi-bell</v-icon>
+        <v-icon large>mdi-fullscreen</v-icon>
+        <span class="pr-2 d-none d-md-flex" style="margin-left: 8px">
+          น.ส. รุ่งนภา สะสม
+        </span>
+        <v-menu transition="open-on-focus">
+          <template v-slot:activator="{ props }">
+            <v-avatar size="38" v-bind="props">
+              <img src="/src/assets/logo.png" alt="Profile" />
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in listService"
+              :key="index"
+              @click="$router.push({ name: item.name })"
+            >
+              <v-list-item-title class="text-indigo-darken-4">
+                {{ item.title }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-col>
+    </v-row>
+  </v-app-bar>
 
-          <v-btn icon="mdi-filter" variant="text"></v-btn>
+  <!-- Navigation Drawer หลัก -->
+  <v-navigation-drawer
+    v-model="drawer"
+    :permanent="!$vuetify.display.mobile"
+    :scrim="!subDrawer && $vuetify.display.mobile"
+    app
+    elevation="0"
+    :rail="subDrawer"
+    :width="subDrawer ? 56 : 270"
+    class="pt-2"
+    v-if="!isHomeRoute && !isMenuPage"
+  >
+    <v-list>
+      <template v-for="(item, index) in currentSidebar" :key="index">
+        <!-- เมนูที่มี children -->
+        <v-list-item
+          v-if="item.children"
+          :title="!subDrawer ? item.title : ''"
+          :prepend-icon="item.icon"
+          @click="selectMenu(item)"
+          class="menu-item"
+        >
+        </v-list-item>
+
+        <!-- เมนูปกติ -->
+        <v-list-item
+          v-else
+          :title="!subDrawer ? item.title : ''"
+          :prepend-icon="item.icon"
+          :class="{ 'selected-item': isSelected(item) }"
+          @click="navigate(item.name)"
+          class="menu-item"
+        >
+        </v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
+
+  <!-- Children Drawer -->
+  <v-navigation-drawer
+    v-model="subDrawer"
+    app
+    right
+    :permanent="!$vuetify.display.mobile"
+    :width="270"
+    :class="{ 'pl-12': $vuetify.display.mobile && drawer }"
+    v-if="!isHomeRoute && !isMenuPage"
+    class="pt-2"
+  >
+    <v-list>
+      <template v-if="selectedMenu && selectedMenu.children">
+        <template v-for="(child, idx) in selectedMenu.children" :key="idx">
+          <!-- ตรวจสอบว่า child มี children หรือไม่ -->
+          <v-list-group
+            v-if="child.children"
+            :prepend-icon="child.icon"
+            no-action
+          >
+            <template v-slot:activator="{ props }">
+              <v-list-item
+                v-bind="props"
+                :class="{ 'selected-item': isSelected(child) }"
+                @click="navigate(child.name)"
+              >
+                <v-list-item-content>
+                  <v-list-item-title class="wrap-text">{{
+                    child.title
+                  }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <!-- วนลูปเมนูย่อยภายใน children ของ child -->
+            <v-list-item
+              v-for="(grandChild, grandIdx) in child.children"
+              :key="grandIdx"
+              :class="{ 'selected-item': isSelected(grandChild) }"
+              :prepend-icon="grandChild.icon"
+              @click="navigate(grandChild.name)"
+            >
+              <v-list-item-content>
+                <v-list-item-title class="wrap-text">{{
+                  grandChild.title
+                }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+
+          <!-- ถ้าไม่มี children ให้แสดงเป็นเมนูปกติ -->
+          <v-list-item
+            v-else
+            :class="{ 'selected-item': isSelected(child) }"
+            :prepend-icon="child.icon"
+            @click="navigate(child.name)"
+          >
+            <v-list-item-content>
+              <v-list-item-title class="wrap-text">{{
+                child.title
+              }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </template>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 
-        <v-btn icon="mdi-dots-vertical" variant="text"></v-btn>
-      </v-app-bar>
-
-      <v-navigation-drawer
-        v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
-        temporary
-      >
-        <v-list
-          :items="items"
-        ></v-list>
-      </v-navigation-drawer>
-
-      <v-main style="height: 500px;">
-        <v-card-text>
-          The navigation drawer will appear from the bottom on smaller size screens.
-        </v-card-text>
-      </v-main>
-    </v-layout>
-  </v-card>
+  <v-main app style="background-color: #fafafa; min-height: 100vh">
+    <slot />
+  </v-main>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-      items: [
-        {
-          title: 'Foo',
-          value: 'foo',
-        },
-        {
-          title: 'Bar',
-          value: 'bar',
-        },
-        {
-          title: 'Fizz',
-          value: 'fizz',
-        },
-        {
-          title: 'Buzz',
-          value: 'buzz',
-        },
-      ],
-    }),
+<script setup>
+import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import menuData from '@/static/navigation.json'
 
-    watch: {
-      group () {
-        this.drawer = false
-      },
-    },
+const drawer = ref(true) // สำหรับ Drawer หลัก
+const subDrawer = ref(false) // สำหรับ Drawer ย่อย
+const selectedMenu = ref(null) // เก็บเมนูที่เลือก
+const router = useRouter()
+const route = useRoute()
+
+const listService = menuData.listService
+const SideBar = menuData.SideBar
+const SideBar2 = menuData.SideBar2
+
+const currentSidebar = computed(() => {
+  return route.path.startsWith('/debt') ? SideBar : SideBar2
+})
+
+function toggleDrawer() {
+  drawer.value = !drawer.value // เปลี่ยนสถานะของเมนูหลัก
+  if (!drawer.value) {
+    subDrawer.value = false // ปิดเมนูย่อยเมื่อเมนูหลักปิด
   }
+}
+
+function navigate(routeName) {
+  // ตรวจสอบว่าชื่อ Route เป็น children ของเมนูที่เลือกหรือไม่
+  const isChildRoute =
+    selectedMenu.value &&
+    selectedMenu.value.children &&
+    selectedMenu.value.children.some((child) => child.name === routeName)
+
+  if (!isChildRoute) {
+    subDrawer.value = false // ปิดเมนูย่อยถ้าไม่ใช่ children
+  }
+
+  router.push({ name: routeName }) // เปลี่ยน Route
+}
+
+function selectMenu(item) {
+  if (item.children) {
+    selectedMenu.value = item // กำหนดเมนูหลักที่เลือก
+    subDrawer.value = true // เปิดเมนูย่อย
+  }
+}
+
+const isPop = computed(() => route.path === '/home/population')
+const isHomeRoute = computed(() => route.path.startsWith('/home'))
+const isMenuPage = computed(() => route.path.startsWith('/menu_page'))
+
+function isSelected(item) {
+  return route.name === item.name
+}
 </script>
+
+<style scoped>
+.selected-item {
+  background-color: rgba(209, 211, 229, 0.7); /* เปลี่ยนสีพื้นหลังที่เลือก */
+  color: #1a237e; /* เปลี่ยนสีตัวอักษรที่เลือก */
+  border-right: 10px solid #1a237e; /* เพิ่มเส้นขอบด้านขวาสีน้ำเงินเมื่อเมนูถูกเลือก */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wrap-text {
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.5; /* สำหรับเว้นช่องไฟระหว่างบรรทัด */
+}
+</style>

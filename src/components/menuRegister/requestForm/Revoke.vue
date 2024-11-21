@@ -1,17 +1,33 @@
 <template>
   <div class="d-flex justify-start align-end mt-4 px-10">
-    <span>
-      <span class="text-blue-darken-4 text-h4"> หน้าหลัก </span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-book-open</v-icon>
-      <span>หนังสืออ่านบัตร</span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-credit-card</v-icon>
-      <span>เครื่องอ่านบัตร</span>
-
-      <v-icon class="ml-4 mr-1" size="24">mdi-link-variant</v-icon>
-      <span>Linkage</span>
-    </span>
+    <span class="text-blue-darken-4 text-h4"> คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้ </span>
+  </div>
+  <div>
+    <v-row class="px-16 py-4">
+      <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
+        <v-text-field
+          label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+          variant="outlined"
+          density="compact"
+          hide-details
+          append-inner-icon="mdi-magnify"
+          class="full-width-input"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="6" sm="1" class="align-center justify-start d-flex">
+        <v-btn left class="px-6" style="background-color: #1a237e; color: white"
+          >ค้นหา</v-btn
+        >
+      </v-col>
+      <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+        <v-btn color="green">
+          <v-icon class="mr-1" left size="18" @click="openEditDialog()"
+            >mdi-plus-circle-outline</v-icon
+          >
+          เพิ่มข้อมูล
+        </v-btn>
+      </v-col>
+    </v-row>
   </div>
 
   <div class="pt-2 px-10">
@@ -25,27 +41,10 @@
             <span color="#1A237E" class="text-h5 text-blue-darken-4">
               ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘
             </span>
-
-            <div class="d-flex" style="gap: 8px">
-              <v-btn color="primary">
-                Excel
-                <v-icon class="pl-2" right>mdi-file-excel</v-icon>
-              </v-btn>
-
-              <v-btn color="secondary" @click="exportPdf()">
-                พิมพ์
-                <v-icon class="pl-2" right>mdi-printer</v-icon>
-              </v-btn>
-
-              <v-btn color="success" @click="toggleFilter">
-                ตัวกรอง
-                <v-icon class="pl-2" right>mdi-filter</v-icon>
-              </v-btn>
-            </div>
           </v-row>
 
           <!-- ตัวกรอง -->
-          <v-expand-transition class="mt-6">
+          <v-expand-transition>
             <div v-if="showFilter">
               <v-row>
                 <v-col cols="12" md="4" class="pl-2 py-0">
@@ -146,7 +145,7 @@
     </v-row>
   </div>
 </template>
-<script setup>
+  <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const showFilter = ref(false)
@@ -236,8 +235,8 @@ const items = ref([
   },
 ])
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white;
@@ -260,3 +259,4 @@ const items = ref([
   background-color: #f1f1f1e5;
 }
 </style>
+  

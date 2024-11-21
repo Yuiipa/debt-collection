@@ -19,15 +19,20 @@
           class="full-width-input"
         ></v-text-field>
       </v-col>
-      <v-col cols="6" sm="1" class="align-center justify-end d-flex">
-        <v-btn> ค้นหา </v-btn>
+      <v-col cols="6" sm="1" class="align-center justify-start d-flex">
+        <v-btn left class="px-6" style="background-color: #1a237e; color: white"
+          >ค้นหา</v-btn
+        >
       </v-col>
       <v-col cols="6" sm="2" class="align-center justify-end d-flex">
         <v-btn color="green">
-          <v-icon left size="18" @click="openEditDialog()">mdi-account-plus</v-icon>
+          <v-icon left size="18" @click="openEditDialog()"
+            >mdi-account-plus</v-icon
+          >
           เพิ่มผู้ใช้งาน
         </v-btn>
       </v-col>
+      
     </v-row>
     <v-row>
       <v-col>
@@ -51,12 +56,12 @@
               <v-btn
                 size="small"
                 color="green"
-                class="mr-1"
+                class="mr-1 mb-1"
                 @click="openEditDialog()"
               >
                 <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
               </v-btn>
-              <v-btn size="small" color="red" @click="deleteItem(item)">
+              <v-btn size="small" class="mb-1" color="red" @click="deleteItem(item)">
                 <v-icon left size="18">mdi-delete</v-icon> ลบ
               </v-btn>
             </template>

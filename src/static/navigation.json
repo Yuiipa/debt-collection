@@ -1,0 +1,120 @@
+{
+    "listService": [
+      { "title": "เปลี่ยนรหัสผ่าน", "name": "debt-change-password" },
+      { "title": "กลับไปหน้าเมนู", "name": "debt-menu-page" },
+      { "title": "ออกจากระบบ", "name": "debt-home" }
+    ],
+    "SideBar": [
+      { "title": "หน้าหลัก", "name": "debt-home-registration", "icon": "mdi-home" },
+      {
+        "title": "คำขอทำรายการ",
+        "icon": "mdi-file-document",
+        "children": [
+          { "title": "คำขอทำรายการทั้งหมด", "name": "debt-Request_All-registration" },
+          { "title": "คำขอจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-Registration-registration" },
+          { "title": "คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-ChangeBusiness-registration" },
+          { "title": "คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ", "name": "debt-Substitute-registration" },
+          { "title": "บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-ChangeRoster-registration" },
+          { "title": "คำขอเลิกประกอบธุรกิจทวงถามหนี้", "name": "debt-Quit_Business-registration" },
+          { "title": "ขอต่ออายุประกอบธุรกิจ", "name": "debt-Renew_request-registration" },
+          { "title": "ประวัติกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-Blame_Business-registration" },
+          { "title": "ยกเลิกคำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-Cancel_Quit-registration" },
+          { "title": "คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-Revoke-registration" }
+        ]
+      },
+      { "title": "จัดการผู้ใช้งาน", "name": "debt-user-registration", "icon": "mdi-account" },
+      {
+        "title": "รายงาน",
+        "icon": "mdi-chart-bar",
+        "children": [
+          {
+            "title": "รายงานข้อมูลผู้ประกอบธุรกิจทวงถามหนี้",
+            "children": [
+              { "title": "รายงานจำนวนผู้ประกอบธุรกิจทวงถามหนี้ในแต่ละจังหวัด", "name": "debt-report-count-business" },
+              { "title": "รายงานคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-report-count-request" },
+              { "title": "รายงานประเภทคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-report-count-request-province" },
+              { "title": "รายงานจำนวนประเภทผู้ประกอบธุรกิจทวงถามหนี้ในแต่ละจังหวัด", "name": "debt-report-count-type-business" },
+              { "title": "รายงานข้อมูลสถานประกอบธุรกิจทวงถามหนี้", "name": "debt-report-business" }
+            ]
+          },
+          { "title": "รายงานการร้องเรียนผู้ทวงถามหนี้",
+            "children":[
+              { "title": "รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด", "name": "debt-report-appeal" },
+              { "title": "รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘", "name": "debt-report-appeal-province" },
+              { "title": "รายงานสถิติข้อหาหรือฐานความผิดตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘", "name": "debt-report-appeal-statistics" }
+            ] 
+          },
+          { "title": "รายงานผลอื่นๆ",
+            "children":[
+              { "title": "รายงานการประชุมคณะกรรมการกำดับการทวงถามหนี้ประจำท้องที่", "name": "debt-report-meeting" },
+              { "title": "รายงานการประเมินผลการปฎิบัติงานตาม พ.ร.บ. การทวงถามหนี้ พ.ศ. ๒๕๕๘ (ตัวชี้วัด)", "name": "debt-report-evaluate" },
+              { "title": "รายงานการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-report-process" },
+              { "title": "รายงานการรายงานผลอื่นๆ", "name": "debt-report-other" },
+              { "title": "รายงานสรุปรายงานตามมาตรา ๒๘", "name": "debt-report-quarter28" },
+              { "title": "รายงานภาพรวมจำนวนการรายงานผล", "name": "debt-report-overview-report" }
+            ] 
+        }
+        ]
+      },
+      {
+        "title": "จัดการระบบ",
+        "icon": "mdi-menu",
+        "children": [
+          { "title": "ข้อมูลระบบ",
+            "children":[
+              { "title": "จัดการข้อมูลที่อยู่", "name": "debt-location" },
+              { "title": "จัดการข้อมูลสัญชาติ", "name": "debt-nationality" },
+              { "title": "จัดการข้อมูลคำนำหน้านาม", "name": "debt-prename" },
+              { "title": "จัดการข้อหาหรือฐานความผิด", "name": "debt-blame" },
+              { "title": "จัดการข้อมูลสถานะ", "name": "debt-status" },
+              { "title": "จัดการข้อร้องเรียน", "name": "debt-complaints" },
+              { "title": "จัดการสิทธิ์การใช้งาน", "name": "debt-license" },
+              { "title": "จัดการข้อมูลผู้ใช้ Service", "name": "debt-userservice" },
+              { "title": "จัดการหนังสือสั่งการ", "name": "debt-conf-form" }
+            ] 
+          },
+          { "title": "ข้อมูลคำขอทำรายการ",
+            "children":[
+              { "title": "จัดการข้อมูลผู้ประกอบธุรกิจ", "name": "debt-conf-business" },
+              { "title": "จัดการข้อมูลบัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-conf-changeroster" },
+              { "title": "จัดการข้อมูลคำขอเลิกประกอบธุรกิจ", "name": "debt-conf-quit" },
+              { "title": "จัดการข้อมูลคำขอต่ออายุธุรกิจ", "name": "debt-conf-renew" },
+              { "title": "จัดการข้อมูลยกเลิกคำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-conf-cancelquit" }
+            ] 
+          },
+          { "title": "ข้อมูลรายงานเรื่องร้องเรียน",
+            "children":[
+              { "title": "จัดการข้อมูลเรื่องร้องเรียน", "name": "debt-conf-appeal" }
+            ] 
+          }
+        ]
+      },
+      { "title": "ตั้งค่า", "name": "debt-setting-registration", "icon": "mdi-cog" },
+      { "title": "สำรองข้อมูล", "name": "debt-reservedata-registration", "icon": "mdi-database" }
+    ],
+    "SideBar2": [
+      { "title": "หน้าหลัก", "name": "debt-home-appeal", "icon": "mdi-home-outline" },
+      { "title": "รับเรื่องร้องเรียน", "name": "debt-form-appeal", "icon": "mdi-file-document-edit-outline" },
+      { "title": "ดำเนินการเรื่องร้องเรียน", "name": "debt-process-appeal", "icon": "mdi-rocket-launch-outline" },
+      {
+        "title": "รายงาน",
+        "icon": "mdi-chart-bell-curve-cumulative",
+        "children": [
+          { "title": "การประชุมคณะกรรมการกำกับการทวงถามหนี้", "name": "debt-report-appeal-meeting" },
+          { "title": "การประเมินผลการปฏิบัติงานตาม พ.ร.บ. การทวงถามหนี้ พ.ศ.๒๕๕๘ (ตัวชี้วัด)", "name": "debt-report-appeal-evaluate" },
+          { "title": "ผลการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-report-appeal-performance" },
+          { "title": "อื่น ๆ", "name": "debt-report-appeal-other" }
+        ]
+      },
+      { "title": "เรื่องร้องเรียนจากศูนย์ดำรงธรรม", "name": "debt-center-appeal", "icon": "mdi-file-document-multiple-outline" },
+      {
+        "title": "ประวัติการกระทำผิดของผู้ทวงถามหนี้",
+        "icon": "mdi-clipboard-text-clock-outline",
+        "children": [
+          { "title": "ผู้ประกอบการทวงถามหนี้", "name": "debt-search-appeal-register" },
+          { "title": "ผู้ทวงถามหนี้ประเภทอื่น", "name": "debt-search-appeal-unregister" }
+        ]
+      }
+    ]
+  }
+  

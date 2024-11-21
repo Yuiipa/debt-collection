@@ -1,9 +1,9 @@
 <template>
-  <Header>
+  <AppBar>
     <div fill-height fluid class="pt-3" >
       <router-view :key="route.fullPath"></router-view>
     </div>
-  </Header>
+  </AppBar>
   <!-- <v-main class="overflow-auto pa-0 ma-0">
     
     
@@ -11,6 +11,6 @@
 </template>
 <script setup>
 import { useRoute } from 'vue-router'
-import Header from '@/components/Header'
+import AppBar from '@/components/AppBar'
 const route = useRoute()
 </script>

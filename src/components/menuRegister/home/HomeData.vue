@@ -1,7 +1,7 @@
 <template>
   <v-form ref="form">
     <div
-      class="ma-8 pa-6 elevation-3 rounded-lg"
+      class="mx-10 my-8 pa-6 elevation-3 rounded-lg"
       style="background-color: white"
     >
       <v-row>

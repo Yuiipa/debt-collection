@@ -1,8 +1,7 @@
 <template>
   <div class="d-flex justify-start mt-4 px-10">
     <span
-      class="d-flex align-center justify-center text-blue-darken-4"
-      style="font-size: 40px"
+      class="d-flex align-center justify-center text-blue-darken-4 text-h4"
     >
       บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้
     </span>
