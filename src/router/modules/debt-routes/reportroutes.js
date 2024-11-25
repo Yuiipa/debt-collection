@@ -7,7 +7,7 @@ const routeReport = [
     {
       path: '/debt/Report/count_request',
       name: 'debt-report-count-request',
-      component: () => import('@/views/registration/ReportDebt.vue'),
+      component: () => import('@/components/menuRegister/report/CountRequest.vue'),
     },
     {
       path: '/debt/Report/count_request_province',

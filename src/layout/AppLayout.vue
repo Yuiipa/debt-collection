@@ -1,6 +1,6 @@
 <template>
   <AppBar>
-    <div fill-height fluid class="pt-3" >
+    <div fill-height fluid >
       <router-view :key="route.fullPath"></router-view>
     </div>
   </AppBar>
@@ -14,3 +14,5 @@ import { useRoute } from 'vue-router'
 import AppBar from '@/components/AppBar'
 const route = useRoute()
 </script>
+
+

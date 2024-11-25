@@ -15,6 +15,7 @@
         <!-- Icon to open/close the Navigation Drawer -->
         <v-icon color="grey" large @click="toggleDrawer"> mdi-menu </v-icon>
       </v-col>
+    
 
       <v-col cols="6" md="8">
         <div class="d-flex justify-start align-center">
@@ -39,7 +40,7 @@
           </div>
         </div>
       </v-col>
-      <v-col cols="5" class="d-flex justify-end align-center" v-if="isPop">
+      <v-col cols="5" md="4" class="d-flex justify-end align-center" v-if="isPop">
         <v-btn
           size="large"
           height="60px"
@@ -55,7 +56,12 @@
           เข้าสู่ระบบ
         </v-btn>
       </v-col>
+      <v-col
+        v-if="isHomeRoute || isMenuPage"
+        cols="1"
 
+      >
+      </v-col>
       <v-col
         v-if="!isHomeRoute"
         cols="5"
@@ -108,7 +114,6 @@
           v-if="item.children"
           :title="!subDrawer ? item.title : ''"
           :prepend-icon="item.icon"
-
           @click="selectMenu(item)"
           :class="{ 'selected-item': isSelected(item) }"
         >
@@ -145,14 +150,10 @@
           <v-list-group
             v-if="child.children"
             :prepend-icon="child.icon"
-            
             no-action
           >
             <template v-slot:activator="{ props }">
-              <v-list-item
-                v-bind="props"
-                @click="navigate(child.name)"
-              >
+              <v-list-item v-bind="props" @click="navigate(child.name)">
                 <v-list-item-title class="wrap-text">{{
                   child.title
                 }}</v-list-item-title>
@@ -195,7 +196,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import menuData from '@/static/navigation.json'
 
@@ -263,16 +264,46 @@ const isMenuPage = computed(() => route.path.startsWith('/menu_page'))
 function isSelected(item) {
   // ถ้าเมนูตรงกับ route ปัจจุบัน
   if (route.name === item.name) {
-    return true;
+    return true
   }
 
   // ตรวจสอบ children
   if (item.children) {
-    return item.children.some((child) => isSelected(child));
+    return item.children.some((child) => isSelected(child))
   }
 
-  return false;
+  return false
 }
+
+function openDrawerForCurrentPath() {
+  // ตรวจสอบ Sidebar ปัจจุบัน
+  const sidebar = currentSidebar.value
+
+  // ค้นหาเมนูหลักที่มี path ปัจจุบันใน children
+  const findMenuWithPath = (menuList, path) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        const child = findMenuWithPath(menu.children, path)
+        if (child) {
+          selectedMenu.value = menu // ตั้งค่าเมนูหลักที่ถูกเลือก
+          subDrawer.value = true // เปิด drawer ย่อย
+          return child
+        }
+      }
+      if (menu.name === route.name) {
+        return menu
+      }
+    }
+    return null
+  }
+
+  findMenuWithPath(sidebar, route.name)
+}
+
+// เรียกใช้เมื่อ component ถูกสร้าง
+onMounted(() => {
+  openDrawerForCurrentPath() // เช็ค path ปัจจุบันและเปิด drawer
+})
 </script>
 
 <style scoped>
@@ -287,7 +318,6 @@ function isSelected(item) {
   color: #1a237e; /* เปลี่ยนสีตัวอักษรที่เลือก */
 }
 
-
 .menu-item {
   display: flex;
   align-items: center;
@@ -298,5 +328,12 @@ function isSelected(item) {
   white-space: normal;
   word-wrap: break-word;
   line-height: 1.5; /* สำหรับเว้นช่องไฟระหว่างบรรทัด */
+}
+
+.main-content {
+  overflow-y: auto; /* เพิ่ม scrollbar เฉพาะในเนื้อหาของ main */
+  height: calc(100vh - var(--v-toolbar-height)); /* ลดความสูงของ app-bar */
+  padding: 16px;
+  background-color: #fafafa;
 }
 </style>

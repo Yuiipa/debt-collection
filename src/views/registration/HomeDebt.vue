@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+  <v-card class="ma-4 " variant="flat" style="background-color: #fafafa">
     <v-card-title
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
@@ -11,32 +11,67 @@
         <v-col>
           <div>
             <v-row class="d-flex align-center justify-space-between">
-              <div class="d-flex" style="gap: 8px">
-                <v-btn color="primary">
+              <div class="d-flex" style="gap: 10px">
+                <v-btn
+                  variant="outlined"
+                  append-icon="mdi-file-excel"
+                  style="color: green"
+                  class="rounded-lg"
+                  size="large"
+                  id="excel"
+                >
                   Excel
-                  <v-icon class="pl-2" right>mdi-file-excel</v-icon>
                 </v-btn>
-
-                <v-btn color="secondary" @click="exportPdf()">
+                <v-btn
+                  variant="outlined"
+                  append-icon="mdi-printer"
+                  style="color: orange"
+                  class="rounded-lg"
+                  size="large"
+                  id="print"
+                  @click="exportPdf()"
+                >
                   พิมพ์
-                  <v-icon class="pl-2" right>mdi-printer</v-icon>
                 </v-btn>
-
-                <v-btn color="success" @click="toggleFilter">
+                <v-btn
+                  variant="outlined"
+                  append-icon="mdi-filter"
+                  :style="
+                    showFilter
+                      ? 'background-color: #1a237e; color: white; border: none'
+                      : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+                  "
+                  size="large"
+                  class="rounded-lg"
+                  id="print"
+                  @click="toggleFilter()"
+                >
                   ตัวกรอง
-                  <v-icon class="pl-2" right>mdi-filter</v-icon>
                 </v-btn>
               </div>
-              <span>
-                <v-icon class="ml-4 mr-1" size="24">mdi-book-open</v-icon>
-                <span>หนังสืออ่านบัตร</span>
-
-                <v-icon class="ml-4 mr-1" size="24">mdi-credit-card</v-icon>
-                <span>เครื่องอ่านบัตร</span>
-
-                <v-icon class="ml-4 mr-1" size="24">mdi-link-variant</v-icon>
-                <span>Linkage</span>
-              </span>
+              <v-menu transition="open-on-focus">
+                <template v-slot:activator="{ props }">
+                  <v-avatar size="46" v-bind="props">
+                    <v-icon size="38">mdi-dots-horizontal</v-icon>
+                  </v-avatar>
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(item, index) in listService"
+                    :key="index"
+                    @click="$router.push({ name: item.name })"
+                  >
+                    <v-list-item-content class="d-flex align-center">
+                      <v-list-item-icon class="mr-2">
+                        <v-icon>{{ item.icon }}</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>
+                        {{ item.title }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </v-row>
 
             <!-- ตัวกรอง -->
@@ -109,7 +144,7 @@
               <v-data-table
                 :headers="headers"
                 :items="items"
-                class="rounded-table mt-6"
+                class="rounded-table mt-6 mb-6"
                 :items-per-page="5"
                 :footer-props="{
                   'items-per-page-options': [5, 10, 15],
@@ -147,6 +182,16 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const showFilter = ref(false)
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
+
+const listService = [
+  {
+    title: 'หนังสืออ่านบัตร',
+    name: 'debt-change-password',
+    icon: 'mdi-book-open',
+  },
+  { title: 'เครื่องอ่านบัตร', name: 'debt-menu-page', icon: 'mdi-credit-card' },
+  { title: 'Linkage', name: 'debt-home', icon: 'mdi-link-variant' },
+]
 
 async function exportPdf() {
   const generateExampleData = (count) => {
@@ -242,8 +287,9 @@ const items = ref([
 }
 
 .rounded-table {
-  border-radius: 12px !important;
-  overflow: hidden;
+  border-top-left-radius: 12px !important; /* โค้งเฉพาะมุมซ้ายบน */
+  border-top-right-radius: 12px !important; /* โค้งเฉพาะมุมขวาบน */
+  overflow: hidden; /* ซ่อนส่วนเกิน */
 }
 
 .v-table :deep(table > thead) {

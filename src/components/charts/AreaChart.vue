@@ -1,6 +1,9 @@
 <template>
-  <v-sheet class="fill-height d-flex flex-column">
-    <div class="d-flex flex-grow-1">
+  <v-sheet
+    class="fill-height d-flex flex-column"
+    style="width: 100%; height: 100%"
+  >
+    <div class="d-flex flex-grow-1" style="width: 100%">
       <canvas id="chart-area" ref="chartCanvas" />
     </div>
   </v-sheet>
@@ -71,12 +74,12 @@ export default defineComponent({
 
       const options = {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             beginAtZero: true,
             grid: {
-              display: false,
+              display: false, // ซ่อนเส้นแนวตั้ง
             },
             ticks: {
               font: {
@@ -91,7 +94,11 @@ export default defineComponent({
           y: {
             beginAtZero: true,
             grid: {
-              display: false,
+              display: true, // แสดงเส้นแนวนอน
+              color: '#d3d3d3', // สีของเส้น (สามารถปรับได้ตามต้องการ)
+              lineWidth: 1, // ความหนาของเส้น
+              drawBorder: true, // แสดงขอบกรอบแกน Y
+              drawTicks: true, // แสดงขีดเล็ก ๆ บนแกน Y
             },
             ticks: {
               font: {
@@ -106,7 +113,7 @@ export default defineComponent({
         },
         plugins: {
           datalabels: {
-            display: false, // ปิด data labels ที่จุดต่างๆ บนกราฟ
+            display: false,
           },
           legend: {
             display: false,
