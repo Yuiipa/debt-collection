@@ -6,7 +6,7 @@
     >
       <span>{{ titletext }}</span>
     </v-card-title>
-    <v-row class="mx-8 my-2" v-if="addReport">
+    <v-row class="ma-2" v-if="addReport">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
         <v-text-field
@@ -68,7 +68,7 @@
         />
       </v-col>
     </v-row>
-    <v-row class="mx-8 my-2">
+    <v-row class="ma-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">วันที่</div>
         <v-text-field
@@ -131,11 +131,19 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 
-const route = useRoute()
 const addReport = ref(false)
+
+const props = defineProps({
+  report: {
+    type: Object,
+  },
+  titletext: {
+    type: String,
+    default: 'รายงาน',
+  },
+})
 
 const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
@@ -147,16 +155,6 @@ const headers = ref([
   { align: 'center', key: 'info', sortable: false, title: 'เรียกดู' },
 ])
 
-const report = [
-  {
-    datetime: '10/10/2544',
-    year: '2555',
-    quarter: '3',
-    month: 'เมษายน-มิถุนายน',
-    file: 'ตรวจติดตามผลการดำเนินงาน จ.เชียงใหม่',
-  },
-]
-
 const pagination = ref({
   page: 1,
   itemsPerPage: 10,
@@ -165,21 +163,6 @@ const pagination = ref({
 const calculateIndex = (index) => {
   return (pagination.value.page - 1) * pagination.value.itemsPerPage + index + 1
 }
-
-const titletext = computed(() => {
-  switch (route.path) {
-    case '/appeal/Report/meeting':
-      return 'การประชุมคณะกรรมการกำกับการทวงถามหนี้ประจำท้องที่'
-    case '/appeal/Report/evaluate':
-      return 'การประเมินผลการปฏิบัติงานตาม พ.ร.บ. การทวงถามหนี้ พ.ศ. ๒๕๕๘ (ตัวชี้วัด)'
-    case '/appeal/Report/performance':
-      return 'ผลการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้'
-    case '/appeal/Report/other':
-      return 'อื่น ๆ'
-    default:
-      return 'รายงาน'
-  }
-})
 
 const downloadReport = async (item) => {
   const res = await api.getReport(item)

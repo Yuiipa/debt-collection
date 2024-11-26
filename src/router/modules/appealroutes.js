@@ -35,22 +35,23 @@ const routesAppeal = [
       {
         path: '/appeal/Report/meeting',
         name: 'debt-report-appeal-meeting',
-        component: () => import('@/views/appeal/Report.vue'),
+        component: () => import('@/components/menuAppeal/reportAppeal/MeetingReport.vue'),
       },
       {
         path: '/appeal/Report/evaluate',
         name: 'debt-report-appeal-evaluate',
-        component: () => import('@/views/appeal/Report.vue'),
+        component: () => import('@/components/menuAppeal/reportAppeal/EvaluateReport.vue'),
       },
       {
         path: '/appeal/Report/performance',
         name: 'debt-report-appeal-performance',
-        component: () => import('@/views/appeal/Report.vue'),
+        component: () =>
+          import('@/components/menuAppeal/reportAppeal/PerformanceReport.vue'),
       },
       {
         path: '/appeal/Report/other',
         name: 'debt-report-appeal-other',
-        component: () => import('@/views/appeal/Report.vue'),
+        component: () => import('@/components/menuAppeal/reportAppeal/OtherReport.vue'),
       },
       {
         path: '/appeal/CenterAppeal',
@@ -73,7 +74,7 @@ const routesAppeal = [
       {
         path: '/appeal/Search_Register/Unregister',
         name: 'debt-search-appeal-unregister',
-        component: () => import('@/views/appeal/SearchRegister.vue'),
+        component: () => import('@/views/appeal/Unregister.vue'),
       },
       {
         path: '/appeal/change_password',

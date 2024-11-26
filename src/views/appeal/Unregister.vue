@@ -4,7 +4,7 @@
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span>ผู้ประกอบธุรกิจทวงถามหนี้</span>
+      <span>ผู้ทวงถามหนี้ประเภทอื่น</span>
     </v-card-title>
     <v-row class="ma-1 my-2">
       <v-col md="4" cols="12">
@@ -36,12 +36,6 @@
         }"
       >
         <template v-slot:[`item.num`]="{ index }">
-          <v-btn
-            icon="mdi-chevron-right"
-            size="small"
-            variant="text"
-            @click="item.expanded = !item.expanded"
-          />
           {{ calculateIndex(index) }}
         </template>
         <template v-slot:[`item.status`]="{ item }">
@@ -69,21 +63,19 @@ const search = ref('')
 
 const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
-  { align: 'center', key: 'licid', title: 'เลขที่ทะเบียน' },
-  { align: 'center', key: 'name', title: 'ชื่อธุรกิจ' },
-  { align: 'center', key: 'type', title: 'ประเภทการประกอบธุรกิจ' },
-  { align: 'center', key: 'locate', title: 'ที่ตั้งสถานประกอบธุรกิจ' },
-  { align: 'center', key: 'status', sortable: false, title: 'สถานะ' },
+  { align: 'center', key: 'pid', title: 'เลขประจำตัวประชาชน' },
+  { align: 'center', key: 'name', title: 'ชื่อ-นามสกุล' },
+  { align: 'center', key: 'age', title: 'อายุ' },
+  { align: 'center', key: 'nationality', title: 'สัญชาติ' },
   { align: 'center', key: 'info', sortable: false, title: 'รายละเอียด' },
 ])
 
 const searchregister = [
   {
-    licid: '11590001',
-    name: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
-    type: 'บริษัทจำกัด',
-    locate: 'จังหวัดสมุทรปราการ',
-    status: true,
+    pid: '1111111111111',
+    name: 'นายadf adf',
+    age: '39',
+    nationality: 'ไทย',
   },
 ]
 

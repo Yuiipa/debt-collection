@@ -6,7 +6,7 @@
     >
       <span>ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
     </v-card-title>
-    <v-row class="ma-1 mx-8 my-2">
+    <v-row class="ma-1 my-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
         <v-text-field

@@ -6,8 +6,7 @@
     >
       <span>การดำเนินการเรื่องร้องเรียน</span>
     </v-card-title>
-    <div class="px-4">
-      <v-row class="ma-1 mx-4 my-2">
+      <v-row class="ma-1 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
           <v-text-field
@@ -49,7 +48,7 @@
           />
         </v-col>
       </v-row>
-      <v-row class="ma-1 mx-4 mb-2 d-flex justify-end">
+      <v-row class="ma-1 mb-2 d-flex justify-end">
         <v-col class="d-flex justify-end" cols="1">
           <v-btn
             style="height: 47px; background-color: #1a237e; color: white"
@@ -59,7 +58,7 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-card class="mt-4 rounded-lg">
+      <v-card class="ma-4 rounded-lg">
         <v-data-table
           :headers="headers"
           :items="processappeal"
@@ -117,7 +116,6 @@
           </template>
         </v-data-table>
       </v-card>
-    </div>
   </v-card>
 
   <v-dialog v-model="dialog">

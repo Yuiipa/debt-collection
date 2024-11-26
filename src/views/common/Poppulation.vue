@@ -2,8 +2,8 @@
   <v-container class="pa-0" style="max-width: 100%">
     <v-card class="elevation-0">
       <v-card-title
-        class="d-flex justify-center align-center text-center font-weight-medium text-h4"
-        style="color: #ffffff; background-color: #1a237e; height: 80px"
+        class="d-flex justify-center align-center text-center font-weight-bold text-h4"
+        style="color: #1a237e; background-color: #e3f2fd; height: 80px"
       >
         ข้อมูลการจดทะเบียน
       </v-card-title>
