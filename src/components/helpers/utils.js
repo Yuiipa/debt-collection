@@ -11,7 +11,7 @@ function ThaiNumbers(arabicNumber) {
     8: '๘',
     9: '๙',
   }
-  return arabicNumber
+  return String(arabicNumber)
     .split('')
     .map((char) =>
       arabicToThai[char] !== undefined ? arabicToThai[char] : char

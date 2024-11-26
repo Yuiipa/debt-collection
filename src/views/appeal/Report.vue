@@ -105,7 +105,7 @@
     </v-row>
     <v-card variant="flat" class="mx-4">
       <v-data-table
-        :headers="headers"
+        :headers="$vuetify.display.mdAndUp ? headers : headers2"
         :items="report"
         :items-per-page="10"
         :footer-props="{
@@ -155,6 +155,12 @@ const headers = ref([
   { align: 'center', key: 'info', sortable: false, title: 'เรียกดู' },
 ])
 
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { align: 'center', key: 'datetime', title: 'วันที่รายงาน' },
+  { align: 'center', key: 'info', sortable: false, title: 'เรียกดู' },
+])
+
 const pagination = ref({
   page: 1,
   itemsPerPage: 10,
@@ -186,6 +192,21 @@ const downloadReport = async (item) => {
   background-color: #ffffff;
   cursor: pointer;
   font-weight: bold;
+}
+.v-data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.v-data-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.v-data-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.primary--text {
+  color: #1a237e !important;
 }
 .v-btn#add:hover {
   background-color: green !important;

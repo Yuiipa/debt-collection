@@ -62,8 +62,8 @@
     </v-row>
     <v-card variant="flat" class="mx-4">
       <v-data-table
-        :headers="headers"
-        :items="processappeal"
+        :headers="$vuetify.display.mdAndUp ? headers : headers2"
+        :items="homeappeal"
         :search="search"
         :items-per-page="10"
         :footer-props="{
@@ -114,7 +114,13 @@ const headers = ref([
   { align: 'center', key: 'status', sortable: false, title: 'สถานะ' },
 ])
 
-const processappeal = [
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { align: 'center', key: 'id', title: 'เลขที่เรื่องร้องเรียน' },
+  { align: 'center', key: 'status', sortable: false, title: 'สถานะ' },
+])
+
+const homeappeal = [
   {
     id: '10001/2567',
     writtingAt: 'กรมการปกครอง',
@@ -241,32 +247,7 @@ const calculateIndex = (index) => {
 }
 
 const exportPDF = () => {
-  const item = [
-    {
-      writtingAt: 'กรมการปกครอง',
-      datetime: '10/01/2567',
-      id: '10001/2567',
-      status: '0',
-    },
-    {
-      writtingAt: 'กรมการปกครอง',
-      datetime: '11/01/2567',
-      id: '10002/2567',
-      status: '1',
-    },
-    {
-      writtingAt: 'กรมการปกครอง',
-      datetime: '12/01/2567',
-      id: '10003/2567',
-      status: '0',
-    },
-    {
-      writtingAt: 'กรมการปกครอง',
-      datetime: '13/01/2567',
-      id: '10004/2567',
-      status: '1',
-    },
-  ]
+  const item = homeappeal
   generatePDF(item)
 }
 </script>
@@ -285,6 +266,18 @@ const exportPDF = () => {
   background-color: #ffffff;
   cursor: pointer;
   font-weight: bold;
+}
+
+.v-data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.v-data-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.v-data-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
 }
 
 .v-btn#excel:hover,

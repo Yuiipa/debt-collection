@@ -2,36 +2,19 @@
   <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
-      style="color: #1a237e;"
+      style="color: #1a237e"
     >
       <span>ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
     </v-card-title>
     <div class="px-4">
       <v-card class="mt-4 rounded-lg">
         <v-data-table
-          :headers="headers"
+          :headers="$vuetify.display.mdAndUp ? headers : headers2"
           :items="centerappeal"
           :search="search"
           :items-per-page="10"
           v-model:options="pagination"
-          hide-default-header
         >
-          <template v-slot:thead>
-            <thead>
-              <tr>
-                <th
-                  v-for="header in headers"
-                  :key="header.key"
-                  :align="header.align || 'start'"
-                  class="text-white"
-                  style="background-color: #1a237e; text-align: center"
-                  id
-                >
-                  {{ header.title }}
-                </th>
-              </tr>
-            </thead>
-          </template>
           <template v-slot:[`item.num`]="{ index }">
             {{ calculateIndex(index) }}
           </template>
@@ -126,6 +109,17 @@ const headers = ref([
   },
 ])
 
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { align: 'center', key: 'id', title: 'เลขที่เรื่องร้องเรียน' },
+  {
+    align: 'center',
+    key: 'info',
+    sortable: false,
+    title: 'รายละเอียด',
+  },
+])
+
 const centerappeal = [
   {
     id: 'DOPA45004506621590',
@@ -212,6 +206,20 @@ const calculateIndex = (index) => {
 </script>
 
 <style scoped>
+.v-table ::v-deep th {
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+}
+.v-table ::v-deep tr:nth-child(even) {
+  background-color: #f1f1f1e5;
+}
+
+.v-table :deep(table > thead) {
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
 .v-data-table tbody tr {
   border-bottom: 1px solid #ddd;
 }

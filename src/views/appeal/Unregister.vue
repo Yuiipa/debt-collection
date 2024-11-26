@@ -27,7 +27,7 @@
     </v-row>
     <v-card variant="flat" class="mx-4">
       <v-data-table
-        :headers="headers"
+        :headers="$vuetify.display.mdAndUp ? headers : headers2"
         :items="searchregister"
         :search="search"
         :items-per-page="10"
@@ -70,6 +70,12 @@ const headers = ref([
   { align: 'center', key: 'info', sortable: false, title: 'รายละเอียด' },
 ])
 
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { align: 'center', key: 'name', title: 'ชื่อ-นามสกุล' },
+  { align: 'center', key: 'info', sortable: false, title: 'รายละเอียด' },
+])
+
 const searchregister = [
   {
     pid: '1-1111-11111-11-1',
@@ -103,5 +109,21 @@ const calculateIndex = (index) => {
   background-color: #ffffff;
   cursor: pointer;
   font-weight: bold;
+}
+
+.v-data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.v-data-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.v-data-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.primary--text {
+  color: #1a237e !important;
 }
 </style>

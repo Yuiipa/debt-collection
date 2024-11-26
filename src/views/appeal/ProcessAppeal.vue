@@ -2,120 +2,103 @@
   <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
-      style="color: #1a237e;"
+      style="color: #1a237e"
     >
       <span>การดำเนินการเรื่องร้องเรียน</span>
     </v-card-title>
-      <v-row class="ma-1 my-2">
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="เลขที่เรื่องร้องเรียน"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">สถานะ</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="สถานะ"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-      </v-row>
-      <v-row class="ma-1 mb-2 d-flex justify-end">
-        <v-col class="d-flex justify-end" cols="1">
-          <v-btn
-            style="height: 47px; background-color: #1a237e; color: white"
-            prepend-icon="mdi-magnify"
-          >
-            <div class="text-h6">ค้นหา</div>
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-card class="ma-4 rounded-lg">
-        <v-data-table
-          :headers="headers"
-          :items="processappeal"
-          :search="search"
-          :items-per-page="10"
-          v-model:options="pagination"
-          hide-default-header
+    <v-row class="ma-1 my-2">
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="เลขที่เรื่องร้องเรียน"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">สถานะ</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="สถานะ"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="ตั้งแต่วันที่"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="ถึงวันที่"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+    </v-row>
+    <v-row class="ma-1 mb-2 d-flex justify-end">
+      <v-col class="d-flex justify-end" cols="1">
+        <v-btn
+          style="height: 47px; background-color: #1a237e; color: white"
+          prepend-icon="mdi-magnify"
         >
-          <template v-slot:thead>
-            <thead>
-              <tr>
-                <th
-                  v-for="header in headers"
-                  :key="header.key"
-                  :align="header.align || 'start'"
-                  class="text-white"
-                  style="background-color: #1a237e; text-align: center"
-                  id
-                >
-                  {{ header.title }}
-                </th>
-              </tr>
-            </thead>
-          </template>
-          <template v-slot:[`item.num`]="{ index }">
-            {{ calculateIndex(index) }}
-          </template>
-          <template v-slot:[`item.status`]="{ item }">
-            <v-btn
-              v-if="item.status === '0'"
-              variant="outlined"
-              style="font-size: 14px; color: orange"
-              class="rounded-pill"
-            >
-              ขาดเอกสารสำคัญ
-            </v-btn>
-            <v-btn
-              v-if="item.status === '1'"
-              variant="outlined"
-              style="font-size: 14px; color: green"
-              class="rounded-pill"
-            >
-              เอกสารครบถ้วน
-            </v-btn>
-          </template>
-          <template v-slot:[`item.info`]="{ item }">
-            <v-btn
-              append-icon="mdi-chevron-right"
-              variant="plain"
-              style="font-size: 14px"
-              @click="openDetails(item)"
-            >
-              เรียกดู
-            </v-btn>
-          </template>
-        </v-data-table>
-      </v-card>
+          <div class="text-h6">ค้นหา</div>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-card class="ma-4 rounded-lg">
+      <v-data-table
+        :headers="$vuetify.display.mdAndUp ? headers : headers2"
+        :items="processappeal"
+        :search="search"
+        :items-per-page="10"
+        v-model:options="pagination"
+      >
+        <template v-slot:[`item.num`]="{ index }">
+          {{ calculateIndex(index) }}
+        </template>
+        <template v-slot:[`item.status`]="{ item }">
+          <v-btn
+            v-if="item.status === '0'"
+            variant="outlined"
+            style="font-size: 14px; color: orange"
+            class="rounded-pill"
+          >
+            ขาดเอกสารสำคัญ
+          </v-btn>
+          <v-btn
+            v-if="item.status === '1'"
+            variant="outlined"
+            style="font-size: 14px; color: green"
+            class="rounded-pill"
+          >
+            เอกสารครบถ้วน
+          </v-btn>
+        </template>
+        <template v-slot:[`item.info`]="{ item }">
+          <v-btn
+            append-icon="mdi-chevron-right"
+            variant="plain"
+            style="font-size: 14px"
+            @click="openDetails(item)"
+          >
+            เรียกดู
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
   </v-card>
 
   <v-dialog v-model="dialog">
@@ -155,6 +138,17 @@ const headers = ref([
   { align: 'center', key: 'complaintPlace', title: 'สถานที่ร้องเรียน' },
   { align: 'center', key: 'status', title: 'สถานะ' },
   { align: 'center', key: 'process', title: 'ดำเนินการ' },
+  {
+    align: 'center',
+    key: 'info',
+    sortable: false,
+    title: 'รายละเอียด',
+  },
+])
+
+const headers2 = ref([
+  { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
+  { align: 'center', key: 'id', title: 'เลขที่เรื่องร้องเรียน' },
   {
     align: 'center',
     key: 'info',
@@ -258,6 +252,21 @@ const calculateIndex = (index) => {
 </script>
 
 <style scoped>
+.v-table ::v-deep th {
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+}
+.v-table ::v-deep tr:nth-child(even) {
+  background-color: #f1f1f1e5;
+}
+
+.v-table :deep(table > thead) {
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .v-data-table tbody tr {
   border-bottom: 1px solid #ddd;
 }

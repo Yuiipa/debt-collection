@@ -51,7 +51,7 @@ function page1Content(item) {
           ],
           ...item.map((row, index) => [
             {
-              text: ThaiNumbers(String(index + 1)),
+              text: ThaiNumbers(index + 1),
               style: 'default',
               alignment: 'center',
             }, // ลำดับ
@@ -86,36 +86,36 @@ function page1Content(item) {
           [
             {
               text: 'รวมตามสถานะ',
-              colSpan: 2, // รวม 2 คอลัมน์
+              colSpan: 2,
               style: 'tableheader',
               fillColor: '#bdbdbd',
               alignment: 'center',
             },
-            {}, // คอลัมน์ที่ถูกรวม
+            {},
             {
               text: `${ThaiNumbers(
-                String(item.filter((row) => row.status === '1').length)
+                item.filter((row) => row.status === '1').length
               )}`,
               fillColor: '#bdbdbd',
               alignment: 'center',
-            }, // รวมระหว่างดำเนินการ
+            },
             {
               text: `${ThaiNumbers(
-                String(item.filter((row) => row.status === '0').length)
+                item.filter((row) => row.status === '0').length
               )}`,
               fillColor: '#bdbdbd',
               alignment: 'center',
-            }, // รวมดำเนินการแล้วเสร็จ
+            },
             {
-              text: `${item.length}`,
+              text: `${ThaiNumbers(item.length)}`,
               fillColor: '#bdbdbd',
               alignment: 'center',
-            }, // รวมทั้งหมด
+            },
             {
               text: ThaiNumbers('0.00'),
               fillColor: '#bdbdbd',
               alignment: 'center',
-            }, // ยุติร้อยละ
+            },
           ],
         ],
       },

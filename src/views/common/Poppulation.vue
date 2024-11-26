@@ -298,6 +298,18 @@ const calculateIndex = (index) => {
   font-weight: bold;
 }
 
+.v-data-table tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.v-data-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.v-data-table tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
 .primary--text {
   color: #1a237e !important;
 }
