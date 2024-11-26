@@ -77,7 +77,7 @@
           <v-btn
             v-if="item.status === '0'"
             variant="outlined"
-            style="font-size: 14px; color: orange"
+            style="font-size: 14px"
             class="rounded-pill"
             id="missdoc"
           >
@@ -86,7 +86,7 @@
           <v-btn
             v-if="item.status === '1'"
             variant="outlined"
-            style="font-size: 14px; color: green"
+            style="font-size: 14px"
             class="rounded-pill"
             id="comdoc"
           >
@@ -241,7 +241,32 @@ const calculateIndex = (index) => {
 }
 
 const exportPDF = () => {
-  const item = processappeal[0]
+  const item = [
+    {
+      writtingAt: 'กรมการปกครอง',
+      datetime: '10/01/2567',
+      id: '10001/2567',
+      status: '0',
+    },
+    {
+      writtingAt: 'กรมการปกครอง',
+      datetime: '11/01/2567',
+      id: '10002/2567',
+      status: '1',
+    },
+    {
+      writtingAt: 'กรมการปกครอง',
+      datetime: '12/01/2567',
+      id: '10003/2567',
+      status: '0',
+    },
+    {
+      writtingAt: 'กรมการปกครอง',
+      datetime: '13/01/2567',
+      id: '10004/2567',
+      status: '1',
+    },
+  ]
   generatePDF(item)
 }
 </script>
@@ -263,14 +288,26 @@ const exportPDF = () => {
 }
 
 .v-btn#excel:hover,
-.v-btn#comdoc:hover {
+.v-btn#comdoc {
   background-color: green !important;
   color: white !important;
 }
 
+.v-btn#excel,
+.v-btn#comdoc:hover {
+  color: green !important;
+  background-color: white !important;
+}
+
 .v-btn#print:hover,
-.v-btn#missdoc:hover {
+.v-btn#missdoc {
   background-color: orange !important;
   color: white !important;
+}
+
+.v-btn#print,
+.v-btn#missdoc:hover {
+  color: orange !important;
+  background-color: white !important;
 }
 </style>
