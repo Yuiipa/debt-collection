@@ -92,7 +92,6 @@
           <v-btn
             variant="outlined"
             prepend-icon="mdi-plus"
-            style="color: green"
             class="rounded-lg"
             size="large"
             id="add"
@@ -209,6 +208,10 @@ const downloadReport = async (item) => {
   color: #1a237e !important;
 }
 .v-btn#add:hover {
+  color: green !important;
+  background-color: white !important;
+}
+.v-btn#add {
   background-color: green !important;
   color: white !important;
 }

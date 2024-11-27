@@ -43,6 +43,7 @@
             class="mr-4 rounded-lg"
             size="large"
             id="excel"
+            @click="exportExcel()"
           >
             Excel
           </v-btn>
@@ -101,6 +102,7 @@
 <script setup>
 import { ref } from 'vue'
 import { generatePDF } from '@/prints/appeal/HomeAppeal.js'
+import { generateExcel } from '@/prints/appeal/ExcelHomeAppeal.js'
 
 const search = ref('')
 
@@ -249,6 +251,10 @@ const calculateIndex = (index) => {
 const exportPDF = () => {
   const item = homeappeal
   generatePDF(item)
+}
+
+const exportExcel = () => {
+  generateExcel(homeappeal)
 }
 </script>
 
