@@ -46,20 +46,20 @@
       >
         <v-btn
           size="large"
-          height="60px"
+          height="40px"
           @click="$router.push({ name: 'debt-home' })"
         >
           หน้าหลัก
         </v-btn>
         <v-btn
           size="large"
-          height="60px"
+          height="40px"
           @click="$router.push({ name: 'debt-login' })"
         >
           เข้าสู่ระบบ
         </v-btn>
       </v-col>
-      <v-col v-if="isHomeRoute || isMenuPage" cols="1"> </v-col>
+      <v-col v-if="isMenuPage" cols="1"> </v-col>
       <v-col
         v-if="!isHomeRoute"
         cols="5"
@@ -137,7 +137,6 @@
     right
     :permanent="!$vuetify.display.mobile"
     :width="270"
-    
     :class="{ 'pl-12': $vuetify.display.mobile && drawer }"
     v-if="!isHomeRoute && !isMenuPage"
     class="pt-2 position-fixed"
@@ -152,7 +151,11 @@
             no-action
           >
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" @click="navigate(child.name)"  class="list-item-underline">
+              <v-list-item
+                v-bind="props"
+                @click="navigate(child.name)"
+                class="list-item-underline"
+              >
                 <v-list-item-title class="wrap-text">{{
                   child.title
                 }}</v-list-item-title>
