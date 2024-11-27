@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0" style="max-width: 100%">
-    <v-card class="elevation-0">
+    <v-card class="elevation-0 mt-4">
       <v-card-title
         class="d-flex justify-center align-center text-center font-weight-bold text-h4"
         style="color: #1a237e; background-color: #e3f2fd; height: 80px"
