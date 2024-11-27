@@ -47,7 +47,14 @@
               </template>
 
               <template v-slot:[`item.select`]="{ item }">
-                <v-btn small @click="navigate(item)">เลือก</v-btn>
+                <v-btn
+                  variant="plain"
+                  small
+                  class="d-flex justify-center"
+                  @click="navigate(item)"
+                >
+                  เลือก >
+                </v-btn>
               </template>
             </v-data-table>
           </div>
@@ -56,8 +63,8 @@
     </div>
   </v-card>
 </template>
-  
-  <script setup>
+    
+    <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
@@ -87,7 +94,7 @@ const headers = [
     align: 'start',
     sortable: true,
   },
-  { title: 'เลือก', key: 'select', align: 'start', sortable: true },
+  { title: 'เลือก', key: 'select', align: 'center', sortable: true },
 ]
 
 const items = ref([
@@ -152,8 +159,8 @@ function navigate() {
   router.push({ name: name_route.value })
 }
 </script>
-  
-  <style scoped>
+    
+    <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
@@ -177,4 +184,4 @@ function navigate() {
   background-color: #f1f1f1e5;
 }
 </style>
-  
+    

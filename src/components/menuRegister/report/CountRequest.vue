@@ -9,6 +9,7 @@
       </span>
     </v-card-title>
     <div>
+      
       <v-row class="ma-1 mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
@@ -37,6 +38,31 @@
             >ค้นหา</v-btn
           >
         </v-col>
+        <v-col md="3" cols="12" class="d-flex align-end mb-1">
+        <div class="w-100 d-flex justify-end" style="gap: 10px">
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-file-excel"
+            style="color: green"
+            class="rounded-lg"
+            size="large"
+            id="excel"
+          >
+            Excel
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-printer"
+            style="color: orange"
+            class="rounded-lg"
+            size="large"
+            id="print"
+            @click="exportPdf()"
+          >
+            พิมพ์
+          </v-btn>
+        </div>
+      </v-col>
       </v-row>
       <v-row>
         <v-col>
@@ -60,11 +86,11 @@
       </v-row>
     </div>
   </v-card>
-  <v-card class="pt-2 mx-12 my-12 elevation-3">
+  <v-card class="pt-2 mx-14 my-12 px-2 elevation-3">
     <v-row>
       <v-col
         cols="12"
-        class="d-flex justify-center rounded-lg elevation-3"
+        class="d-flex justify-center"
         style="background-color: white; height: 400px"
       >
         <AreaChart :data="graph" /></v-col
@@ -74,8 +100,8 @@
         
         <script setup>
 import { ref } from 'vue'
-
 import AreaChart from '@/components/charts/AreaChart.vue'
+
 const graph = [
   { usage_count: 385, usage_name: 'กรุงเทพมหานคร' },
   { usage_count: 251, usage_name: 'เชียงใหม่' },
@@ -128,7 +154,7 @@ const headers = [
 const items = ref([
   {
     pid: 8466851084319,
-    agency: 0,
+    agency: 'จังหวัดสมุทรปราการ',
     registration: 0,
     changedata: 0,
     book: 0,
@@ -137,7 +163,7 @@ const items = ref([
   },
   {
     pid: 8466851084319,
-    agency: 0,
+    agency: 'จังหวัดสมุทรปราการ',
     registration: 0,
     changedata: 0,
     book: 0,
@@ -146,7 +172,7 @@ const items = ref([
   },
   {
     pid: 8466851084319,
-    agency: 0,
+    agency: 'จังหวัดสมุทรปราการ',
     registration: 0,
     changedata: 0,
     book: 0,
@@ -155,7 +181,7 @@ const items = ref([
   },
   {
     pid: 8466851084319,
-    agency: 0,
+    agency: 'จังหวัดสมุทรปราการ',
     registration: 0,
     changedata: 0,
     book: 0,

@@ -1,8 +1,7 @@
 <template>
   <v-app-bar
-    prominent
     elevation="1"
-    class="py-2"
+    class="py-2 position-fixed"
     :color="isPop ? '#fff' : '#1A237E'"
   >
     <v-row class="px-2 px-md-10">
@@ -15,7 +14,6 @@
         <!-- Icon to open/close the Navigation Drawer -->
         <v-icon color="grey" large @click="toggleDrawer"> mdi-menu </v-icon>
       </v-col>
-    
 
       <v-col cols="6" md="8">
         <div class="d-flex justify-start align-center">
@@ -40,7 +38,12 @@
           </div>
         </div>
       </v-col>
-      <v-col cols="5" md="4" class="d-flex justify-end align-center" v-if="isPop">
+      <v-col
+        cols="5"
+        md="4"
+        class="d-flex justify-end align-center"
+        v-if="isPop"
+      >
         <v-btn
           size="large"
           height="60px"
@@ -56,12 +59,7 @@
           เข้าสู่ระบบ
         </v-btn>
       </v-col>
-      <v-col
-        v-if="isHomeRoute || isMenuPage"
-        cols="1"
-
-      >
-      </v-col>
+      <v-col v-if="isHomeRoute || isMenuPage" cols="1"> </v-col>
       <v-col
         v-if="!isHomeRoute"
         cols="5"
@@ -84,6 +82,7 @@
               v-for="(item, index) in listService"
               :key="index"
               @click="$router.push({ name: item.name })"
+              class="list-item-underline"
             >
               <v-list-item-title class="text-indigo-darken-4">
                 {{ item.title }}
@@ -100,11 +99,10 @@
     v-model="drawer"
     :permanent="!$vuetify.display.mobile"
     :scrim="!subDrawer && $vuetify.display.mobile"
-    app
     elevation="0"
     :rail="subDrawer"
     :width="subDrawer ? 56 : 270"
-    class="pt-2"
+    class="pt-2 position-fixed"
     v-if="!isHomeRoute && !isMenuPage"
   >
     <v-list>
@@ -139,9 +137,10 @@
     right
     :permanent="!$vuetify.display.mobile"
     :width="270"
+    
     :class="{ 'pl-12': $vuetify.display.mobile && drawer }"
     v-if="!isHomeRoute && !isMenuPage"
-    class="pt-2"
+    class="pt-2 position-fixed"
   >
     <v-list>
       <template v-if="selectedMenu && selectedMenu.children">
@@ -153,7 +152,7 @@
             no-action
           >
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" @click="navigate(child.name)">
+              <v-list-item v-bind="props" @click="navigate(child.name)"  class="list-item-underline">
                 <v-list-item-title class="wrap-text">{{
                   child.title
                 }}</v-list-item-title>
@@ -164,6 +163,7 @@
             <v-list-item
               v-for="(grandChild, grandIdx) in child.children"
               :key="grandIdx"
+              class="list-item-underline"
               :class="{ 'selected-item': isSelected(grandChild) }"
               :prepend-icon="grandChild.icon"
               @click="navigate(grandChild.name)"
@@ -177,6 +177,7 @@
           <!-- ถ้าไม่มี children ให้แสดงเป็นเมนูปกติ -->
           <v-list-item
             v-else
+            class="list-item-underline"
             :class="{ 'selected-item': isSelected(child) }"
             :prepend-icon="child.icon"
             @click="navigate(child.name)"
@@ -335,5 +336,14 @@ onMounted(() => {
   height: calc(100vh - var(--v-toolbar-height)); /* ลดความสูงของ app-bar */
   padding: 16px;
   background-color: #fafafa;
+}
+
+.list-item-underline {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* เพิ่มเส้นใต้ */
+}
+
+.list-item-underline:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* เพิ่มสีพื้นหลังเมื่อ hover */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* เส้นใต้หนาขึ้นเมื่อ hover */
 }
 </style>

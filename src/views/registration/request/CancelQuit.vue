@@ -4,7 +4,7 @@
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span> จัดการข้อมูลผู้ใช้งาน</span>
+      <span> ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
     <div>
       <v-row class="px-16">
@@ -43,25 +43,23 @@
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
-              <template v-slot:[`item.process`]="{ item }">
+              <template v-slot:[`item.select`]="{ item }">
                 <v-btn
-                  size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
+                  variant="plain"
+                  small
+                  class="d-flex justify-center"
+                  @click="navigate(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  เลือก >
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
+              </template>
+              <template v-slot:[`item.status`]="{}">
+                <div
+                  class="rounded-lg text-white text-center py-1"
+                  style="background-color: #4caf50"
                 >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
-                </v-btn>
+                  เลิกประกอบธุรกิจ
+                </div>
               </template>
             </v-data-table>
           </div>
@@ -75,8 +73,8 @@
     @saved="handleSave"
   ></edit-dialog>
 </template>
-  
-  <script setup>
+    
+    <script setup>
 import { ref } from 'vue'
 import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
@@ -98,59 +96,65 @@ const headers = [
     width: '100px',
   },
   {
-    title: 'วันที่',
-    key: 'date',
+    title: 'เลขที่ทะเบียน',
+    key: 'refLicId',
     align: 'start',
     sortable: true,
-    width: '120px',
+    width: '190px',
+  },
+  { title: 'ชื่อธุรกิจ', key: 'name', align: 'start', sortable: true },
+  {
+    title: 'ประเภทการประกอบธุรกิจ',
+    key: 'type',
+    align: 'start',
+    sortable: true,
   },
   {
-    title: 'ทะเบียนเลขที่',
-    key: 'register_no',
+    title: 'ที่ตั้งสถานประกอบธุรกิจ',
+    key: 'location',
     align: 'start',
     sortable: true,
   },
-  {
-    title: 'ชื่อธุรกิจ',
-    key: 'name',
-    align: 'start',
-    sortable: true,
-  },
-
   {
     title: 'สถานะ',
     key: 'status',
-    align: 'start',
+    align: 'center',
     sortable: true,
-    width: '120px',
+    width: '140px',
   },
   {
-    title: 'ดำเนินการ',
-    key: 'process',
+    title: 'เลือก',
+    key: 'select',
     align: 'center',
-    sortable: false,
-    width: '170px',
+    sortable: true,
+    width: '100px',
   },
 ]
 
 const items = ref([
   {
-    date: '20/11/2567',
-    register_no: '80590003',
-    name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
-    status: 1,
+    refLicId: 8466851084319,
+    name: 'นาย',
+    type: 'สมหมาย',
+    location: 'บุญยงค์',
   },
   {
-    date: '20/11/2567',
-    register_no: '80590003',
-    name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
-    status: 1,
+    refLicId: 8466851084319,
+    name: 'นาย',
+    type: 'สมคิด',
+    location: 'เพชรพันธ์',
   },
   {
-    date: '20/11/2567',
-    register_no: '80590003',
-    name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
-    status: 1,
+    refLicId: 8466851084319,
+    name: 'น.ส.',
+    type: 'สมทรง',
+    location: 'เพชรพันธ์',
+  },
+  {
+    refLicId: 8466851084319,
+    name: 'นาย',
+    type: 'สมทรง',
+    location: 'เพชรพันธ์',
   },
 ])
 
@@ -158,8 +162,8 @@ function deleteItem(item) {
   console.log('ลบ:', item)
 }
 </script>
-  
-  <style scoped>
+    
+    <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
@@ -183,4 +187,4 @@ function deleteItem(item) {
   background-color: #f1f1f1e5;
 }
 </style>
-  
+    

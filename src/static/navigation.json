@@ -16,7 +16,7 @@
           { "title": "คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจ", "name": "debt-Substitute-registration" },
           { "title": "บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-ChangeRoster-registration" },
           { "title": "คำขอเลิกประกอบธุรกิจทวงถามหนี้", "name": "debt-Quit_Business-registration" },
-          { "title": "ขอต่ออายุประกอบธุรกิจ", "name": "debt-Renew_request-registration" },
+          { "title": "ขอต่ออายุประกอบธุรกิจ", "name": "debt-Renew_Request-registration" },
           { "title": "ประวัติกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้", "name": "debt-Blame_Business-registration" },
           { "title": "ยกเลิกคำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-Cancel_Quit-registration" },
           { "title": "คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้", "name": "debt-Revoke-registration" }

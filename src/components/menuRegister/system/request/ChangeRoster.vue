@@ -96,7 +96,7 @@
       key: 'date',
       align: 'start',
       sortable: true,
-      width: '190px',
+      width: '120px',
     },
     {
       title: 'ชื่อธุรกิจ',

@@ -1,6 +1,6 @@
 <template>
   <v-form ref="form">
-    <div class="d-flex justify-start align-end mt-4 px-10">
+    <div class="d-flex justify-start align-end mt-10 px-10">
       <span>
         <span class="text-blue-darken-4 text-h4">
           คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้

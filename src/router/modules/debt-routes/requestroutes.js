@@ -23,7 +23,7 @@ const routeRequestForm = [
     {
       path: '/debt/Renew_request/form',
       name: 'debt-Renewrequest-form',
-      component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
+      component: () => import('@/components/menuRegister/requestForm/RenewRequest.vue'),
     },
     {
       path: '/debt/Blame_Business/form',
@@ -41,52 +41,52 @@ const routeRequestForm = [
     {
       path: '/debt/Request_All',
       name: 'debt-Request_All-registration',
-      component: () => import('@/components/menuRegister/requestForm/requestAll.vue'),
+      component: () => import('@/views/registration/request/RequestAll.vue'),
     },
     {
       path: '/debt/Registration',
       name: 'debt-Registration-registration',
-      component: () => import('@/components/menuRegister/requestForm/Registration.vue'),
+      component: () => import('@/views/registration/request/Registration.vue'),
     },
     {
       path: '/debt/ChangeBusiness',
       name: 'debt-ChangeBusiness-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/Substitute',
       name: 'debt-Substitute-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/ChangeRoster',
       name: 'debt-ChangeRoster-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/Quit_Business',
       name: 'debt-Quit_Business-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/Renew_request',
-      name: 'debt-Renew_request-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      name: 'debt-Renew_Request-registration',
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/Blame_Business',
       name: 'debt-Blame_Business-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/RequestDebt.vue'),
     },
     {
       path: '/debt/Cancel_Quit',
       name: 'debt-Cancel_Quit-registration',
-      component: () => import('@/views/registration/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/CancelQuit.vue'),
     },
     {
       path: '/debt/Revoke',
       name: 'debt-Revoke-registration',
-      component: () => import('@/components/menuRegister/requestForm/Revoke.vue'),
+      component: () => import('@/views/registration/request/Revoke.vue'),
     },
     ...routeRequestForm
   ]

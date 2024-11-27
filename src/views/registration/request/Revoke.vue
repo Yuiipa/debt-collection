@@ -4,7 +4,7 @@
         class="d-flex justify-center ma-2 text-h4 font-weight-bold"
         style="color: #1a237e"
       >
-        <span> จัดการข้อมูลผู้ใช้งาน</span>
+        <span> คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้</span>
       </v-card-title>
       <div>
         <v-row class="px-16">
@@ -25,6 +25,14 @@
               style="background-color: #1a237e; color: white"
               >ค้นหา</v-btn
             >
+          </v-col>
+          <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+            <v-btn color="green">
+              <v-icon left size="18" @click="openEditDialog()"
+                >mdi-account-plus</v-icon
+              >
+              เพิ่มผู้ใช้งาน
+            </v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -90,52 +98,31 @@
   }
   
   const headers = [
-    { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true ,width: '100px',},
+    { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
     {
-      title: 'ทะเบียนเลขที่',
-      key: 'register',
-      align: 'start',
-      sortable: true,
-      width: '100px',
-    },
-    {
-      title: 'ชื่อธุรกิจ',
-      key: 'name',
-      align: 'start',
-      sortable: true,
-    },
-    {
-      title: 'ประเภทธุรกิจ',
-      key: 'type',
-      align: 'start',
-      sortable: true,
-      width: '170px',
-    },
-    {
-      title: 'ที่ตั้งสถานประกอบธุรกิจ',
-      key: 'location',
+      title: 'วันที่แจ้งเพิกถอน',
+      key: 'pid',
       align: 'start',
       sortable: true,
       width: '190px',
     },
+    { title: 'ชื่อสถานประกอบธุรกิจ', key: 'title', align: 'start', sortable: true },
+    { title: 'ชื่อ', key: 'firstName', align: 'start', sortable: true },
+    { title: 'นามสกุล', key: 'lastName', align: 'start', sortable: true },
     {
-      title: 'สถานะ',
-      key: 'status',
+      title: 'หน่วยงานแจ้งเพิกถอน',
+      key: 'position',
       align: 'start',
       sortable: true,
-      width: '100px',
     },
-    { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false,width: '170px' },
+    { title: 'หน่วยงานดำเนินการเพิกถอน', key: 'document', align: 'start', sortable: false },
+    { title: 'สถานะ', key: 'document', align: 'start', sortable: false },
+    { title: 'เรียกดู', key: 'document', align: 'start', sortable: false },
+    { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
   ]
   
   const items = ref([
-    {
-      register: 'ปท136000',
-      name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
-      type: 'บริษัทจำกัด',
-      location: 'จังหวัดปทุมธานี',
-      status: 1,
-    },
+
   ])
   
   function deleteItem(item) {

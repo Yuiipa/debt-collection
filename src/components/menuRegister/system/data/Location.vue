@@ -4,13 +4,13 @@
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span> จัดการข้อมูลผู้ใช้งาน</span>
+      <span> จัดการข้อมูลที่อยู่</span>
     </v-card-title>
     <div class="mb-6">
       <v-row class="px-16">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -27,11 +27,12 @@
           >
         </v-col>
         <v-col cols="6" sm="2" class="align-center justify-end d-flex">
-          <v-btn color="green">
-            <v-icon left size="18" @click="openEditDialog()"
-              >mdi-account-plus</v-icon
-            >
-            เพิ่มผู้ใช้งาน
+          <v-btn
+            color="green"
+            prepend-icon="mdi-plus-circle-outline"
+            @click="openEditDialog"
+          >
+            เพิ่มจังหวัด
           </v-btn>
         </v-col>
       </v-row>
@@ -55,20 +56,14 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
+                  @click="openEditDialog(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -80,7 +75,7 @@
       <v-row class="px-16">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -97,11 +92,12 @@
           >
         </v-col>
         <v-col cols="6" sm="2" class="align-center justify-end d-flex">
-          <v-btn color="green">
-            <v-icon left size="18" @click="openEditDialog()"
-              >mdi-account-plus</v-icon
-            >
-            เพิ่มผู้ใช้งาน
+          <v-btn
+            color="green"
+            prepend-icon="mdi-plus-circle-outline"
+            @click="openEditDialog"
+          >
+            เพิ่มอำเภอ
           </v-btn>
         </v-col>
       </v-row>
@@ -125,20 +121,14 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
+                  @click="openEditDialog(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -150,7 +140,7 @@
       <v-row class="px-16">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -167,11 +157,12 @@
           >
         </v-col>
         <v-col cols="6" sm="2" class="align-center justify-end d-flex">
-          <v-btn color="green">
-            <v-icon left size="18" @click="openEditDialog()"
-              >mdi-account-plus</v-icon
-            >
-            เพิ่มผู้ใช้งาน
+          <v-btn
+            color="green"
+            prepend-icon="mdi-plus-circle-outline"
+            @click="openEditDialog"
+          >
+            เพิ่มตำบล
           </v-btn>
         </v-col>
       </v-row>
@@ -195,20 +186,14 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
+                  @click="openEditDialog(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -226,7 +211,7 @@
     
     <script setup>
 import { ref } from 'vue'
-import EditDialog from '@/components/menuRegister/user/Dialog.vue'
+import EditDialog from '@/components/menuRegister/system/form/LocationForm.vue'
 
 const showEditDialog = ref(false)
 
@@ -258,14 +243,14 @@ const headersProvince = [
 const headersDistrict = [
   { title: 'รหัสอำเภอ', key: 'code', align: 'center', sortable: true },
   {
-    title: 'ชื่อจังหวัดภาษาไทย',
+    title: 'ชื่ออำเภอภาษาไทย',
     key: 'thaiName',
     align: 'start',
     sortable: true,
     width: '190px',
   },
   {
-    title: 'ชื่อจังหวัดภาษาอังกฤษ',
+    title: 'ชื่ออำเภอภาษาอังกฤษ',
     key: 'engName',
     align: 'center',
     sortable: false,
@@ -276,19 +261,19 @@ const headersDistrict = [
 const headersSubdistrict = [
   { title: 'รหัสตำบล', key: 'code', align: 'center', sortable: true },
   {
-    title: 'ชื่อจังหวัดภาษาไทย',
+    title: 'ชื่อตำบลภาษาไทย',
     key: 'thaiName',
     align: 'start',
     sortable: true,
     width: '190px',
   },
   {
-    title: 'ชื่อจังหวัดภาษาอังกฤษ',
+    title: 'ชื่อตำบลภาษาอังกฤษ',
     key: 'engName',
     align: 'center',
     sortable: false,
   },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
+  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false ,width: '160px',},
 ]
 
 const items = ref([
@@ -322,7 +307,7 @@ function deleteItem(item) {
     <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  color: white;
   cursor: pointer;
   font-weight: bold;
 }
