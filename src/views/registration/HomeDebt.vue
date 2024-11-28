@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-4 " variant="flat" style="background-color: #fafafa">
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
@@ -19,6 +19,7 @@
                   class="rounded-lg"
                   size="large"
                   id="excel"
+                  @click="exportExcel()"
                 >
                   Excel
                 </v-btn>
@@ -182,6 +183,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const showFilter = ref(false)
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
+import { generateExcel } from '@/prints/register/excel/Home_Debt.js'
 
 const listService = [
   {
@@ -211,6 +213,26 @@ async function exportPdf() {
     return exampleData
   }
   await generateCollectPDF(generateExampleData(25))
+}
+
+const exportExcel = () => {
+  const generateExampleData = (count) => {
+    const exampleData = []
+    for (let i = 1; i <= count; i++) {
+      exampleData.push({
+        businessName: `นายชัยวัฒน์ สุขนิยม ${i}`,
+        registrationNumber: `55/${2555 + i}`,
+        businessType: 'บุคคลธรรมดา',
+        location: `บ้านเลขที่ ${
+          55 + i
+        } หมู่ที่ 4 ต.สุขพุก อ.กำเนิดแก้ว จ.ร้อยเอ็ด`,
+        registrationDate: `3 พฤษภาคม ${2558 + i}`,
+        phoneNumber: '',
+      })
+    }
+    return exampleData
+  }
+  generateExcel(generateExampleData(25))
 }
 
 const toggleFilter = () => {

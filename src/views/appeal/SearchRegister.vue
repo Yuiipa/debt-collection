@@ -10,6 +10,7 @@
       <v-col md="4" cols="12">
         <div class="mb-2 font-weight-bold">ค้นหา</div>
         <v-text-field
+          v-model="search"
           variant="outlined"
           placeholder="ค้นหา"
           persistent-placeholder

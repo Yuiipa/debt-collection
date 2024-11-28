@@ -122,11 +122,17 @@ const headers2 = ref([
   { align: 'center', key: 'status', sortable: false, title: 'สถานะ' },
 ])
 
-const homeappeal = [
-  {
-    id: '10001/2567',
+const homeappeal = []
+
+for (let i = 0; i < 100; i++) {
+  const id = `1000${i + 1}/2567`
+  const datetime = `10/0${(i + 1)}/2567`
+  const status = Math.floor(Math.random() * 2)
+  homeappeal.push({
+    id: id,
+    datetime: datetime,
+    status: String(status),
     writtingAt: 'กรมการปกครอง',
-    datetime: '10/01/2567',
     complainname: 'นายadf adf',
     complainPID: '3-6302-00288-06-6',
     complainAge: '22',
@@ -141,7 +147,6 @@ const homeappeal = [
     defendantPID: '3110401055021',
     defendantName: 'นางนปภา ถิรายุวัฒน์',
     defendantAge: '0',
-    defendantNationality: '',
     defendantHno: '',
     defendantMoo: 'เขารู',
     defendantSoi: '',
@@ -158,86 +163,9 @@ const homeappeal = [
     crimeScene: 'เขารูปช้าง',
     other: '',
     complaintPlace: 'กรุงเทพมหานคร',
-    status: '0',
     process: '',
-  },
-  {
-    id: '10002/2567',
-    writtingAt: 'กรมการปกครอง',
-    datetime: '10/01/2567',
-    complainname: 'นายadf adf',
-    complainPID: '3-6302-00288-06-6',
-    complainAge: '22',
-    complainHno: '2001',
-    complainMoo: 'เขารู',
-    complainSoi: 'เขารูปช้าง',
-    complainDistrict: 'ตำบลคลองสิบ',
-    complainTown: 'อำเภอหนองจอก',
-    complainProvince: 'กรุงเทพมหานคร',
-    complainTel: '2444678911',
-    defendant: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
-    defendantPID: '3110401055021',
-    defendantName: 'นางนปภา ถิรายุวัฒน์',
-    defendantAge: '0',
-    defendantNationality: '',
-    defendantHno: '',
-    defendantMoo: 'เขารู',
-    defendantSoi: '',
-    defendantRoad: 'เขารูปช้าง',
-    defendantDistrict: 'ตำบลคลองสิบ',
-    defendantTown: 'อำเภอหนองจอก',
-    defendantProvince: 'กรุงเทพมหานคร',
-    defendantTel: '2444678911',
-    defendantFax: '',
-    defendantMail: '',
-    topic:
-      '- (๕ วรรคหนึ่ง) ประกอบธุรกิจทวงถามหนี้ โดยไม่จดทะเบียนการประกอบธุรกิจทวงถามหนี้ต่อนายทะเบียน',
-    details: 'เขารูปช้าง',
-    crimeScene: 'เขารูปช้าง',
-    other: '',
-    complaintPlace: 'กรุงเทพมหานคร',
-    status: '1',
-    process: '',
-  },
-  {
-    id: '10003/2567',
-    writtingAt: 'กรมการปกครอง',
-    datetime: '01/01/2567',
-    complainname: 'นายทดสอบ ทดสอบ',
-    complainPID: '1-11111-1111-11-1',
-    complainAge: '22',
-    complainHno: '2001',
-    complainMoo: 'เขารู',
-    complainSoi: 'เขารูปช้าง',
-    complainDistrict: 'ตำบลคลองสิบ',
-    complainTown: 'อำเภอหนองจอก',
-    complainProvince: 'กรุงเทพมหานคร',
-    complainTel: '2444678911',
-    defendant: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
-    defendantPID: '3110401055021',
-    defendantName: 'นางนปภา ถิรายุวัฒน์',
-    defendantAge: '0',
-    defendantNationality: '',
-    defendantHno: '',
-    defendantMoo: 'เขารู',
-    defendantSoi: '',
-    defendantRoad: 'เขารูปช้าง',
-    defendantDistrict: 'ตำบลคลองสิบ',
-    defendantTown: 'อำเภอหนองจอก',
-    defendantProvince: 'กรุงเทพมหานคร',
-    defendantTel: '2444678911',
-    defendantFax: '',
-    defendantMail: '',
-    topic:
-      '- (๕ วรรคหนึ่ง) ประกอบธุรกิจทวงถามหนี้ โดยไม่จดทะเบียนการประกอบธุรกิจทวงถามหนี้ต่อนายทะเบียน',
-    details: 'เขารูปช้าง',
-    crimeScene: 'เขารูปช้าง',
-    other: '',
-    complaintPlace: 'สมุทรปราการ',
-    status: '0',
-    process: '',
-  },
-]
+  })
+}
 
 const pagination = ref({
   page: 1,
@@ -249,8 +177,7 @@ const calculateIndex = (index) => {
 }
 
 const exportPDF = () => {
-  const item = homeappeal
-  generatePDF(item)
+  generatePDF(homeappeal)
 }
 
 const exportExcel = () => {

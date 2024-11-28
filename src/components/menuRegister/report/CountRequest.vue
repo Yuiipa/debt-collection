@@ -9,7 +9,6 @@
       </span>
     </v-card-title>
     <div>
-      
       <v-row class="ma-1 mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
@@ -39,30 +38,31 @@
           >
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
-        <div class="w-100 d-flex justify-end" style="gap: 10px">
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-file-excel"
-            style="color: green"
-            class="rounded-lg"
-            size="large"
-            id="excel"
-          >
-            Excel
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-printer"
-            style="color: orange"
-            class="rounded-lg"
-            size="large"
-            id="print"
-            @click="exportPdf()"
-          >
-            พิมพ์
-          </v-btn>
-        </div>
-      </v-col>
+          <div class="w-100 d-flex justify-end" style="gap: 10px">
+            <v-btn
+              variant="outlined"
+              append-icon="mdi-file-excel"
+              style="color: green"
+              class="rounded-lg"
+              size="large"
+              id="excel"
+              @click="exportExcel()"
+            >
+              Excel
+            </v-btn>
+            <v-btn
+              variant="outlined"
+              append-icon="mdi-printer"
+              style="color: orange"
+              class="rounded-lg"
+              size="large"
+              id="print"
+              @click="exportPdf()"
+            >
+              พิมพ์
+            </v-btn>
+          </div>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>
@@ -97,10 +97,11 @@
     ></v-row>
   </v-card>
 </template>
-        
-        <script setup>
+
+<script setup>
 import { ref } from 'vue'
 import AreaChart from '@/components/charts/AreaChart.vue'
+import { generateExcel } from '@/prints/register/excel/ReportCountRequest'
 
 const graph = [
   { usage_count: 385, usage_name: 'กรุงเทพมหานคร' },
@@ -153,7 +154,7 @@ const headers = [
 
 const items = ref([
   {
-    pid: 8466851084319,
+    pid: 1,
     agency: 'จังหวัดสมุทรปราการ',
     registration: 0,
     changedata: 0,
@@ -162,8 +163,8 @@ const items = ref([
     sum: 0,
   },
   {
-    pid: 8466851084319,
-    agency: 'จังหวัดสมุทรปราการ',
+    pid: 2,
+    agency: 'จังหวัดนนทบุรี',
     registration: 0,
     changedata: 0,
     book: 0,
@@ -171,8 +172,8 @@ const items = ref([
     sum: 0,
   },
   {
-    pid: 8466851084319,
-    agency: 'จังหวัดสมุทรปราการ',
+    pid: 3,
+    agency: 'จังหวัดปทุมธานี',
     registration: 0,
     changedata: 0,
     book: 0,
@@ -180,13 +181,184 @@ const items = ref([
     sum: 0,
   },
   {
-    pid: 8466851084319,
-    agency: 'จังหวัดสมุทรปราการ',
+    pid: 4,
+    agency: 'จังหวัดพระนครศรีอยุธยา',
     registration: 0,
     changedata: 0,
     book: 0,
     quit: 0,
     sum: 0,
+  },
+  {
+    pid: 5,
+    agency: 'จังหวัดอ่างทอง',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 6,
+    agency: 'จังหวัดลพบุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 7,
+    agency: 'จังหวัดสิงห์บุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 8,
+    agency: 'จังหวัดชัยนาท',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 9,
+    agency: 'จังหวัดสระบุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 10,
+    agency: 'จังหวัดชลบุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 11,
+    agency: 'จังหวัดระยอง',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 12,
+    agency: 'จังหวัดจันทบุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 13,
+    agency: 'จังหวัดตราด',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 14,
+    agency: 'จังหวัดฉะเชิงเทรา',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 15,
+    agency: 'จังหวัดปราจีนบุรี',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 16,
+    agency: 'จังหวัดนครนายก',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 17,
+    agency: 'จังหวัดสระแก้ว',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 18,
+    agency: 'จังหวัดนครราชสีมา',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 19,
+    agency: 'จังหวัดบุรีรัมย์',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 20,
+    agency: 'จังหวัดสุรินทร์',
+    registration: 0,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 0,
+  },
+  {
+    pid: 25,
+    agency: 'จังหวัดอำนาจเจริญ',
+    registration: 0,
+    changedata: 1,
+    book: 0,
+    quit: 0,
+    sum: 1,
+  },
+  {
+    pid: 44,
+    agency: 'จังหวัดเชียงราย',
+    registration: 0,
+    changedata: 10,
+    book: 0,
+    quit: 0,
+    sum: 10,
+  },
+  {
+    pid: 51,
+    agency: 'จังหวัดพิษณุโลก',
+    registration: 1,
+    changedata: 0,
+    book: 0,
+    quit: 0,
+    sum: 1,
   },
 ])
 
@@ -197,9 +369,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportExcel = () => {
+  generateExcel(items.value)
+}
 </script>
-        
-        <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

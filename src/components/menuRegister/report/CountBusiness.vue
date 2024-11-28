@@ -18,6 +18,7 @@
             class="rounded-lg"
             size="large"
             id="excel"
+            @click="exportExcel()"
           >
             Excel
           </v-btn>
@@ -106,9 +107,10 @@
     ></v-row>
   </v-card>
 </template>
-        
-        <script setup>
+
+<script setup>
 import { ref } from 'vue'
+import { generateExcel } from '@/prints/register/excel/ReportCountBusiness'
 
 import AreaChart from '@/components/charts/AreaChart.vue'
 const graph = [
@@ -150,11 +152,43 @@ const headers = [
 const items = ref([
   {
     province: 'กรุงเทพมหานคร',
-    amount: 1756,
+    amount: 1634,
   },
   {
-    province: 'กรุงเทพมหานคร',
-    amount: 123,
+    province: 'นนทบุรี',
+    amount: 465,
+  },
+  {
+    province: 'ปทุมธานี',
+    amount: 163,
+  },
+  {
+    province: 'สมุทรปราการ',
+    amount: 161,
+  },
+  {
+    province: 'เชียงใหม่',
+    amount: 158,
+  },
+  {
+    province: 'นครราชสีมา',
+    amount: 146,
+  },
+  {
+    province: 'ขอนแก่น',
+    amount: 116,
+  },
+  {
+    province: 'อุดรธานี',
+    amount: 103,
+  },
+  {
+    province: 'ชลบุรี',
+    amount: 102,
+  },
+  {
+    province: 'สุราษฎร์ธานี',
+    amount: 95,
   },
 ])
 
@@ -165,9 +199,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportExcel = () => {
+  generateExcel(items.value)
+}
 </script>
-        
-        <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

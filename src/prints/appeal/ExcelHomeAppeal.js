@@ -106,14 +106,7 @@ export async function generateExcel(item) {
   })
 
   // เพิ่มแถวรวม (รวมข้อมูลทั้งหมด)
-  const totalRow = worksheet.addRow([
-    'รวม', // ข้อความในคอลัมน์ A
-    '', // ข้อมูลในคอลัมน์ B จะถูก merged
-    '', // ข้อมูลในคอลัมน์ C
-    '', // ข้อมูลในคอลัมน์ D
-    '', // ข้อมูลในคอลัมน์ E
-    '', // ข้อมูลในคอลัมน์ F
-  ])
+  const totalRow = worksheet.addRow(['รวม', '', '', '', '', ''])
 
   worksheet.mergeCells(
     `A${worksheet.lastRow.number}:B${worksheet.lastRow.number}`
@@ -126,15 +119,13 @@ export async function generateExcel(item) {
 
   worksheet.getCell(`C${worksheet.lastRow.number}`).value =
     ThaiNumbers(processCount) // อยู่ระหว่างดำเนินการ
-
   worksheet.getCell(`D${worksheet.lastRow.number}`).value =
     ThaiNumbers(successCount) // ดำเนินการแล้วเสร็จ
-
   worksheet.getCell(`E${worksheet.lastRow.number}`).value =
     ThaiNumbers(totalCount) // รวมทั้งหมด
-
-  worksheet.getCell(`F${worksheet.lastRow.number}`).value =
-    ThaiNumbers(cancelCount.toFixed(2)) // ยุติร้อยละ
+  worksheet.getCell(`F${worksheet.lastRow.number}`).value = ThaiNumbers(
+    cancelCount.toFixed(2)
+  ) // ยุติร้อยละ
   ;[...['C', 'D', 'E', 'F']].forEach((col) => {
     worksheet.getCell(`${col}${worksheet.lastRow.number}`).style = {
       alignment: { horizontal: 'center', vertical: 'middle' },

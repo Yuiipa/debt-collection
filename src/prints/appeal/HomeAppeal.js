@@ -4,7 +4,7 @@ import * as icon from '@/static/icon.json'
 
 const check = icon.correct
 
-function page1Content(item) {
+function Content(item) {
   return [
     {
       table: {
@@ -135,7 +135,7 @@ export async function generatePDF(item) {
     },
     pageSize: 'A4',
     pageOrientation: 'landscape',
-    pageMargins: [46, 120, 26, 0],
+    pageMargins: [46, 120, 26, 50],
     header: [
       {
         text: 'รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘',
@@ -165,7 +165,7 @@ export async function generatePDF(item) {
       },
     ],
 
-    content: [...page1Content(item)],
+    content: [...Content(item)],
     styles: {
       header: {
         fontSize: 18,
