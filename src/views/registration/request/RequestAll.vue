@@ -43,10 +43,7 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">

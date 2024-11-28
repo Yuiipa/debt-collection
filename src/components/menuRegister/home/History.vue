@@ -7,106 +7,18 @@
           class="pt-6 px-6 rounded-lg elevation-3"
           style="background-color: white"
         >
-          <v-row class="d-flex align-center justify-space-between pb-6">
+          <v-row class="d-flex align-center justify-space-between pb-2">
             <!-- Span ที่มีข้อความ -->
             <span color="#1A237E" class="text-h5 text-blue-darken-4">
               รายการคำขอ
             </span>
-
-            <!-- ปุ่ม 3 ปุ่ม -->
-            <div class="d-flex" style="gap: 8px">
-              <v-btn color="primary">
-                Excel
-                <v-icon class="pl-2" right>mdi-file-excel</v-icon>
-              </v-btn>
-
-              <v-btn color="secondary">
-                พิมพ์
-                <v-icon class="pl-2" right>mdi-printer</v-icon>
-              </v-btn>
-
-              <v-btn color="success" @click="toggleFilter">
-                ตัวกรอง
-                <v-icon class="pl-2" right>mdi-filter</v-icon>
-              </v-btn>
-            </div>
           </v-row>
-
-          <!-- ตัวกรอง -->
-          <v-expand-transition>
-            <div v-if="showFilter">
-              <v-row>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">เลขที่คำขอ</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">
-                    เลขประจำตัวประชาชนผู้ประกอบธุรกิจ
-                  </div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4" class="pl-2 py-0">
-                  <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
-                  <v-text-field
-                    class="v-col-12"
-                    variant="outlined"
-                    density="compact"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </div>
-          </v-expand-transition>
-
           <v-row>
             <v-data-table
               :headers="headers"
               :items="items"
-              class="rounded-table pt-6"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              class="rounded-table"
+              
             >
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
@@ -137,11 +49,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-const showFilter = ref(false);
 
-const toggleFilter = () => {
-  showFilter.value = !showFilter.value;
-};
 const router = useRouter()
 function navigate(routeName) {
   router.push({ name: 'debt-home-registration-detail_business' })

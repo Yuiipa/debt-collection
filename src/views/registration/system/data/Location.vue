@@ -43,10 +43,7 @@
               :headers="headersProvince"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -104,10 +101,7 @@
               :headers="headersDistrict"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -165,10 +159,7 @@
               :headers="headersSubdistrict"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -204,7 +195,7 @@
     
     <script setup>
 import { ref } from 'vue'
-import EditDialog from '@/components/menuRegister/system/LocationForm.vue'
+import EditDialog from '@/components/menuRegister/system/dataForm/LocationForm.vue'
 
 const showEditDialog = ref(false)
 const typeEdit = ref(1)

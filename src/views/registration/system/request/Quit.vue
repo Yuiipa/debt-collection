@@ -4,13 +4,13 @@
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span> จัดการข้อมูลผู้ใช้งาน</span>
+      <span>จัดการข้อมูลคำขอเลิกประกอบธุรกิจ</span>
     </v-card-title>
     <div>
       <v-row class="px-16">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -29,38 +29,34 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-4 px-md-10">
             <v-data-table
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-
+              <template v-slot:[`item.status`]="{ item }">
+                <div
+                  class="rounded-pill text-center py-1 px-2"
+                  :style="{
+                    backgroundColor: item.status === 1 ? '#4caf50' : '#f44336',
+                    color: 'white',
+                  }"
+                >
+                  {{ item.status === 1 ? 'ใช้งาน' : 'ไม่ใช้งาน' }}
+                </div>
+              </template>
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn
-                  size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
-                >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                <v-btn variant="text" size="small" @click="openEditDialog(2)">
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" class="px-0 mx-0" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -102,7 +98,7 @@ const headers = [
     key: 'date',
     align: 'start',
     sortable: true,
-    width: '120px',
+    width: '100px',
   },
   {
     title: 'ทะเบียนเลขที่',
@@ -122,14 +118,14 @@ const headers = [
     key: 'status',
     align: 'start',
     sortable: true,
-    width: '120px',
+    width: '100px',
   },
   {
     title: 'ดำเนินการ',
     key: 'process',
     align: 'center',
     sortable: false,
-    width: '170px',
+    width: '150px',
   },
 ]
 

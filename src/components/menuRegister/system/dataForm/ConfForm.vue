@@ -8,7 +8,7 @@
       <div class="px-5">
         <v-card-title class="mt-1">
           <span class="font-weight-bold" style="color: #1a237e">
-            {{ dialogTitle }}ความผิด
+            {{ dialogTitle }}เอกสาร
           </span>
         </v-card-title>
         <v-divider :thickness="2" color="#1a237e" />
@@ -21,12 +21,11 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ไอดีความผิด
+                ชื่อแบบฟอร์ม
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="auto"
-                :readonly="true"
+                placeholder="ชื่อแบบฟอร์ม"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -36,55 +35,15 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ความผิดตามมาตรา
+                ไฟล์แบบฟอร์ม
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ความผิดตามมาตรา"
+                placeholder="ไฟล์แบบฟอร์ม"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
               ></v-text-field>
-            </v-row>
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-                ข้อหาหรือฐานความผิด
-              </div>
-              <v-textarea
-                class="v-col-12 v-col-sm-6"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-textarea>
-            </v-row>
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-              มาตรา
-              </div>
-              <v-text-field
-                class="v-col-12 v-col-sm-6"
-                placeholder="มาตรา"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-text-field>
-            </v-row>
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-              อัตราโทษ
-              </div>
-              <v-textarea
-                class="v-col-12 v-col-sm-6"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-textarea>
             </v-row>
           </div>
         </v-form>
@@ -125,8 +84,8 @@
     </v-card>
   </v-dialog>
 </template>
-            
-<script setup>
+          
+        <script setup>
 import { ref, watch, computed } from 'vue'
 
 // รับ props ด้วย defineProps
@@ -151,6 +110,7 @@ const emit = defineEmits(['update:showDialog', 'saved'])
 // ค่าภายใน component
 const internalShowDialog = ref(props.showDialog)
 const internalItem = ref({ ...props.item })
+const oldStatus = ref(2)
 
 // Watch props.showDialog
 watch(
@@ -168,6 +128,16 @@ watch(internalShowDialog, (val) => {
   }
 })
 
+// Watch props.item
+watch(
+  () => props.item,
+  (val) => {
+    if (val) {
+      internalItem.value = { ...val }
+      oldStatus.value = val.status // ตั้งค่า oldStatus จาก props.item.status
+    }
+  }
+)
 
 // ปิด dialog
 const close = () => {
@@ -191,62 +161,6 @@ const dialogTitle = computed(() => {
   }
 })
 </script>
+
           
-            
-          <style scoped>
-.swal-custom-zindex {
-  z-index: 2000 !important;
-}
-.custom-date {
-  width: auto;
-}
-.custom-action {
-  height: 70px !important;
-}
-
-.v-field__input {
-  height: 40px !important;
-  padding: 12px 24px !important;
-}
-
-.flex-area-10 {
-  flex: 0 0 10%;
-  text-align: right;
-}
-
-.flex-area {
-  flex: 0 0 20%;
-  text-align: right;
-}
-
-.cancel-btn {
-  border: 2px solid #e12929;
-  background-color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.cancel-btn:hover {
-  background-color: #f30c0c;
-  color: white;
-}
-
-.save-btn {
-  background-color: #4c7aaf;
-  color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.save-btn:hover {
-  background-color: #0e77ee;
-}
-
-@media (max-width: 960px) {
-  .flex-area {
-    flex: 0 0 33.33%;
-  }
-}
-</style>
-            
-            
+          

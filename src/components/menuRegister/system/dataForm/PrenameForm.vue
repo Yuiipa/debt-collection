@@ -8,7 +8,7 @@
       <div class="px-5">
         <v-card-title class="mt-1">
           <span class="font-weight-bold" style="color: #1a237e">
-            {{ dialogTitle }}สัญชาติ
+            {{ dialogTitle }}คำนำหน้าชื่อ
           </span>
         </v-card-title>
         <v-divider :thickness="2" color="#1a237e" />
@@ -21,7 +21,7 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ไอดีสัญชาติ
+                ไอดีคำนำหน้าชื่อ
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
@@ -36,11 +36,11 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ชื่อสัญชาติ
+                ชื่อคำนำหน้าชื่อ
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ชื่อสัญชาติ"
+                placeholder="ชื่อคำนำหน้าชื่อ"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -85,8 +85,8 @@
     </v-card>
   </v-dialog>
 </template>
-        
-      <script setup>
+          
+        <script setup>
 import { ref, watch, computed } from 'vue'
 
 // รับ props ด้วย defineProps
@@ -161,64 +161,9 @@ const dialogTitle = computed(() => {
       return 'เพิ่ม'
   }
 })
-
 </script>
-      
         
-      <style scoped>
-.swal-custom-zindex {
-  z-index: 2000 !important;
-}
-.custom-date {
-  width: auto;
-}
-.custom-action {
-  height: 70px !important;
-}
+          
 
-.v-field__input {
-  height: 40px !important;
-  padding: 12px 24px !important;
-}
-
-.flex-area-10 {
-  flex: 0 0 10%;
-  text-align: right;
-}
-
-.flex-area {
-  flex: 0 0 20%;
-  text-align: right;
-}
-
-.cancel-btn {
-  border: 2px solid #e12929;
-  background-color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.cancel-btn:hover {
-  background-color: #f30c0c;
-  color: white;
-}
-
-.save-btn {
-  background-color: #4c7aaf;
-  color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.save-btn:hover {
-  background-color: #0e77ee;
-}
-
-@media (max-width: 960px) {
-  .flex-area {
-    flex: 0 0 33.33%;
-  }
-}
-</style>
-        
-        
+          
+          

@@ -10,7 +10,7 @@
       <v-row class="px-16">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -34,10 +34,7 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
+              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -96,7 +93,7 @@ const headers = [
     key: 'date',
     align: 'start',
     sortable: true,
-    width: '190px',
+    width: '100px',
   },
   {
     title: 'ทะเบียนเลขที่',
@@ -112,20 +109,13 @@ const headers = [
     sortable: true,
   },
   {
-    title: 'ที่ตั้งสถานประกอบธุรกิจ',
-    key: 'location',
-    align: 'start',
-    sortable: true,
-    width: '190px',
-  },
-  {
     title: 'สถานะ',
     key: 'status',
     align: 'start',
     sortable: true,
-    width: '190px',
+    width: '100px',
   },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false,width: '170px' },
+  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false,width: '100px' },
 ]
 
 const items = ref([

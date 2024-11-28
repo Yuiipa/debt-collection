@@ -297,9 +297,6 @@
       </r-row>
     </div>
   </v-form>
-  <div class="pb-10"></div>
+  <div class="pb-4"></div>
 </template>
-    
-<script setup>
-</script>
     

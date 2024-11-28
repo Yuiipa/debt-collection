@@ -73,10 +73,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              :items-per-page="5"
-              :footer-props="{
-                'items-per-page-options': [5, 10, 15],
-              }"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -96,7 +92,12 @@
 
               <!-- ปุ่มดำเนินการ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn size="small" class="rounded-pill" color="red" @click="deleteItem(item)">
+                <v-btn
+                  size="small"
+                  class="rounded-pill"
+                  color="red"
+                  @click="deleteItem(item)"
+                >
                   <v-icon left size="18">mdi-delete</v-icon> ลบ
                 </v-btn>
               </template>
