@@ -5,8 +5,8 @@
       style="color: #1a237e"
     >
       <span>
-        รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด
-
+        รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้
+        พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด
       </span>
     </v-card-title>
     <div>
@@ -19,6 +19,7 @@
             class="rounded-lg"
             size="large"
             id="excel"
+            @click="exportExcel()"
           >
             Excel
           </v-btn>
@@ -97,9 +98,10 @@
     </div>
   </v-card>
 </template>
-            
-  <script setup>
+
+<script setup>
 import { ref } from 'vue'
+import { generateExcel } from '@/prints/register/excel/ReportAppeal'
 
 const headers = [
   {
@@ -144,17 +146,178 @@ const headers = [
 const items = ref([
   {
     agency: 'กรุงเทพมหานคร',
-    process: 1756,
-    finish_process: 1,
-    sum: 20,
-    percentage: 88,
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
   },
   {
-    agency: 'กรุงเทพมหานคร',
-    process: 1756,
-    finish_process: 1,
-    sum: 20,
-    percentage: 88,
+    agency: 'จังหวัดสมุทรปราการ',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดนนทบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดปทุมธานี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดพระนครศรีอยุธยา',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดอ่างทอง',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดลพบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดสิงห์บุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดชัยนาท',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดสระบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดชลบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดระยอง',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดจันทบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดตราด',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดฉะเชิงเทรา',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดปราจีนบุรี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดนครนายก',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดสระแก้ว',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดนครราชสีมา',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดบุรีรัมย์',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดสุรินทร์',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดศรีสะเกษ',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดอุบลราชธานี',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดยโสธร',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
+  },
+  {
+    agency: 'จังหวัดชัยภูมิ',
+    process: 0,
+    finish_process: 0,
+    sum: 0,
+    percentage: 0,
   },
 ])
 
@@ -165,9 +328,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportExcel = () => {
+  generateExcel(items.value)
+}
 </script>
-            
-            <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
