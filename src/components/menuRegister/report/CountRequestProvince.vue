@@ -18,6 +18,7 @@
             class="rounded-lg"
             size="large"
             id="excel"
+            @click="exportExcel()"
           >
             Excel
           </v-btn>
@@ -85,6 +86,9 @@
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
+              <template v-slot:[`item.total`]="{ item }">
+                <span>{{ item.process + item.success }}</span>
+              </template>
             </v-data-table>
           </div>
         </v-col>
@@ -92,9 +96,10 @@
     </div>
   </v-card>
 </template>
-          
+
 <script setup>
 import { ref } from 'vue'
+import { generateExcel } from '@/prints/register/excel/ReportCountRequestProvince'
 
 const headers = [
   {
@@ -105,53 +110,56 @@ const headers = [
     width: '100px',
   },
   {
-    title: 'จังหวัด',
-    key: 'province',
+    title: 'ประเภทคำขอ',
+    key: 'type',
     align: 'start',
     sortable: true,
   },
   {
-    title: 'บุคคลธรรมดา',
-    key: 'amount',
-    align: 'start',
+    title: 'อยู่ระหว่างดำเนินการ',
+    key: 'process',
+    align: 'center',
     sortable: true,
   },
   {
-    title: 'ห้างหุ้นส่วนสามัญไม่จดทะเบียน',
-    key: 'amount',
-    align: 'start',
+    title: 'ดำเนินการแล้วเสร็จ',
+    key: 'success',
+    align: 'center',
     sortable: true,
   },
 
   {
-    title: 'ห้างหุ้นส่วนสามัญจดทะเบียน',
-    key: 'amount',
-    align: 'start',
+    title: 'รวมทั้งหมด',
+    key: 'total',
+    align: 'center',
     sortable: true,
-  },
-  {
-    title: 'ห้างหุ้นส่วนจำกัด',
-    key: 'amount',
-    align: 'start',
-    sortable: true
-  },
-  {
-    title: 'บริษัทจำกัด',
-    key: 'amount',
-    align: 'start',
-    sortable: true,
-    width: '160px',
   },
 ]
 
 const items = ref([
   {
-    province: 'กรุงเทพมหานคร',
-    amount: 1756,
+    province: 'จังหวัดสมุทรปราการ',
+    type: 'คำขอจดทะเบียน',
+    process: 0,
+    success: 7,
   },
   {
-    province: 'กรุงเทพมหานคร',
-    amount: 123,
+    province: 'จังหวัดสมุทรปราการ',
+    type: 'คำขอเปลี่ยนแปลงข้อมูล',
+    process: 4,
+    success: 3,
+  },
+  {
+    province: 'จังหวัดสมุทรปราการ',
+    type: 'คำขอใบแทนหนังสือสำคัญ',
+    process: 0,
+    success: 0,
+  },
+  {
+    province: 'จังหวัดสมุทรปราการ',
+    type: 'คำขอเลิกประกอบธุรกิจ',
+    process: 4,
+    success: 10,
   },
 ])
 
@@ -162,9 +170,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportExcel = () => {
+  generateExcel(items.value)
+}
 </script>
-          
-          <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

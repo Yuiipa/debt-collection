@@ -18,6 +18,7 @@
             class="rounded-lg"
             size="large"
             id="excel"
+            @click="exportExcel()"
           >
             Excel
           </v-btn>
@@ -92,66 +93,129 @@
     </div>
   </v-card>
 </template>
-          
+
 <script setup>
 import { ref } from 'vue'
+import { generateExcel } from '@/prints/register/excel/ReportBusiness'
 
 const headers = [
   {
     title: 'ลำดับที่',
     key: 'index',
     align: 'center',
-    sortable: true,
+    sortable: false,
     width: '100px',
   },
   {
     title: 'ชื่อสถานประกอบธุรกิจ',
-    key: 'name',
+    key: 'businessName',
     align: 'start',
     sortable: true,
   },
   {
     title: 'เลขทะเบียนที่',
-    key: 'register',
+    key: 'registrationNumber',
     align: 'start',
     sortable: true,
   },
   {
     title: 'ประเภทกิจการ',
-    key: 'type',
+    key: 'businessType',
     align: 'start',
     sortable: true,
-  },
-
-  {
-    title: 'สถานที่ตั้ง',
-    key: 'location',
-    align: 'start',
-    sortable: true,
-  },
-  {
-    title: 'วันที่จดทะเบียน',
-    key: 'date_register',
-    align: 'start',
-    sortable: true
-  },
-  {
-    title: 'เบอร์โทรศัพท์',
-    key: 'phone',
-    align: 'start',
-    sortable: true,
-    width: '160px',
   },
 ]
 
 const items = ref([
   {
-    name: 'กรุงเทพมหานคร',
-    register: 1756,
-    type: ' ',
-    location: '',
-    date_register: '',
-    phone: '087-454-4177'
+    businessName: 'บริษัท กฎหมายรวินทร์ จำกัด',
+    registrationNumber: '98/2558',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 248/1 หมู่ที่ 5 ซอย ถนนเทพารักษ์ ตำบลแพรกษา อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '22 เมษายน 2559',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'สำนักงานทนายความ ยุติธรรม',
+    registrationNumber: '92/2559',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 85/22 หมู่ที่ 7 ซอย- ถนนวัดศรีวารีน้อย ตำบลบางโฉลง อำเภอบางพลี จังหวัดสมุทรปราการ',
+    registrationDate: '24 มิถุนายน 2559',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท ลภัสรินทร์ บิสซิเนส แอนด์ ลอว์ จำกัด',
+    registrationNumber: '90/2562',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 1589/ หมู่ที่ 10 ซอย- ถนน- ตำบลสำโรงเหนือ อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '1 เมษายน 2562',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท ใบหยก ลอว์ จำกัด',
+    registrationNumber: '85/2561',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'หมู่บ้านพฤกษาปูริ เลขที่ 222/1 หมู่ที่ 11 ซอยกิ่งแก้ว 37 ถนนกิ่งแก้ว ตำบลราชาเทวะ อำเภอบางพลี จังหวัดสมุทรปราการ',
+    registrationDate: '2 เมษายน 2561',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท ฟิวชั่น เบรค จำกัด',
+    registrationNumber: '84/2560',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 89/45 หมู่ที่ 8 ซอยประชาอุทิศ 129 ถนน- ตำบลบางครุ อำเภอพระประแดง จังหวัดสมุทรปราการ',
+    registrationDate: '27 มกราคม 2560',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'สำนักงานกฎหมาย ดิษยภัทร ทนายความ',
+    registrationNumber: '84/2559',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 46/25 หมู่ที่ - ซอย8 ถนน- ตำบลปากน้ำ อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '24 มิถุนายน 2559',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท สเต็มไพรซ์ ลอว์ โซลูชั่น จำกัด',
+    registrationNumber: '82/2562',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 59/18 หมู่ที่ 21 ซอย- ถนนกิ่งแก้ว ตำบลราชาเทวะ อำเภอบางพลี จังหวัดสมุทรปราการ',
+    registrationDate: '4 มีนาคม 2562',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'ปาริชาติ และเพื่อนทนายความ',
+    registrationNumber: '76/2562',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 4075/ หมู่ที่ 3 ซอยวัดด่าน ถนนสุขุมวิท 113 ตำบลสำโรงเหนือ อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '4 มีนาคม 2562',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท ธนภูมิ ควอลิตี้ จำกัด',
+    registrationNumber: '74/2558',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 417/4 หมู่ที่ 5 ซอย ถนน ตำบลสำโรงเหนือ อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '22 เมษายน 2559',
+    phoneNumber: '',
+  },
+  {
+    businessName: 'บริษัท สำนักกฎหมาย มินจอห์น ลีเกิ้ล จำกัด',
+    registrationNumber: '72/2564',
+    businessType: 'สำนักงานทนายความ',
+    location:
+      'เลขที่ 10/39 หมู่ที่ 8 ซอย- ถนน- ตำบลสำโรงเหนือ อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
+    registrationDate: '23 เมษายน 2564',
+    phoneNumber: '',
   },
 ])
 
@@ -162,9 +226,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportExcel = () => {
+  generateExcel(items.value)
+}
 </script>
-          
-          <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
