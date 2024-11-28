@@ -106,10 +106,6 @@
       <v-data-table
         :headers="$vuetify.display.mdAndUp ? headers : headers2"
         :items="report"
-        :items-per-page="10"
-        :footer-props="{
-          'items-per-page-options': [5, 10, 15],
-        }"
       >
         <template v-slot:[`item.num`]="{ index }">
           {{ calculateIndex(index) }}

@@ -14,10 +14,6 @@
             :headers="headers"
             :items="items"
             class="elevation-1 rounded-table"
-            :items-per-page="5"
-            :footer-props="{
-              'items-per-page-options': [5, 10, 15],
-            }"
           >
             <template v-slot:[`item.calories`]="{ item }">
               <span>{{ item.calories }} kcal</span>
