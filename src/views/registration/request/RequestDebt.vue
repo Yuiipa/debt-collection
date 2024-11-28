@@ -148,11 +148,7 @@ onMounted(() => {
   } else if (currentPath === '/debt/Blame_Business') {
     name_route.value = 'debt-BlameBusiness-form'
     title_route.value = 'ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้'
-  } else if (currentPath === '/debt/Cancel_Quit') {
-    name_route.value = 'debt-CancelQuit-form'
-    title_route.value =
-      'ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้'
-  }
+  } 
 })
 
 function navigate() {

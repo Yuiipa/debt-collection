@@ -30,7 +30,7 @@
           <v-btn
             color="green"
             prepend-icon="mdi-plus-circle-outline"
-            @click="openEditDialog"
+            @click="openEditDialog(1)"
           >
             เพิ่มจังหวัด
           </v-btn>
@@ -55,11 +55,7 @@
 
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn
-                  variant="text"
-                  size="small"
-                  @click="openEditDialog(item)"
-                >
+                <v-btn variant="text" size="small" @click="openEditDialog(2)">
                   <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
                 <v-btn variant="text" size="small" @click="deleteItem(item)">
@@ -95,7 +91,7 @@
           <v-btn
             color="green"
             prepend-icon="mdi-plus-circle-outline"
-            @click="openEditDialog"
+            @click="openEditDialog(3)"
           >
             เพิ่มอำเภอ
           </v-btn>
@@ -120,11 +116,7 @@
 
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn
-                  variant="text"
-                  size="small"
-                  @click="openEditDialog(item)"
-                >
+                <v-btn variant="text" size="small" @click="openEditDialog(4)">
                   <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
                 <v-btn variant="text" size="small" @click="deleteItem(item)">
@@ -160,7 +152,7 @@
           <v-btn
             color="green"
             prepend-icon="mdi-plus-circle-outline"
-            @click="openEditDialog"
+            @click="openEditDialog(5)"
           >
             เพิ่มตำบล
           </v-btn>
@@ -188,7 +180,7 @@
                 <v-btn
                   variant="text"
                   size="small"
-                  @click="openEditDialog(item)"
+                  @click="openEditDialog(6, item)"
                 >
                   <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
@@ -206,16 +198,19 @@
     v-model:showDialog="showEditDialog"
     :item="items"
     @saved="handleSave"
+    :title="typeEdit"
   ></edit-dialog>
 </template>
     
     <script setup>
 import { ref } from 'vue'
-import EditDialog from '@/components/menuRegister/system/form/LocationForm.vue'
+import EditDialog from '@/components/menuRegister/system/LocationForm.vue'
 
 const showEditDialog = ref(false)
+const typeEdit = ref(1)
 
-const openEditDialog = () => {
+const openEditDialog = (type) => {
+  typeEdit.value = type
   showEditDialog.value = true
 }
 const handleSave = () => {
@@ -273,7 +268,13 @@ const headersSubdistrict = [
     align: 'center',
     sortable: false,
   },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false ,width: '160px',},
+  {
+    title: 'ดำเนินการ',
+    key: 'process',
+    align: 'center',
+    sortable: false,
+    width: '160px',
+  },
 ]
 
 const items = ref([

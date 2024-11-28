@@ -238,11 +238,13 @@
         ></v-textarea>
       </v-row>
       <v-row>
-        <v-col
-          cols="12"
-          class="d-flex align-center rounded bg-blue text-white pa-3 mb-3"
-        >
-          <span>เปลี่ยนชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้ เป็น </span>
+        <v-col cols="12">
+          <v-card-title
+            class="font-weight-bold"
+            style="background-color: #e3f2fd; color: #1a237e"
+          >
+            เปลี่ยนชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้ เป็น
+          </v-card-title>
         </v-col>
       </v-row>
       <v-row>
@@ -272,8 +274,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" md="1" class="pl-2 pa-0 d-flex align-center justify-center">
-          <div class=" pa-0 font-weight-bold">อื่นๆ ระบุ</div>
+        <v-col
+          cols="12"
+          md="1"
+          class="pl-2 pa-0 d-flex align-center justify-center"
+        >
+          <div class="pa-0 font-weight-bold">อื่นๆ ระบุ</div>
         </v-col>
         <v-text-field
           class="v-col-12 v-col-md-11"
@@ -284,7 +290,7 @@
       </v-row>
       <v-row>
         <v-text-field
-          class="v-col-12 "
+          class="v-col-12"
           variant="outlined"
           density="compact"
           hide-details="auto"

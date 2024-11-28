@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-start mt-4 px-10">
+  <div class="d-flex justify-start mt-8 px-10">
     <span
       class="d-flex align-center justify-center text-blue-darken-4 text-h4"
     >

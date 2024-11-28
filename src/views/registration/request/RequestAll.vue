@@ -56,15 +56,14 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1"
                   @click="editItem(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn size="small" color="red" @click="deleteItem(item)">
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -81,58 +80,34 @@ import { ref } from 'vue'
 const headers = [
   { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
   {
-    title: 'เลขประจำตัวประชาชน',
-    key: 'pid',
+    title: 'วันที่',
+    key: 'date',
     align: 'start',
     sortable: true,
     width: '190px',
   },
-  { title: 'คำนำหน้านาม', key: 'title', align: 'start', sortable: true },
-  { title: 'ชื่อ', key: 'firstName', align: 'start', sortable: true },
-  { title: 'นามสกุล', key: 'lastName', align: 'start', sortable: true },
+  { title: 'สังกัด', key: 'affiliation', align: 'start', sortable: true },
+  { title: 'เลขที่คำขอ', key: 'reqNo', align: 'start', sortable: true },
+  { title: 'ประเภทคำขอ', key: 'type', align: 'start', sortable: true },
   {
-    title: 'ตำแหน่งผู้ปฎิบัติงาน',
-    key: 'position',
+    title: 'ชื่อธุรกิจ',
+    key: 'name',
     align: 'start',
     sortable: true,
   },
-  { title: 'เอกสารแนบ', key: 'document', align: 'start', sortable: false },
+  { title: 'หมายเหตุ', key: 'note', align: 'start', sortable: false },
   { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
 ]
 
 const items = ref([
   {
-    pid: 8466851084319,
-    title: 'นาย',
-    firstName: 'สมหมาย',
-    lastName: 'บุญยงค์',
-    position: 'เจ้าหน้าที่ปฏิบัติการ',
-    document: '',
-  },
-  {
-    pid: 8466851084319,
-    title: 'นาย',
-    firstName: 'สมคิด',
-    lastName: 'เพชรพันธ์',
-    position: 'ทนาย',
-    document: '',
-  },
-  {
-    pid: 8466851084319,
-    title: 'น.ส.',
-    firstName: 'สมทรง',
-    lastName: 'เพชรพันธ์',
-    position: 'เจ้าหน้าที่ปฏิบัติการ',
-    document: '',
-  },
-  {
-    pid: 8466851084319,
-    title: 'นาย',
-    firstName: 'สมทรง',
-    lastName: 'เพชรพันธ์',
-    position: 'นิติกรชำนาญการ',
-    document: '',
-  },
+    date: 8466851084319,
+    affiliation: 'นาย',
+    reqNo: 'สมหมาย',
+    type: 'บุญยงค์',
+    name: 'เจ้าหน้าที่ปฏิบัติการ',
+    note: 'หมายเหตุ',
+  }
 ])
 
 function editItem(item) {

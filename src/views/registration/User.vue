@@ -27,12 +27,12 @@
           >
         </v-col>
         <v-col cols="6" sm="2" class="align-center justify-end d-flex">
-          <v-btn color="green">
-            <v-icon left size="18" @click="openEditDialog()"
-              >mdi-account-plus</v-icon
-            >
-            เพิ่มผู้ใช้งาน
-          </v-btn>
+          <v-btn
+            prepend-icon="mdi-account-plus"
+            color="green"
+            @click="openEditDialog()"
+            >เพิ่มผู้ใช้งาน</v-btn
+          >
         </v-col>
       </v-row>
       <v-row>
@@ -55,20 +55,14 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1 mb-1"
-                  @click="openEditDialog()"
+                  @click="openEditDialog(item)"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn
-                  size="small"
-                  class="mb-1"
-                  color="red"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
                 </v-btn>
               </template>
             </v-data-table>

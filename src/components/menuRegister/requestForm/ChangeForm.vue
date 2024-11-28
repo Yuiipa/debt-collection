@@ -13,9 +13,9 @@
     >
       <v-row>
         <v-col cols="10">
-          <div class="font-weight-bold text-h6 text-blue-darken-1">
+          <span class="font-weight-bold text-h5" style="color: #1a237e">
             ขอเปลี่ยนแปลงตามแบบ ทคน.๑/๑
-          </div>
+          </span>
         </v-col>
       </v-row>
       <v-divider
@@ -88,11 +88,13 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col
-          cols="12"
-          class="d-flex align-center rounded bg-blue text-white pa-3"
-        >
-          <span>เปลี่ยนชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้ เป็น </span>
+        <v-col cols="12">
+          <v-card-title
+            class="font-weight-bold"
+            style="background-color: #e3f2fd; color: #1a237e"
+          >
+            ข้อมูลสถานประกอบธุรกิจ
+          </v-card-title>
         </v-col>
       </v-row>
       <v-row class="mt-6">
@@ -273,8 +275,8 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="d-flex align-center font-weight-bold">
-          <span>เปลี่ยนแปลงหัวหน้าสำนักงานทนายความเป็น</span>
+        <v-col cols="12" class="d-flex justify-center font-weight-bold">
+          <span>การดำเนินการของนายทะเบียนสภาทนายความ</span>
         </v-col>
         <v-textarea
           class="v-col-12"

@@ -23,7 +23,7 @@ const routeRequestForm = [
     {
       path: '/debt/Renew_request/form',
       name: 'debt-Renewrequest-form',
-      component: () => import('@/components/menuRegister/requestForm/RenewRequest.vue'),
+      component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
     },
     {
       path: '/debt/Blame_Business/form',

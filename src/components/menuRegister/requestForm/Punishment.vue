@@ -8,7 +8,7 @@
       <div class="px-5">
         <v-card-title class="mt-1">
           <span class="font-weight-bold" style="color: #1a237e">
-            คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้
+            เพิ่มโทษ
           </span>
         </v-card-title>
         <v-divider :thickness="2" color="#1a237e" />
@@ -17,7 +17,7 @@
         <v-form ref="form">
           <div class="pa-6">
             <v-row>
-              <v-col cols="12" md="6" class="pl-2 py-0">
+              <v-col cols="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">ชื่อสถานประกอบธุรกิจ</div>
                 <v-text-field
                   class="v-col-12"
@@ -26,91 +26,11 @@
                   hide-details="auto"
                 ></v-text-field>
               </v-col>
-
-              <v-col cols="12" md="6" class="pl-2 py-0">
-                <div class="v-col-12 py-0">หน่วยงานที่รับเรื่อง</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
             </v-row>
 
             <v-row>
-              <v-col cols="12">
-                <v-card-title
-                  class="font-weight-bold"
-                  style="background-color: #e3f2fd; color: #1a237e"
-                >
-                  ข้อมูลสถานประกอบธุรกิจ
-                </v-card-title>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="12" md="6" class="pl-2 py-0">
+              <v-col cols="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">เลขที่ทะเบียน</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12" md="6" class="pl-2 py-0">
-                <div class="v-col-12 py-0">
-                  ชื่อ-นามสกุลผู้จดทะเบียนประกอบธุรกิจ
-                </div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="4" class="pl-2 py-0">
-                <div class="v-col-12 py-0">ตำแหน่งผู้ปฏิบัติงาน</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" class="pl-2 py-0">
-                <div class="v-col-12 py-0">ตำแหน่งผู้ปฏิบัติงาน</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" md="4" class="pl-2 py-0">
-                <div class="v-col-12 py-0">ตำแหน่งผู้ปฏิบัติงาน</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-divider :thickness="5" color="primary" /> </v-col
-            ></v-row>
-
-            <v-row>
-              <v-col cols="12" md="12" class="pl-2 py-0">
-                <div class="v-col-12 py-0">
-                  มติที่ประชุมคณะกรรมการกำกับการทวงถามหนี้ประจำท้องที่
-                </div>
                 <v-text-field
                   class="v-col-12"
                   variant="outlined"
@@ -122,7 +42,7 @@
           </div>
         </v-form>
       </v-card-text>
-      <v-divider  :thickness="5" color="#1a237e" />
+      <v-divider :thickness="5" color="#1a237e" />
       <v-card-actions class="d-flex justify-space-between pb-4">
         <v-row class="d-flex justify-start">
           <v-col cols="3"></v-col>
@@ -158,8 +78,8 @@
     </v-card>
   </v-dialog>
 </template>
-  
-<script setup>
+    
+  <script setup>
 import { ref, watch } from 'vue'
 import Swal from 'sweetalert2'
 
@@ -182,7 +102,6 @@ const emit = defineEmits(['update:showDialog', 'saved'])
 const internalShowDialog = ref(props.showDialog)
 const internalItem = ref({ ...props.item })
 const userForm = ref(null)
-const oldStatus = ref(2)
 
 // Watch props.showDialog
 watch(
@@ -200,49 +119,10 @@ watch(internalShowDialog, (val) => {
   }
 })
 
-// Watch props.item
-watch(
-  () => props.item,
-  (val) => {
-    if (val) {
-      internalItem.value = { ...val }
-      oldStatus.value = val.status // ตั้งค่า oldStatus จาก props.item.status
-    }
-  }
-)
-
 // ปิด dialog
 const close = () => {
   internalShowDialog.value = false
   internalItem.value = { ...props.item } // รีเซ็ตค่า internalItem เมื่อปิด dialog
-}
-
-// ฟังก์ชัน validate ข้อมูล
-const validateUserData = () => {
-  let missingFields = []
-  const requiredFields = {
-    empPid: 'รหัสพนักงาน',
-    fName: 'ชื่อ',
-    lName: 'นามสกุล',
-    age: 'อายุ',
-    sex: 'เพศ',
-    govId: 'หน่วยงาน',
-    role: 'สิทธิ์',
-    quota: 'โควต้า',
-    quotaRemain: 'โควต้าคงเหลือ',
-  }
-
-  Object.keys(requiredFields).forEach((field) => {
-    if (
-      internalItem.value[field] === null ||
-      internalItem.value[field] === undefined ||
-      internalItem.value[field] === ''
-    ) {
-      missingFields.push(requiredFields[field])
-    }
-  })
-
-  return missingFields
 }
 
 // ฟังก์ชัน save
@@ -250,17 +130,14 @@ const save = async () => {
   try {
     const isValid = await userForm.value.validate()
     if (!isValid.valid) {
-      const missingFields = validateUserData()
-      if (missingFields.length > 0) {
-        await Swal.fire({
-          title: 'แจ้งเตือน',
-          text: `กรุณากรอกข้อมูลให้ครบถ้วนในช่องต่อไปนี้: ${missingFields.join(
-            ', '
-          )}`,
-          icon: 'warning',
-        })
-        return
-      }
+      await Swal.fire({
+        title: 'แจ้งเตือน',
+        text: `กรุณากรอกข้อมูลให้ครบถ้วนในช่องต่อไปนี้: ${missingFields.join(
+          ', '
+        )}`,
+        icon: 'warning',
+      })
+      return
     }
 
     if (internalItem.value.role === 3) {
@@ -301,9 +178,9 @@ const save = async () => {
   }
 }
 </script>
-
   
-<style scoped>
+    
+  <style scoped>
 .swal-custom-zindex {
   z-index: 2000 !important;
 }
@@ -358,5 +235,5 @@ const save = async () => {
   }
 }
 </style>
-  
-  
+    
+    

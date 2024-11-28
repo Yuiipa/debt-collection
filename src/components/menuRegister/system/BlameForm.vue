@@ -5,22 +5,28 @@
     style="z-index: 1000"
   >
     <v-card>
-      <v-card-title class="font-weight-medium text-center">
-        แก้ไขผู้ใช้งาน
-      </v-card-title>
+      <div class="px-5">
+        <v-card-title class="mt-1">
+          <span class="font-weight-bold" style="color: #1a237e">
+            {{ dialogTitle }}ความผิด
+          </span>
+        </v-card-title>
+        <v-divider :thickness="2" color="#1a237e" />
+      </div>
       <v-divider class="opacity-100" :thickness="1"></v-divider>
-      <v-card-text class="pb-0 pl-0 pr-0 pt-2">
+      <v-card-text class="py-0">
         <v-form ref="form">
           <div class="my-8 mx-4" style="background-color: white">
             <v-row>
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ไอดีจังหวัด
+                ไอดีความผิด
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ไอดีจังหวัด"
+                placeholder="auto"
+                :readonly="true"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -30,11 +36,11 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                รหัสจังหวัด
+                ความผิดตามมาตรา
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                 placeholder="รหัสจังหวัด"
+                placeholder="ความผิดตามมาตรา"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -44,11 +50,24 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ชื่อจังหวัดภาษาไทย
+                ข้อหาหรือฐานความผิด
+              </div>
+              <v-textarea
+                class="v-col-12 v-col-sm-6"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-textarea>
+            </v-row>
+            <v-row>
+              <div
+                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
+              >
+              มาตรา
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                 placeholder="ชื่อจังหวัดภาษาไทย"
+                placeholder="มาตรา"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -58,80 +77,57 @@
               <div
                 class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
               >
-                ชื่อจังหวัดภาษาอังกฤษ
+              อัตราโทษ
               </div>
-              <v-text-field
+              <v-textarea
                 class="v-col-12 v-col-sm-6"
-                placeholder="ชื่อจังหวัดภาษาอังกฤษ"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
-              ></v-text-field>
-            </v-row>
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-                GEO ID
-              </div>
-              <v-text-field
-                class="v-col-12 v-col-sm-6"
-                placeholder="GEO ID"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-text-field>
-            </v-row>
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-                ละติจูด
-              </div>
-              <v-text-field
-                class="v-col-12 v-col-sm-6"
-                placeholder="ละจิจูด"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-text-field>
-            </v-row>
-
-            <v-row>
-              <div
-                class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
-              >
-                ลองจิจูด
-              </div>
-              <v-text-field
-                class="v-col-12 v-col-sm-6"
-                placeholder="ลองจิจูด"
-                variant="outlined"
-                density="compact"
-                hide-details="auto"
-              ></v-text-field>
+              ></v-textarea>
             </v-row>
           </div>
         </v-form>
       </v-card-text>
-      <v-card-actions
-        class="d-flex justify-center align-center custom-action pa-0"
-      >
-        <v-btn
-          class="cancel-btn d-flex justify-center align-center"
-          @click="close"
-          >ยกเลิก</v-btn
-        >
-        <v-btn class="save-btn d-flex justify-center align-center" @click="save"
-          >บันทึก</v-btn
-        >
+      <v-divider :thickness="5" color="#1a237e" />
+      <v-card-actions class="d-flex justify-space-between pb-4">
+        <v-row class="d-flex justify-start">
+          <v-col cols="3"></v-col>
+          <v-col md="3" cols="12">
+            <v-btn
+              style="
+                width: 100%;
+                height: 47px;
+                background-color: grey;
+                color: white;
+              "
+              @click="close"
+            >
+              <div class="text-h6">ปิด</div>
+            </v-btn>
+          </v-col>
+
+          <v-col md="3" cols="12" justify="end">
+            <v-btn
+              style="
+                width: 100%;
+                height: 47px;
+                background-color: #1a237e;
+                color: white;
+              "
+              class="mr-4"
+            >
+              <div class="text-h6">บันทึก</div>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
-      
-    <script setup>
-import { ref, watch } from 'vue'
+            
+<script setup>
+import { ref, watch, computed } from 'vue'
 
 // รับ props ด้วย defineProps
 const props = defineProps({
@@ -143,6 +139,10 @@ const props = defineProps({
     type: Object,
     required: false,
   },
+  typeForm: {
+    type: Number,
+    required: true,
+  },
 })
 
 // ใช้งาน emit
@@ -151,7 +151,6 @@ const emit = defineEmits(['update:showDialog', 'saved'])
 // ค่าภายใน component
 const internalShowDialog = ref(props.showDialog)
 const internalItem = ref({ ...props.item })
-const oldStatus = ref(2)
 
 // Watch props.showDialog
 watch(
@@ -169,16 +168,6 @@ watch(internalShowDialog, (val) => {
   }
 })
 
-// Watch props.item
-watch(
-  () => props.item,
-  (val) => {
-    if (val) {
-      internalItem.value = { ...val }
-      oldStatus.value = val.status // ตั้งค่า oldStatus จาก props.item.status
-    }
-  }
-)
 
 // ปิด dialog
 const close = () => {
@@ -186,14 +175,25 @@ const close = () => {
   internalItem.value = { ...props.item } // รีเซ็ตค่า internalItem เมื่อปิด dialog
 }
 
-// ฟังก์ชัน save
 const save = async () => {
   console.log('save')
 }
+
+// กำหนดข้อความ title
+const dialogTitle = computed(() => {
+  switch (props.typeForm) {
+    case 1:
+      return 'เพิ่ม'
+    case 2:
+      return 'แก้ไข'
+    default:
+      return 'เพิ่ม'
+  }
+})
 </script>
-    
-      
-    <style scoped>
+          
+            
+          <style scoped>
 .swal-custom-zindex {
   z-index: 2000 !important;
 }
@@ -248,5 +248,5 @@ const save = async () => {
   }
 }
 </style>
-      
-      
+            
+            

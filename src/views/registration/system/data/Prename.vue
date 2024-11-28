@@ -4,7 +4,7 @@
       class="d-flex justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span> ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้</span>
+      <span> จัดการข้อมูลผู้ใช้งาน</span>
     </v-card-title>
     <div>
       <v-row class="px-16">
@@ -26,6 +26,15 @@
             >ค้นหา</v-btn
           >
         </v-col>
+        <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+          <v-btn
+            color="green"
+            prepend-icon="mdi-plus-circle-outline"
+            @click="openEditDialog(1)"
+          >
+            เพิ่มคำนำหน้าชื่อ
+          </v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>
@@ -43,23 +52,15 @@
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-              <template v-slot:[`item.select`]="{ item }">
-                <v-btn
-                  variant="plain"
-                  small
-                  class="d-flex justify-center"
-                  @click="navigate(item)"
-                >
-                  เลือก >
+
+              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
+              <template v-slot:[`item.process`]="{ item }">
+                <v-btn variant="text" size="small" @click="openEditDialog(2)">
+                  <v-icon left size="26">mdi-pencil</v-icon>
                 </v-btn>
-              </template>
-              <template v-slot:[`item.status`]="{}">
-                <div
-                  class="rounded-lg text-white text-center py-1"
-                  style="background-color: #4caf50"
-                >
-                  เลิกประกอบธุรกิจ
-                </div>
+                <v-btn variant="text" size="small" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete</v-icon>
+                </v-btn>
               </template>
             </v-data-table>
           </div>
@@ -67,89 +68,58 @@
       </v-row>
     </div>
   </v-card>
+  <edit-dialog
+    v-model:showDialog="showEditDialog"
+    :item="items"
+    @saved="handleSave"
+    :typeForm="typeEdit"
+  ></edit-dialog>
 </template>
     
     <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import EditDialog from '@/components/menuRegister/system/PrenameForm.vue'
 
+const showEditDialog = ref(false)
+const typeEdit = ref(1)
 
-
+const openEditDialog = (type) => {
+  showEditDialog.value = true
+  typeEdit.value = type
+}
+const handleSave = () => {
+  console.log(save)
+}
 
 const headers = [
+  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
   {
-    title: 'ลำดับที่',
-    key: 'index',
-    align: 'center',
-    sortable: true,
-    width: '100px',
-  },
-  {
-    title: 'เลขที่ทะเบียน',
-    key: 'refLicId',
+    title: 'ชื่อคำนำหน้า',
+    key: 'pid',
     align: 'start',
     sortable: true,
     width: '190px',
   },
-  { title: 'ชื่อธุรกิจ', key: 'name', align: 'start', sortable: true },
-  {
-    title: 'ประเภทการประกอบธุรกิจ',
-    key: 'type',
-    align: 'start',
-    sortable: true,
-  },
-  {
-    title: 'ที่ตั้งสถานประกอบธุรกิจ',
-    key: 'location',
-    align: 'start',
-    sortable: true,
-  },
-  {
-    title: 'สถานะ',
-    key: 'status',
-    align: 'center',
-    sortable: true,
-    width: '140px',
-  },
-  {
-    title: 'เลือก',
-    key: 'select',
-    align: 'center',
-    sortable: true,
-    width: '100px',
-  },
+  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
 ]
 
 const items = ref([
   {
-    refLicId: 8466851084319,
-    name: 'นาย',
-    type: 'สมหมาย',
-    location: 'บุญยงค์',
+    pid: 8466851084319,
   },
   {
-    refLicId: 8466851084319,
-    name: 'นาย',
-    type: 'สมคิด',
-    location: 'เพชรพันธ์',
+    pid: 8466851084319,
   },
   {
-    refLicId: 8466851084319,
-    name: 'น.ส.',
-    type: 'สมทรง',
-    location: 'เพชรพันธ์',
+    pid: 8466851084319,
   },
   {
-    refLicId: 8466851084319,
-    name: 'นาย',
-    type: 'สมทรง',
-    location: 'เพชรพันธ์',
+    pid: 8466851084319,
   },
 ])
 
-function navigate(item) {
-  router.push({ name: 'debt-CancelQuit-form' })
+function deleteItem(item) {
+  console.log('ลบ:', item)
 }
 </script>
     
