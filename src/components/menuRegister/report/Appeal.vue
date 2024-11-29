@@ -98,6 +98,7 @@
 <script setup>
 import { ref } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportAppeal'
+import { generatePDF } from '@/prints/register/Appeal'
 
 const headers = [
   {
@@ -327,6 +328,10 @@ function deleteItem(item) {
 
 const exportExcel = () => {
   generateExcel(items.value)
+}
+
+const exportPdf = () => {
+  generatePDF(items.value)
 }
 </script>
 
