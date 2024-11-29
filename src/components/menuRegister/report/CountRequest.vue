@@ -98,6 +98,7 @@
 import { ref } from 'vue'
 import AreaChart from '@/components/charts/AreaChart.vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountRequest'
+import { generatePDF } from '@/prints/register/CountRequest';
 
 const graph = [
   { usage_count: 385, usage_name: 'กรุงเทพมหานคร' },
@@ -368,6 +369,10 @@ function deleteItem(item) {
 
 const exportExcel = () => {
   generateExcel(items.value)
+}
+
+const exportPdf = () => {
+  generatePDF(items.value)
 }
 </script>
 

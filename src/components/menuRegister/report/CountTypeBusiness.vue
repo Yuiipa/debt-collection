@@ -108,6 +108,7 @@
 import { ref } from 'vue'
 import BarChart from '@/components/charts/barChart.vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountTypeBusiness'
+import {generatePDF} from '@/prints/register/CountTypeBusiness'
 
 const graph = [
   {
@@ -410,6 +411,10 @@ function deleteItem(item) {
 
 const exportExcel = () => {
   generateExcel(items.value)
+}
+
+const exportPdf = () => {
+  generatePDF(items.value)
 }
 </script>
 

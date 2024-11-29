@@ -106,6 +106,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { generatePDF } from '@/prints/register/CountBusiness'
 import { generateExcel } from '@/prints/register/excel/ReportCountBusiness'
 
 import AreaChart from '@/components/charts/AreaChart.vue'
@@ -151,40 +152,80 @@ const items = ref([
     amount: 1634,
   },
   {
-    province: 'นนทบุรี',
+    province: 'จังหวัดนนทบุรี',
     amount: 465,
   },
   {
-    province: 'ปทุมธานี',
+    province: 'จังหวัดปทุมธานี',
     amount: 163,
   },
   {
-    province: 'สมุทรปราการ',
+    province: 'จังหวัดสมุทรปราการ',
     amount: 161,
   },
   {
-    province: 'เชียงใหม่',
+    province: 'จังหวัดเชียงใหม่',
     amount: 158,
   },
   {
-    province: 'นครราชสีมา',
+    province: 'จังหวัดนครราชสีมา',
     amount: 146,
   },
   {
-    province: 'ขอนแก่น',
+    province: 'จังหวัดขอนแก่น',
     amount: 116,
   },
   {
-    province: 'อุดรธานี',
+    province: 'จังหวัดอุดรธานี',
     amount: 103,
   },
   {
-    province: 'ชลบุรี',
+    province: 'จังหวัดชลบุรี',
     amount: 102,
   },
   {
-    province: 'สุราษฎร์ธานี',
+    province: 'จังหวัดสงขลา',
     amount: 95,
+  },
+  {
+    province: 'จังหวัดสุราษฎร์ธานี',
+    amount: 95,
+  },
+  {
+    province: 'จังหวัดอุบลราชธานี',
+    amount: 94,
+  },
+  {
+    province: 'จังหวัดร้อยเอ็ด',
+    amount: 92,
+  },
+  {
+    province: 'จังหวัดนครสวรรค์',
+    amount: 80,
+  },
+  {
+    province: 'จังหวัดเชียงราย',
+    amount: 66,
+  },
+  {
+    province: 'จังหวัดนครศรีธรรมราช',
+    amount: 65,
+  },
+  {
+    province: 'จังหวัดสุโขทัย',
+    amount: 65,
+  },
+  {
+    province: 'จังหวัดอุตรดิตถ์',
+    amount: 59,
+  },
+  {
+    province: 'จังหวัดภูเก็ต',
+    amount: 56,
+  },
+  {
+    province: 'จังหวัดพิษณุโลก',
+    amount: 55,
   },
 ])
 
@@ -198,6 +239,10 @@ function deleteItem(item) {
 
 const exportExcel = () => {
   generateExcel(items.value)
+}
+
+const exportPdf = () => {
+  generatePDF(items.value)
 }
 </script>
 

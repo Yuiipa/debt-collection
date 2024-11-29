@@ -7,6 +7,32 @@ const check = icon.correct
 function Content(item) {
   return [
     {
+      text: 'รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘',
+      alignment: 'center',
+      bold: true,
+      margin: [0, 0, 0, 0],
+      fontSize: 18,
+      lineHeight: 1.4,
+    },
+    {
+      text: `${item[0].writtingAt}`,
+      alignment: 'center',
+      bold: true,
+      margin: [0, -5, 0, 0],
+      fontSize: 18,
+      lineHeight: 1.4,
+    },
+    {
+      text: `วันที่ ${ThaiNumbers(item[0].datetime)} ถึง วันที่ ${ThaiNumbers(
+        item[0].datetime
+      )}`,
+      alignment: 'center',
+      bold: true,
+      margin: [0, -5, 0, 0],
+      fontSize: 18,
+      lineHeight: 1.4,
+    },
+    {
       table: {
         headerRows: 1,
         widths: ['10%', '*', '15%', '15%', '15%', '15%'],
@@ -135,35 +161,7 @@ export async function generatePDF(item) {
     },
     pageSize: 'A4',
     pageOrientation: 'landscape',
-    pageMargins: [46, 120, 26, 50],
-    header: [
-      {
-        text: 'รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘',
-        alignment: 'center',
-        bold: true,
-        margin: [0, 37, 0, 0],
-        fontSize: 18,
-        lineHeight: 1.4,
-      },
-      {
-        text: `${item[0].writtingAt}`,
-        alignment: 'center',
-        bold: true,
-        margin: [0, -5, 0, 0],
-        fontSize: 18,
-        lineHeight: 1.4,
-      },
-      {
-        text: `วันที่ ${ThaiNumbers(item[0].datetime)} ถึง วันที่ ${ThaiNumbers(
-          item[0].datetime
-        )}`,
-        alignment: 'center',
-        bold: true,
-        margin: [0, -5, 0, 0],
-        fontSize: 18,
-        lineHeight: 1.4,
-      },
-    ],
+    pageMargins: [46, 35, 26, 60],
 
     content: [...Content(item)],
     styles: {
