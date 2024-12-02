@@ -231,8 +231,47 @@
               </v-card-title>
             </v-col>
           </v-row>
+          <v-row class=" mb-2">
+            <v-col cols="12" md="12" class="py-0 px-0">
+              <div class="v-col-12 py-0 font-weight-bold">
+                สำเนาบัตรประจำตัวประชาชน
+              </div>
+            </v-col>
+          </v-row>
+          <UploadFile />
+          <v-row class=" mb-2">
+            <v-col cols="12" md="12" class="py-0 px-0">
+              <div class="v-col-12 py-0 font-weight-bold">
+                สำเนาสัญญากู้ยืมเงิน (ถ้ามี)
+              </div>
+            </v-col>
+          </v-row>
+          <UploadFile />
+          <v-row class=" mb-2">
+            <v-col cols="12" md="12" class="py-0 px-0">
+              <div class="v-col-12 py-0 font-weight-bold">
+                บัญชีรายชื่อพยานและที่อยู่พร้อมเบอร์โทรศัพท์
+              </div>
+            </v-col>
+          </v-row>
+          <UploadFile />
+          <v-row class=" mb-2">
+            <v-col cols="12" md="12" class="py-0 px-0">
+              <div class="v-col-12 py-0 font-weight-bold">หนังสือมอบอำนาจ</div>
+            </v-col>
+          </v-row>
+          <UploadFile />
+          <v-row class=" mb-2">
+            <v-col cols="12" md="12" class="py-0 px-0">
+              <div class="v-col-12 py-0 font-weight-bold">
+                เอกสารหลักฐานอื่นๆ (ถ้ามี) ระบุ
+              </div>
+            </v-col>
+          </v-row>
+          <UploadFile />
         </v-form>
       </v-card-text>
+
       <v-divider :thickness="5" color="#1a237e" />
       <v-card-actions class="d-flex justify-space-between pb-4">
         <v-row class="d-flex justify-start">
@@ -272,6 +311,7 @@
                   
       <script setup>
 import { ref, watch, computed } from 'vue'
+import UploadFile from '@/components/UploadFile.vue'
 
 // รับ props ด้วย defineProps
 const props = defineProps({

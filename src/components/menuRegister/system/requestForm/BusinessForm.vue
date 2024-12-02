@@ -27,6 +27,10 @@
                 density="compact"
                 hide-details="auto"
               ></v-text-field>
+              <div class="v-col-12 py-0 pr-0 text-body-2" style="color: red">
+                (ในกรณีที่ผู้ประกอบธุรกิจทวงถามหนี้เป็นสาขาหรือตัวแทน
+                ให้ระบุชื่อสำนักงานใหญ่หรือตัวการใหญ่)
+              </div>
             </v-col>
             <v-col cols="12" md="3" class="pa-0">
               <div class="v-col-12 py-0 font-weight-bold">ประเภทธุรกิจ</div>
@@ -98,7 +102,6 @@
               ></v-text-field>
             </v-col>
           </v-row>
-
           <v-row class="mt-6">
             <v-col cols="12" md="6" class="py-0 px-0">
               <div class="v-col-12 py-0 font-weight-bold">

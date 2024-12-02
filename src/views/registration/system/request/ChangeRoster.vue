@@ -76,7 +76,7 @@
     
     <script setup>
 import { ref } from 'vue'
-import EditDialog from '@/components/menuRegister/user/Dialog.vue'
+import EditDialog from '@/components/menuRegister/system/requestForm/ChangeRosterForm.vue'
 
 const showEditDialog = ref(false)
 
