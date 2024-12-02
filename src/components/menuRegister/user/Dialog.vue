@@ -5,24 +5,173 @@
     style="z-index: 1000"
   >
     <v-card>
-      <v-card-title class="font-weight-medium text-center">
-        แก้ไขผู้ใช้งาน
-      </v-card-title>
-      <v-divider class="mr-2 opacity-100" :thickness="1"></v-divider>
-      <v-card-text class="pb-0 pl-0 pr-0 pt-2">
-        <UserForm :userData="internalItem" :isEdit="true" ref="userForm" />
+      <div class="px-5">
+        <v-card-title class="mt-1">
+          <span class="font-weight-bold" style="color: #1a237e">
+            แก้ไขผู้ใช้งาน
+          </span>
+        </v-card-title>
+        <v-divider :thickness="2" color="#1a237e" />
+      </div>
+      <v-divider class="opacity-100" :thickness="1"></v-divider>
+      <v-card-text class="pa-8">
+        <v-form ref="form">
+          <div >
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">เลขประจำตัวประชาชน</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">คำนำหน้านาม</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="6" class="pl-2 py-0">
+                <div class="v-col-12 py-0">ชื่อ</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="6" class="pl-2 py-0">
+                <div class="v-col-12 py-0">นามสกุล</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">ตำแหน่งผู้ปฏิบัติงาน</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">สังกัด</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">อีเมล์</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">เบอร์โทรศัพท์ติดต่อ</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">สิทธิ์การใช้งาน</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">เอกสารแนบ</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">สถานะการใช้งาน</div>
+                <v-text-field
+                  class="v-col-12"
+                  variant="outlined"
+                  density="compact"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </div>
+        </v-form>
       </v-card-text>
-      <v-card-actions
-        class="d-flex justify-center align-center custom-action pa-0"
-      >
-        <v-btn
-          class="cancel-btn d-flex justify-center align-center"
-          @click="close"
-          >ยกเลิก</v-btn
-        >
-        <v-btn class="save-btn d-flex justify-center align-center" @click="save"
-          >บันทึก</v-btn
-        >
+      <v-divider :thickness="5" color="#1a237e" />
+      <v-card-actions class="d-flex justify-space-between pb-4">
+        <v-row class="d-flex justify-start">
+          <v-col cols="3"></v-col>
+          <v-col md="3" cols="12">
+            <v-btn
+              style="
+                width: 100%;
+                height: 47px;
+                background-color: grey;
+                color: white;
+              "
+              @click="close"
+            >
+              <div class="text-h6">ปิด</div>
+            </v-btn>
+          </v-col>
+
+          <v-col md="3" cols="12" justify="end">
+            <v-btn
+              style="
+                width: 100%;
+                height: 47px;
+                background-color: #1a237e;
+                color: white;
+              "
+              class="mr-4"
+            >
+              <div class="text-h6">บันทึก</div>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -30,7 +179,7 @@
   
 <script setup>
 import { ref, watch } from 'vue'
-import UserForm from './UserForm.vue'
+
 import Swal from 'sweetalert2'
 
 // รับ props ด้วย defineProps

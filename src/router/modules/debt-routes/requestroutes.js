@@ -35,6 +35,11 @@ const routeRequestForm = [
       name: 'debt-CancelQuit-form',
       component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
     },
+    {
+      path: '/debt/Registration/form',
+      name: 'debt-Registration-form',
+      component: () => import('@/components/menuRegister/requestForm/RegistrationForm.vue'),
+    },
   ]
   
   const routeRequest = [
