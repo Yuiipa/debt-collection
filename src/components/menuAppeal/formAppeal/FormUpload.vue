@@ -7,15 +7,13 @@
             อัปโหลดแบบฟอร์มเรื่องร้องเรียน (รทน.1)
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
-            variant="outlined"
-            placeholder="อัปโหลดแบบฟอร์มเรื่องร้องเรียน (รทน.1)"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
+          <UploadFile />
         </v-col>
       </v-row>
     </v-card>
   </v-form>
 </template>
+
+<script setup>
+import UploadFile from '@/components/UploadFile'
+</script>

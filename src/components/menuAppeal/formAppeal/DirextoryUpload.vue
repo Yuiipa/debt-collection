@@ -7,15 +7,13 @@
             สารบบการรับเรื่องร้องเรียน ตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
-            variant="outlined"
-            placeholder="เขียนที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
+          <UploadFile />
         </v-col>
       </v-row>
     </v-card>
   </v-form>
 </template>
+
+<script setup>
+import UploadFile from '@/components/UploadFile'
+</script>
