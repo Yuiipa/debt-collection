@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-12 px-10">
+  <div class="px-10">
     <v-row>
       <v-col>
         <div
@@ -9,7 +9,7 @@
           <v-row class="d-flex align-center justify-space-between pb-2">
             <!-- Span ที่มีข้อความ -->
             <span color="#1A237E" class="text-h5 text-blue-darken-4">
-              ประวัติการถูกร้องเรียนของสถานประกอบธุรกิจ
+              รายการคำขอ
             </span>
           </v-row>
 
@@ -23,11 +23,6 @@
             >
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
-              </template>
-              <template v-slot:[`item.data`]="{ item }">
-                <v-btn variant="plain" small @click="navigate(item)">
-                  ข้อมูล >
-                </v-btn>
               </template>
               <template v-slot:[`item.status`]="{ item }">
                 <v-switch
@@ -49,71 +44,52 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-const showFilter = ref(false);
 
-const toggleFilter = () => {
-  showFilter.value = !showFilter.value;
-};
-const router = useRouter()
-function navigate(routeName) {
-  router.push({ name: 'debt-home-registration-detail_business' })
-}
 const headers = [
   { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
   {
-    title: 'เลขที่ทะเบียน',
-    key: 'registerNumber',
+    title: 'วันที่',
+    key: 'date',
     align: 'start',
     sortable: true,
     width: '150px',
   },
-  { title: 'ชื่อธุรกิจ', key: 'businessName', align: 'start', sortable: true },
+  { title: 'หน่วยงาน', key: 'agency', align: 'start', sortable: true },
   {
-    title: 'ประเภทการประกอบธุรกิจ',
+    title: 'เลขที่คำขอ',
+    key: 'registerNumber',
+    align: 'start',
+    sortable: true,
+  },
+  {
+    title: 'ประเภทคำขอ',
     key: 'type',
     align: 'start',
     sortable: true,
   },
-  {
-    title: 'ที่ตั้งสถานประกอบการ',
-    key: 'location',
-    align: 'start',
-    sortable: true,
-  },
-  { title: 'ข้อมูล', key: 'data', align: 'center', sortable: false },
-  { title: 'สถานะ', key: 'status', align: 'center', sortable: false },
+  { title: 'ไฟล์เอกสาร', key: 'document', align: 'center', sortable: false },
 ]
 
 const items = ref([
   {
-    registerNumber: '001/2566',
-    businessName: 'สำนักงาน จันทร์จิรา ฟองแก้ว ทนายความ',
-    type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
-    status: true,
+    date: '001/2566',
+    registerNumber: 'ทนายความ',
+    type: 'จังหวัดแม่ฮ่องสอน',
+    document: true,
   },
   {
-    registerNumber: '002/2566',
-    businessName: 'Jelly bean',
-    type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
-    status: true,
+    date: '001/2566',
+    registerNumber: 'ทนายความ',
+    type: 'จังหวัดแม่ฮ่องสอน',
+    document: true,
   },
   {
-    registerNumber: '003/2566',
-    businessName: 'KitKat',
-    type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
-    status: true,
+    date: '001/2566',
+    registerNumber: 'ทนายความ',
+    type: 'จังหวัดแม่ฮ่องสอน',
+    document: true,
   },
-  {
-    registerNumber: '004/2566',
-    businessName: 'Eclair',
-    type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
-    status: true,
-  },
+  
 ])
 </script>
 

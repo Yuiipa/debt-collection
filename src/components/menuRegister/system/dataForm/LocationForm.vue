@@ -25,7 +25,7 @@
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ไอดีจังหวัด"
+                :placeholder="`ไอดี${dialogTextfield}`"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -39,7 +39,7 @@
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="รหัสจังหวัด"
+                :placeholder="`รหัส${dialogTextfield}`"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -53,7 +53,7 @@
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ชื่อจังหวัดภาษาไทย"
+                :placeholder="`ชื่อ${dialogTextfield}ภาษาไทย`"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -67,7 +67,7 @@
               </div>
               <v-text-field
                 class="v-col-12 v-col-sm-6"
-                placeholder="ชื่อจังหวัดภาษาอังกฤษ"
+                :placeholder="`ชื่อ${dialogTextfield}ภาษาอังกฤษ`"
                 variant="outlined"
                 density="compact"
                 hide-details="auto"
@@ -169,7 +169,7 @@ const props = defineProps({
     type: Object,
     required: false,
   },
-  typeForm: {
+  title: {
     type: Number,
     required: true,
   },
@@ -222,7 +222,7 @@ const save = async () => {
 
 // กำหนดข้อความ title
 const dialogTitle = computed(() => {
-  switch (props.typeForm) {
+  switch (props.title) {
     case 1:
       return 'เพิ่มจังหวัด'
     case 2:
@@ -246,10 +246,10 @@ const dialogTextfield = computed(() => {
       return 'จังหวัด';
     case 3:
     case 4:
-      return 'ตำบล';
+      return 'อำเภอ';
     case 5:
     case 6:
-      return 'อำเภอ';
+      return 'ตำบล';
     default:
       return 'จังหวัด';
   }

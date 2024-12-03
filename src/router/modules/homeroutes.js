@@ -18,6 +18,10 @@ const routesHome = [
         path: '/menu_page',
         name: 'debt-menu-page',
         component: () => import('@/views/common/MenuPage.vue'),
+      }, {
+        path: '/menu_page/change_password',
+        name: 'debt-change-password',
+        component: () => import('@/views/registration/ChangePassword.vue'),
       },]
   },
   {

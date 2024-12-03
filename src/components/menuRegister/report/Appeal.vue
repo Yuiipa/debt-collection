@@ -1,14 +1,14 @@
 <template>
-  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
-    <v-card-title
-      class="d-flex justify-center ma-2 text-h5 font-weight-bold"
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
+    <div
+      class="d-flex justify-center ma-2 mt-4 text-h5 font-weight-bold"
       style="color: #1a237e"
     >
       <span>
         รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้
         พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด
       </span>
-    </v-card-title>
+    </div>
     <div>
       <v-row class="mx-10 my-2">
         <div class="w-100 d-flex justify-end" style="gap: 10px">

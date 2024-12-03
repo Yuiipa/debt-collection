@@ -16,7 +16,7 @@
             variant="outlined"
             elevation="2"
             id="person"
-            @click="console.log('บุคคลธรรมดา')"
+            @click="navigate()"
           >
             <v-icon size="100" class="my-2">mdi-account</v-icon>
             <span class="text-h4 text-center mt-2">บุคคลธรรมดา</span>
@@ -30,7 +30,7 @@
             variant="outlined"
             elevation="2"
             id="legal"
-            @click="console.log('นิติบุคคล')"
+            @click="navigate()"
           >
             <v-icon size="100" class="my-2">mdi-office-building</v-icon>
             <span class="text-h4 text-center mt-2">นิติบุคคล</span>
@@ -46,7 +46,7 @@
             variant="outlined"
             elevation="2"
             id="lawyer"
-            @click="console.log('ทนายความ')"
+            @click="navigate()"
           >
             <v-icon size="100" class="my-2">mdi-gavel</v-icon>
             <span class="text-h4 text-center mt-2">ทนายความ</span>
@@ -60,7 +60,7 @@
             variant="outlined"
             elevation="2"
             id="lawfirm"
-            @click="console.log('สำนักงานทนายความ')"
+            @click="navigate()"
           >
             <v-icon size="100" class="my-2">mdi-briefcase</v-icon>
             <span class="text-h4 text-center mt-2">สำนักงานทนายความ</span>
@@ -74,6 +74,9 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+function navigate() {
+  router.push({ name: 'debt-Registration-checkperson' })
+}
 </script>
 
 <style scoped>

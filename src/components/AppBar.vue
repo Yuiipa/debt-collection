@@ -4,7 +4,7 @@
     class="py-2 position-fixed"
     :color="isPop ? '#fff' : '#1A237E'"
   >
-    <v-row class="px-2 px-md-10">
+    <v-row class="px-6 px-md-10">
       <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
         v-if="!isHomeRoute && !isMenuPage"
@@ -67,7 +67,7 @@
         class="d-flex justify-end align-center"
       >
         <v-icon class="px-2" large>mdi-bell</v-icon>
-        <v-icon large>mdi-fullscreen</v-icon>
+        <v-icon large @click="toggleFullScreen" style="cursor: pointer;">mdi-fullscreen</v-icon>
         <span class="pr-2 d-none d-md-flex" style="margin-left: 8px">
           น.ส. รุ่งนภา สะสม
         </span>
@@ -82,7 +82,7 @@
               v-for="(item, index) in listService"
               :key="index"
               @click="$router.push({ name: item.name })"
-              class="list-item-underline"
+              
             >
               <v-list-item-title class="text-indigo-darken-4">
                 {{ item.title }}
@@ -200,9 +200,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted ,watch ,nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useDisplay } from 'vuetify';
+
 import menuData from '@/static/navigation.json'
+const display = useDisplay();
 
 const drawer = ref(true) // สำหรับ Drawer หลัก
 const subDrawer = ref(false) // สำหรับ Drawer ย่อย
@@ -303,11 +306,57 @@ function openDrawerForCurrentPath() {
 
   findMenuWithPath(sidebar, route.name)
 }
-
+// เพิ่ม watcher สำหรับ route
+watch(
+  () => route.path,
+  () => {
+    selectedMenu.value = null; // รีเซ็ตเมนูที่เลือก
+    subDrawer.value = false; // ปิดเมนูย่อย
+    openDrawerForCurrentPath(); // เปิด drawer ใหม่ตาม path
+  }
+);
 // เรียกใช้เมื่อ component ถูกสร้าง
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
+  if (display.smAndDown.value) {
+    drawer.value = false; // ปิด drawer สำหรับ mobile หรือ tablet
+  }
   openDrawerForCurrentPath() // เช็ค path ปัจจุบันและเปิด drawer
 })
+
+const isFullScreen = ref(false); // ติดตามสถานะ fullscreen
+
+function toggleFullScreen() {
+  const doc = document; // เอกสารหลักของหน้าเว็บ
+  const docEl = doc.documentElement; // Element หลักของ HTML
+
+  if (!isFullScreen.value) {
+    // เข้าสู่ fullscreen
+    if (docEl.requestFullscreen) {
+      docEl.requestFullscreen();
+    } else if (docEl.mozRequestFullScreen) {
+      docEl.mozRequestFullScreen(); // สำหรับ Firefox
+    } else if (docEl.webkitRequestFullscreen) {
+      docEl.webkitRequestFullscreen(); // สำหรับ Chrome, Safari, Opera
+    } else if (docEl.msRequestFullscreen) {
+      docEl.msRequestFullscreen(); // สำหรับ IE/Edge
+    }
+  } else {
+    // ออกจาก fullscreen
+    if (doc.exitFullscreen) {
+      doc.exitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      doc.mozCancelFullScreen(); // สำหรับ Firefox
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen(); // สำหรับ Chrome, Safari, Opera
+    } else if (doc.msExitFullscreen) {
+      doc.msExitFullscreen(); // สำหรับ IE/Edge
+    }
+  }
+
+  // เปลี่ยนสถานะ fullscreen
+  isFullScreen.value = !isFullScreen.value;
+}
 </script>
 
 <style scoped>
