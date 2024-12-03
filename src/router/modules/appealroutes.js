@@ -76,11 +76,7 @@ const routesAppeal = [
         name: 'debt-search-appeal-unregister',
         component: () => import('@/views/appeal/Unregister.vue'),
       },
-      {
-        path: '/appeal/change_password',
-        name: 'debt-change-password',
-        component: () => import('@/views/registration/ChangePassword.vue'),
-      },
+      
     ],
   },
 ]

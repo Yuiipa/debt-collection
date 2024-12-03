@@ -1,8 +1,8 @@
 <template>
   <v-form ref="form">
-    <div class="d-flex justify-start align-end mt-10 px-10">
+    <div class="d-flex justify-center align-end mt-10 mb-4 px-10">
       <span>
-        <span class="text-blue-darken-4 text-h4">
+        <span class="text-h4" style="color: #1a237e">
           คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้
         </span>
       </span>
@@ -13,8 +13,8 @@
     >
       <v-row>
         <v-col cols="10">
-          <div class="font-weight-bold text-h6 text-blue-darken-1">
-            ขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนประกอบธุรกิจทวงถามหนี้
+          <div class="font-weight-bold text-h6" style="color: #1a237e">
+            คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนประกอบธุรกิจทวงถามหนี้
           </div>
         </v-col>
       </v-row>
@@ -23,13 +23,13 @@
         :thickness="2"
         color="grey"
       ></v-divider>
-      <v-row class="d-flex justify-end">
-        <v-col cols="12" md="3" class="pl-2 pa-0">
-          <div class="v-col-12 py-0 font-weight-bold">
+      <v-row class="d-flex justify-end px-0">
+        <v-col cols="12" md="3" class="py-0 pl-2">
+          <div class="v-col-12 pa-0 font-weight-bold">
             <span style="color: red">* </span>เขียนที่
           </div>
           <v-text-field
-            class="v-col-12"
+            class="v-col-12 px-0"
             variant="outlined"
             density="compact"
             hide-details="auto"
@@ -303,7 +303,7 @@
         color="blue"
       ></v-divider>
       <v-row>
-        <v-col cols="12" class="d-flex align-center font-weight-bold pa-0">
+        <v-col cols="12" class="d-flex justify-center font-weight-bold pa-0">
           <span>คำสั่งนายทะเบียน</span>
         </v-col>
         <v-textarea

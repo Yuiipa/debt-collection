@@ -36,6 +36,11 @@ const routeRequestForm = [
       component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
     },
     {
+      path: '/debt/Registration/check_person',
+      name: 'debt-Registration-checkperson',
+      component: () => import('@/components/menuRegister/requestForm/CheckPerson.vue'),
+    },
+    {
       path: '/debt/Registration/form',
       name: 'debt-Registration-form',
       component: () => import('@/components/menuRegister/requestForm/RegistrationForm.vue'),

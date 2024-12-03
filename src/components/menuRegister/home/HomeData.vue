@@ -319,8 +319,9 @@
       </v-row>
     </div>
   </v-form>
-  <History />
+  
   <Request />
+  <History />
   <div class="pb-10">
     
   </div>

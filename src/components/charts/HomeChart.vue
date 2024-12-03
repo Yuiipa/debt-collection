@@ -1,8 +1,9 @@
 <template>
-  <v-sheet class="fill-height d-flex flex-column">
+  <v-sheet class="fill-height d-flex flex-column" style="background-color: transparent">
     <div class="chart-container flex-grow-1">
       <Doughnut id="my-chart-id" :options="chartOptions" :data="chartData" />
-      <div class="chart-center-text" v-if="centerText">
+      <div class="d-none d-md-flex">
+        <div class="chart-center-text " v-if="centerText">
         <span style="font-size: 16px; display: block">{{
           centerText.label
         }}</span>
@@ -10,6 +11,8 @@
           centerText.value
         }}</span>
       </div>
+      </div>
+      
     </div>
     <v-row class="legend-container justify-center mt-2">
       <div
@@ -68,13 +71,15 @@ export default defineComponent({
     const chartOptions = ref({
       responsive: true,
       maintainAspectRatio: false,
-      cutout: '75%',
+      cutout: '40%',
+      rotation: -90, // เริ่มที่ด้านล่าง
+      circumference: 180, // ครึ่งวงกลม
       plugins: {
         legend: {
-          display: false, // ปิดการแสดง legend ภายในของ Chart.js
+          display: false,
         },
         tooltip: {
-          enabled: true, // เปิดการใช้งาน Tooltip
+          enabled: true,
           external: function (context) {
             const tooltipModel = context.tooltip
             if (tooltipModel && tooltipModel.dataPoints) {
@@ -95,20 +100,21 @@ export default defineComponent({
     })
 
     function getChartData(systems) {
-      return {
-        labels: systems.map((item) => item.name),
-        datasets: [
-          {
-            label: 'จำนวนการเข้าใช้',
-            data: systems.map((item) => item.usage),
-            backgroundColor: systems.map((item) => item.color),
-            borderWidth: 0, // ตั้งค่า borderWidth เป็น 0 เพื่อลบขีดขอบ
-          },
-        ],
-      }
-    }
+  return {
+    labels: systems.map((item) => item.name),
+    datasets: [
+      {
+        label: 'จำนวนการเข้าใช้',
+        data: systems.map((item) => item.usage),
+        backgroundColor: systems.map((item) => item.color),
+        borderColor: '#FFFFFF', // ตั้งค่าเส้นแบ่งสีขาว
+        borderWidth: 2, // ความหนาของเส้นแบ่ง
+      },
+    ],
+  };
+}
 
-    // ฟังก์ชันที่ใช้สลับการแสดงผลข้อมูลในกราฟ
+
     function toggleDatasetVisibility(index) {
       hiddenDatasets.value[index] = !hiddenDatasets.value[index]
       const chart = ChartJS.getChart('my-chart-id')
@@ -137,7 +143,7 @@ export default defineComponent({
 
 .chart-center-text {
   position: absolute;
-  top: 50%;
+  top: 84%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -162,4 +168,6 @@ export default defineComponent({
   display: inline-block;
   border-radius: 50%;
 }
+
+
 </style>
