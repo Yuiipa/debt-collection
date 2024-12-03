@@ -1,103 +1,79 @@
 <template>
-  <div>
-    <v-row style="background-color: #1a237e">
-      <v-col class="d-flex justify-center">
-        <span class="text-h4 py-4" style="color: white">
-          บันทึกเรื่องร้องเรียน
-        </span>
+  <v-row class="d-flex">
+    <v-col cols="12">
+      <div class="background w-100"></div>
+    </v-col>
+  </v-row>
+  <v-card class="custom-card d-flex flex-column justify-center mt-12" :style="$vuetify.display.mdAndUp?'width:40%;height:70%':'width:80%;height:70%'">
+    <v-row class="ma-1">
+      <v-col cols="12" class="d-flex justify-center align-center">
+        <div :class="$vuetify.display.mdAndUp?'text-h3 font-weight-bold':'text-h4 font-weight-bold'" style="color:#1a237e">เปลี่ยนรหัสผ่าน</div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col>
-        <div class="px-10">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            class="elevation-1 rounded-table"
-          >
-            <template v-slot:[`item.calories`]="{ item }">
-              <span>{{ item.calories }} kcal</span>
-            </template>
-          </v-data-table>
-        </div>
+    <v-row class="ma-1">
+      <v-col cols="12" class="py-0">
+        <div class="mb-2 font-weight-bold">รหัสผ่านเก่า</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="รหัสผ่านเก่า"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
       </v-col>
     </v-row>
-  </div>
+    <v-row class="ma-1">
+      <v-col cols="12" class="py-0">
+        <div class="mb-2 font-weight-bold">รหัสผ่านใหม่</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="รหัสผ่านใหม่"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+    </v-row>
+    <v-row class="ma-1">
+      <v-col cols="12" class="py-0">
+        <div class="mb-2 font-weight-bold">ยืนยันรหัสผ่านใหม่</div>
+        <v-text-field
+          variant="outlined"
+          placeholder="ยืนยันรหัสผ่านใหม่"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+    </v-row>
+    <v-row class="ma-1">
+      <v-col cols="12" class="py-0">
+        <v-btn block style="background-color: #1a237e; color: white;height:75%">
+          <div class="text-h5">บันทึก</div>
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
-<script setup>
-
-const headers = [
-  {
-    text: 'ชื่อ',
-    value: 'name',
-    align: 'start',
-    sortable: true,
-    width: '150px',
-  },
-  { text: 'แคลอรี่', value: 'calories', align: 'center', sortable: true },
-  { text: 'ไขมัน (g)', value: 'fat', align: 'center', sortable: true },
-  { text: 'คาร์บ (g)', value: 'carbs', align: 'center', sortable: true },
-  { text: 'โปรตีน (g)', value: 'protein', align: 'center', sortable: true },
-  { text: 'เหล็ก (%)', value: 'iron', align: 'center', sortable: true },
-]
-
-const items = [
-  {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    iron: '1',
-  },
-  {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    iron: '0',
-  },
-  {
-    name: 'KitKat',
-    calories: 518,
-    fat: 26.0,
-    carbs: 65,
-    protein: 7,
-    iron: '6',
-  },
-  {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    iron: '7',
-  },
-]
-</script>
-
 <style scoped>
-.v-table :deep(th) {
-  background-color: #1A237E;
-
-  cursor: pointer;
-  font-weight: bold;
+.background {
+  background-image: url('/src/assets/dopa_bg.png');
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  position: relative;
 }
 
-/* เพิ่มความโค้งให้ขอบตาราง */
-.rounded-table {
-  border-radius: 24px !important;
-  overflow: hidden;
-}
-.v-table :deep(table > thead) {
-  background-color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-}
-.v-table ::v-deep tr:nth-child(even) {
-  background-color: #F1F1F1E5;
-
+.custom-card {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -25%);
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  z-index: 10;
 }
 </style>
