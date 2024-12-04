@@ -115,7 +115,7 @@
   </v-dialog>
 </template>
   
-  <script>
+  <script >
 import Swal from 'sweetalert2'
 
 export default {

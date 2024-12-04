@@ -5,13 +5,11 @@
     :color="isPop ? '#fff' : '#1A237E'"
   >
     <v-row class="px-6 px-md-10">
-      <!-- Conditionally render this section if the path does not start with /home -->
       <v-col
         v-if="!isHomeRoute && !isMenuPage"
         cols="1"
         class="text-center d-flex justify-center align-center"
       >
-        <!-- Icon to open/close the Navigation Drawer -->
         <v-icon color="grey" large @click="toggleDrawer"> mdi-menu </v-icon>
       </v-col>
 
