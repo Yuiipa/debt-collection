@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs'
+import { ThaiNumbers } from '@/components/helpers/utils.js'
 
 export async function generateExcel(item) {
   const workbook = new ExcelJS.Workbook()
@@ -50,7 +51,7 @@ export async function generateExcel(item) {
     const row = worksheet.addRow([
       index + 1, //ลำดับ
       data.province, //จังหวัด
-      data.amount.toLocaleString(), //จำนวน
+      ThaiNumbers(data.amount.toLocaleString()), //จำนวน
     ])
     row.height = 30
     row.eachCell((cell, colNumber) => {
@@ -76,7 +77,7 @@ export async function generateExcel(item) {
   const Footer = worksheet.addRow([
     'รวมทั้งหมด',
     '',
-    totalCount.toLocaleString() || 0,
+    ThaiNumbers(totalCount.toLocaleString()) || 0,
   ])
   Footer.height = 30
   worksheet.mergeCells(

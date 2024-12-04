@@ -230,6 +230,7 @@ function Content(item) {
               colSpan: 2,
               rowSpan: 2,
               alignment: 'center',
+              margin: [0, 12],
               bold: true,
               fontSize: 14,
               fillColor: '#D3D3D3',

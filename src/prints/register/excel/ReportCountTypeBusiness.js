@@ -80,23 +80,23 @@ export async function generateExcel(item) {
     const row = worksheet.addRow([
       ThaiNumbers(index + 1), //ลำดับ
       data.province, //หน่วยงาน
-      ThaiNumbers(data.individual || 0),
-      ThaiNumbers(data.unregisteredPartnership || 0),
-      ThaiNumbers(data.registeredPartnership || 0),
-      ThaiNumbers(data.limitedPartnership || 0),
-      ThaiNumbers(data.limitedCompany || 0),
-      ThaiNumbers(data.publiclimitedCompany || 0),
-      ThaiNumbers(data.Lawyer || 0),
-      ThaiNumbers(data.LawyersCouncil || 0),
+      ThaiNumbers(data.individual.toLocaleString() || 0),
+      ThaiNumbers(data.unregisteredPartnership.toLocaleString() || 0),
+      ThaiNumbers(data.registeredPartnership.toLocaleString() || 0),
+      ThaiNumbers(data.limitedPartnership.toLocaleString() || 0),
+      ThaiNumbers(data.limitedCompany.toLocaleString() || 0),
+      ThaiNumbers(data.publiclimitedCompany.toLocaleString() || 0),
+      ThaiNumbers(data.Lawyer.toLocaleString() || 0),
+      ThaiNumbers(data.LawyersCouncil.toLocaleString() || 0),
       ThaiNumbers(
-        data.individual +
+        (data.individual +
           data.unregisteredPartnership +
           data.registeredPartnership +
           data.limitedPartnership +
           data.limitedCompany +
           data.publiclimitedCompany +
           data.Lawyer +
-          data.LawyersCouncil
+          data.LawyersCouncil).toLocaleString()
       ),
     ])
     row.height = 30
@@ -151,23 +151,23 @@ export async function generateExcel(item) {
   const footer = worksheet.addRow([
     'รวมตามประเภท',
     '',
-    ThaiNumbers(sumIndividual),
-    ThaiNumbers(sumUnregis),
-    ThaiNumbers(sumRegis),
-    ThaiNumbers(sumLimitPartner),
-    ThaiNumbers(sumLimitCompany),
-    ThaiNumbers(sumPubLimitCompany),
-    ThaiNumbers(sumLawyer),
-    ThaiNumbers(sumLawyerCouncil),
+    ThaiNumbers(sumIndividual.toLocaleString()),
+    ThaiNumbers(sumUnregis.toLocaleString()),
+    ThaiNumbers(sumRegis.toLocaleString()),
+    ThaiNumbers(sumLimitPartner.toLocaleString()),
+    ThaiNumbers(sumLimitCompany.toLocaleString()),
+    ThaiNumbers(sumPubLimitCompany.toLocaleString()),
+    ThaiNumbers(sumLawyer.toLocaleString()),
+    ThaiNumbers(sumLawyerCouncil.toLocaleString()),
     ThaiNumbers(
-      sumIndividual +
+      (sumIndividual +
         sumUnregis +
         sumRegis +
         sumLimitPartner +
         sumLimitCompany +
         sumPubLimitCompany +
         sumLawyer +
-        sumLawyerCouncil || 0
+        sumLawyerCouncil || 0).toLocaleString()
     ),
   ])
   footer.height = 30
@@ -190,17 +190,17 @@ export async function generateExcel(item) {
     '',
     'บุคคลธรรมดา',
     '',
-    ThaiNumbers(sumIndividual + sumLawyer),
+    ThaiNumbers((sumIndividual + sumLawyer).toLocaleString()),
     '',
     'นิติบุคคล',
     '',
     ThaiNumbers(
-      sumUnregis +
+      (sumUnregis +
         sumRegis +
         sumLimitPartner +
         sumLimitCompany +
         sumPubLimitCompany +
-        sumLawyerCouncil
+        sumLawyerCouncil).toLocaleString()
     ),
     '',
     '',
