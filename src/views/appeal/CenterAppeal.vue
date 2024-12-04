@@ -40,7 +40,7 @@
     <v-card class="pa-0">
       <CenterAppealDetails v-model="selectItem" />
       <v-divider class="mt-4" :thickness="5" color="#1a237e" />
-      <v-card-actions class="d-flex justify-space-between pb-4">
+      <v-card-actions class="d-flex justify-space-between">
         <v-row class="d-flex justify-start">
           <v-col md="3" cols="12">
             <v-btn

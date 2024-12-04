@@ -1,6 +1,6 @@
 <template>
   <v-sheet class="fill-height d-flex flex-column" style="background-color: transparent">
-    <div class="chart-container flex-grow-1">
+    <v-row class="chart-container flex-grow-1">
       <Doughnut id="my-chart-id" :options="chartOptions" :data="chartData" />
       <div class="d-none d-md-flex">
         <div class="chart-center-text " v-if="centerText">
@@ -13,8 +13,8 @@
       </div>
       </div>
       
-    </div>
-    <v-row class="legend-container justify-center mt-2">
+    </v-row>
+    <v-row class="legend-container justify-center pt-md-6 mt-md-16">
       <div
         v-for="(label, index) in chartData.labels"
         :key="index"

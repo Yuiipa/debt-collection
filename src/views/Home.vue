@@ -1,40 +1,49 @@
 <template>
-  <!-- <v-container fill-height fluid> -->
-  <v-col class="pa-0">
-    <v-container class="pt-7">
-      <div style="height: 300px">
-        <HomeChart :systems="mockSystems" />
-      </div>
-      <div class="d-flex text-center pt-10">
-        <v-row justify="center" align="center" class="my-6">
-          <v-col cols="12" md="5" class="d-flex justify-center">
-            <v-btn
-              class="w-100 text-h6"
-              large
-              @click="$router.push({ name: 'debt-poppulation' })"
-              height="100px"
-              color="#1e5a8d"
-            >
-              ประชาชน <br />
-              (ข้อมูลการจดทะเบียน)
-            </v-btn>
-          </v-col>
+  <div class="px-4 px-sm-10" style="height: 100%">
+    <v-row style="height: 100%">
+      <v-col cols="12" md="8" class="d-flex flex-column ">
+        <div
+          class="d-flex justify-center my-10 my-sm-16  text-h5 text-sm-h4 font-weight-bold text-wrap"
+          style="color: #1a237e"
+        >
+          <span>ข้อมูลทั้งหมด แยกตามประเภทการประกอบธุรกิจ</span>
+        </div>
+        <div  class="responsive-chart">
+          <HomeChart :systems="mockSystems" />
+        </div>
+      </v-col>
+      <v-col cols="12" md="4" class="d-flex justify-center align-center mt-14 mb-6 mt-sm-6 ">
+        <div class="d-flex text-center">
+          <v-row justify="center" align="center" >
+            <v-col cols="12" md="12" class="d-flex justify-center">
+              <v-btn
+                class="w-100 text-h5 rounded-lg"
+                large
+                @click="$router.push({ name: 'debt-poppulation' })"
+                height="100px"
+                color="#1e5a8d"
+              >
+                ประชาชน <br />
+                (ข้อมูลการจดทะเบียน)
+              </v-btn>
+            </v-col>
 
-          <v-col cols="12" md="5" class="d-flex justify-center">
-            <v-btn
-              class="w-100 text-h6"
-              large
-               @click="$router.push({ name: 'debt-login' })"
-              height="100px"
-              color="#b0892b"
-            >
-              เจ้าหน้าที่ผู้ปฏิบัติงาน
-            </v-btn>
-          </v-col>
-        </v-row>
-      </div>
-    </v-container>
-  </v-col>
+            <v-col cols="12" md="12" class="d-flex justify-center">
+              <v-btn
+                class="w-100 text-h5 rounded-lg"
+                large
+                @click="$router.push({ name: 'debt-login' })"
+                height="100px"
+                color="#b0892b"
+              >
+                เจ้าหน้าที่ผู้ปฏิบัติงาน
+              </v-btn>
+            </v-col>
+          </v-row>
+        </div>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 <script setup>
 import HomeChart from '@/components/charts/HomeChart'
@@ -48,6 +57,32 @@ const mockSystems = [
   { name: 'บริษัทมหาชนจำกัด', usage: 60, color: '#FF7043' },
   { name: 'ทนายความ', usage: 20, color: '#FFD54F' },
 ]
-
 </script>
 
+<style scoped>
+.responsive-chart {
+  width: 100%;
+  height: 300px; /* ค่าเริ่มต้น */
+}
+
+/* สำหรับหน้าจอที่มีความกว้างน้อยกว่า 350px */
+@media (max-width: 350px) {
+  .responsive-chart {
+    height: 150px;
+  }
+}
+
+/* สำหรับหน้าจอที่มีความกว้างตั้งแต่ 350px ถึง 400px */
+@media (min-width: 350px) and (max-width: 400px) {
+  .responsive-chart {
+    height: 200px;
+  }
+}
+
+/* สำหรับหน้าจอที่มีความกว้างตั้งแต่ 400px ขึ้นไป */
+@media (min-width: 400px) {
+  .responsive-chart {
+    height: 300px;
+  }
+}
+</style>

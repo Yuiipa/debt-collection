@@ -66,8 +66,8 @@
         md="3"
         class="d-flex justify-end align-center"
       >
-        <v-icon class="px-2" large>mdi-bell</v-icon>
-        <v-icon large @click="toggleFullScreen" style="cursor: pointer;">mdi-fullscreen</v-icon>
+        <v-icon class="pr-2" large>mdi-bell</v-icon>
+        <v-icon class="d-none d-md-flex" large @click="toggleFullScreen" style="cursor: pointer;">mdi-fullscreen</v-icon>
         <span class="pr-2 d-none d-md-flex" style="margin-left: 8px">
           น.ส. รุ่งนภา สะสม
         </span>
@@ -318,7 +318,7 @@ watch(
 // เรียกใช้เมื่อ component ถูกสร้าง
 onMounted(async () => {
   await nextTick();
-  if (display.smAndDown.value) {
+  if (!display.mdAndUp.value) {
     drawer.value = false; // ปิด drawer สำหรับ mobile หรือ tablet
   }
   openDrawerForCurrentPath() // เช็ค path ปัจจุบันและเปิด drawer
