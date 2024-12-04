@@ -10,7 +10,7 @@
         </span>
       </v-card-title>
       <div>
-        <v-row class="mx-8 my-2">
+        <v-row class="mx-8">
           <v-col md="3" cols="12">
             <div class="mb-2 font-weight-bold">ปี</div>
             <v-text-field
@@ -50,7 +50,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <div class="px-10">
+            <div class="px-10 rounded-lg pb-2">
               <v-data-table
                 :headers="headers"
                 :items="items"

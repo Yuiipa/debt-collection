@@ -6,171 +6,158 @@
     >
       <span> ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
     </v-card-title>
-    <div class="px-10 pt-4">
-      <v-row>
-        <v-col class="pa-0">
-          <div>
-            <v-row class="d-flex align-center justify-space-between">
-              <div class="d-flex" style="gap: 10px">
-                <v-btn
-                  variant="outlined"
-                  append-icon="mdi-file-excel"
-                  style="color: green"
-                  class="rounded-lg px-2 px-sm-5"
-                  size="large"
-                  id="excel"
-                  @click="exportExcel()"
-                >
-                  Excel
-                </v-btn>
-                <v-btn
-                  variant="outlined"
-                  append-icon="mdi-printer"
-                  style="color: orange"
-                  class="rounded-lg px-2 px-sm-5"
-                  size="large"
-                  id="print"
-                  @click="exportPdf()"
-                >
-                  พิมพ์
-                </v-btn>
-                <v-btn
-                  variant="outlined"
-                  append-icon="mdi-filter"
-                  :style="
-                    showFilter
-                      ? 'background-color: #1a237e; color: white; border: none'
-                      : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
-                  "
-                  size="large"
-                  class="rounded-lg px-2 px-sm-5"
-                  id="print"
-                  @click="toggleFilter()"
-                >
-                  ตัวกรอง
-                </v-btn>
-              </div>
-              <v-menu transition="open-on-focus">
-                <template v-slot:activator="{ props }">
-                  <v-avatar size="46" v-bind="props">
-                    <v-icon size="38">mdi-dots-horizontal</v-icon>
-                  </v-avatar>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, index) in listService"
-                    :key="index"
-                    @click="$router.push({ name: item.name })"
-                  >
-                    <v-list-item-content class="d-flex align-center">
-                      <v-list-item-icon class="mr-2">
-                        <v-icon>{{ item.icon }}</v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-title>
-                        {{ item.title }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </v-row>
+    <div class="px-12 pt-2">
+      <v-row class="d-flex align-center justify-space-between">
+        <div class="d-flex" style="gap: 10px">
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-file-excel"
+            style="color: green"
+            class="rounded-lg px-2 px-sm-5"
+            size="large"
+            id="excel"
+            @click="exportExcel()"
+          >
+            Excel
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-printer"
+            style="color: orange"
+            class="rounded-lg px-2 px-sm-5"
+            size="large"
+            id="print"
+            @click="exportPdf()"
+          >
+            พิมพ์
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-filter"
+            :style="
+              showFilter
+                ? 'background-color: #1a237e; color: white; border: none'
+                : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+            "
+            size="large"
+            class="rounded-lg px-2 px-sm-5"
+            id="print"
+            @click="toggleFilter()"
+          >
+            ตัวกรอง
+          </v-btn>
+        </div>
+        <v-menu transition="open-on-focus">
+          <template v-slot:activator="{ props }">
+            <v-avatar size="46" v-bind="props">
+              <v-icon size="38">mdi-dots-horizontal</v-icon>
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in listService"
+              :key="index"
+              @click="$router.push({ name: item.name })"
+            >
+              <v-list-item-content class="d-flex align-center">
+                <v-list-item-icon class="mr-2">
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                  {{ item.title }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-row>
 
-            <!-- ตัวกรอง -->
-            <v-expand-transition class="mt-6">
-              <div v-if="showFilter">
-                <v-row>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">เลขที่คำขอ</div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">
-                      เลขประจำตัวประชาชนผู้ประกอบธุรกิจ
-                    </div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" class="pl-2 py-0">
-                    <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
-                    <v-text-field
-                      class="v-col-12"
-                      variant="outlined"
-                      density="compact"
-                      hide-details="auto"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </div>
-            </v-expand-transition>
+      <!-- ตัวกรอง -->
+      <v-expand-transition class="mt-6">
+        <div v-if="showFilter">
+          <v-row>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">เลขที่คำขอ</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">เลขประจำตัวประชาชนผู้ประกอบธุรกิจ</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4" class="pl-2 py-0">
+              <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
+              <v-text-field
+                class="v-col-12"
+                variant="outlined"
+                density="compact"
+                hide-details="auto"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </div>
+      </v-expand-transition>
 
-            <v-row>
-              <v-data-table
-                :headers="headers"
-                :items="items"
-                class="rounded-table mt-6 mb-6"
-
-              >
-                <template v-slot:[`item.index`]="{ index }">
-                  <span>{{ index + 1 }}</span>
-                </template>
-                <template v-slot:[`item.data`]="{ item }">
-                  <v-btn variant="plain" small @click="navigate(item)">
-                    ข้อมูล >
-                  </v-btn>
-                </template>
-                <template v-slot:[`item.status`]="{ item }">
-                  <v-switch
-                    v-model="item.status"
-                    color="primary"
-                    inset
-                    dense
-                    hide-details
-                    :false-value="false"
-                    :true-value="true"
-                  ></v-switch>
-                </template>
-              </v-data-table>
-            </v-row>
-          </div>
-        </v-col>
+      <v-row class="rounded-lg mt-8 mb-6">
+        <v-data-table :headers="headers" :items="items" class="elevation-1">
+          <template v-slot:[`item.index`]="{ index }">
+            <span>{{ index + 1 }}</span>
+          </template>
+          <template v-slot:[`item.data`]="{ item }">
+            <v-btn variant="plain" small @click="navigate(item)">
+              ข้อมูล >
+            </v-btn>
+          </template>
+          <template v-slot:[`item.status`]="{ item }">
+            <v-switch
+              v-model="item.status"
+              color="#39ab4e"
+              inset
+              dense
+              hide-details
+              :false-value="false"
+              :true-value="true"
+            ></v-switch>
+          </template>
+        </v-data-table>
       </v-row>
     </div>
   </v-card>
@@ -214,19 +201,25 @@ async function exportPdf() {
 
 const exportExcel = () => {
   const generateExampleData = (count) => {
-    const exampleData = []
-    for (let i = 1; i <= count; i++) {
-      exampleData.push({
-        businessName: `นายชัยวัฒน์ สุขนิยม ${i}`,
-        registrationNumber: `55/${2555 + i}`,
-        businessType: 'บุคคลธรรมดา',
-        location: `บ้านเลขที่ ${
-          55 + i
-        } หมู่ที่ 4 ต.สุขพุก อ.กำเนิดแก้ว จ.ร้อยเอ็ด`,
-        registrationDate: `3 พฤษภาคม ${2558 + i}`,
-        phoneNumber: '',
-      })
-    }
+    const exampleData = Array.from({ length: count }, (_, index) => {
+      const i = index + 1
+      return {
+        businessName: `ธุรกิจตัวอย่าง ${i}`,
+        registrationNumber: `REG-${1000 + i}`,
+        businessType: i % 2 === 0 ? 'บริษัทจำกัด' : 'บุคคลธรรมดา',
+        location: `อาคาร ${i} ซอย ${i + 1} เขตคลองสามวา กรุงเทพฯ`,
+        registrationDate: new Date(
+          2000 + i,
+          i % 12,
+          (i % 28) + 1
+        ).toLocaleDateString('th-TH', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+        phoneNumber: `09${Math.floor(Math.random() * 90000000) + 10000000}`,
+      }
+    })
     return exampleData
   }
   generateExcel(generateExampleData(25))
@@ -303,12 +296,6 @@ const items = ref([
   color: white;
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important; /* โค้งเฉพาะมุมซ้ายบน */
-  border-top-right-radius: 12px !important; /* โค้งเฉพาะมุมขวาบน */
-  overflow: hidden; /* ซ่อนส่วนเกิน */
 }
 
 .v-table :deep(table > thead) {

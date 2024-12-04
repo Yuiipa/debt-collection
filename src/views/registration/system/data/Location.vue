@@ -38,7 +38,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersProvince"
               :items="items"
@@ -96,7 +96,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersDistrict"
               :items="items"
@@ -154,7 +154,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersSubdistrict"
               :items="items"

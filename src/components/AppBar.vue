@@ -330,8 +330,7 @@ function toggleFullScreen() {
   const doc = document; // เอกสารหลักของหน้าเว็บ
   const docEl = doc.documentElement; // Element หลักของ HTML
 
-  if (!isFullScreen.value) {
-    // เข้าสู่ fullscreen
+  const requestFullScreen = () => {
     if (docEl.requestFullscreen) {
       docEl.requestFullscreen();
     } else if (docEl.mozRequestFullScreen) {
@@ -341,8 +340,9 @@ function toggleFullScreen() {
     } else if (docEl.msRequestFullscreen) {
       docEl.msRequestFullscreen(); // สำหรับ IE/Edge
     }
-  } else {
-    // ออกจาก fullscreen
+  };
+
+  const exitFullScreen = () => {
     if (doc.exitFullscreen) {
       doc.exitFullscreen();
     } else if (doc.mozCancelFullScreen) {
@@ -352,11 +352,19 @@ function toggleFullScreen() {
     } else if (doc.msExitFullscreen) {
       doc.msExitFullscreen(); // สำหรับ IE/Edge
     }
+  };
+
+  // สลับสถานะ fullscreen
+  if (!isFullScreen.value) {
+    requestFullScreen();
+  } else {
+    exitFullScreen();
   }
 
   // เปลี่ยนสถานะ fullscreen
   isFullScreen.value = !isFullScreen.value;
 }
+
 </script>
 
 <style scoped>

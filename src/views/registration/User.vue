@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
@@ -37,11 +37,11 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="items"
-              class="elevation-1 rounded-table"
+              class="elevation-1"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -155,12 +155,6 @@ function deleteItem(item) {
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {

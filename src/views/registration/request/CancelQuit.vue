@@ -7,10 +7,10 @@
       <span> ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
     <div>
-      <v-row class="px-16">
+      <v-row class="px-10 pl-13">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
@@ -29,7 +29,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="items"

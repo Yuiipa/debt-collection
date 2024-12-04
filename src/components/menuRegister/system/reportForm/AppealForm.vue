@@ -310,7 +310,7 @@
 </template>
                   
       <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
 import UploadFile from '@/components/UploadFile.vue'
 
 // รับ props ด้วย defineProps

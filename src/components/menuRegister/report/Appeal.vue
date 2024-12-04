@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <div
-      class="d-flex justify-center ma-2 mt-4 text-h5 font-weight-bold"
+      class="d-flex justify-center ma-2 mt-4 text-h5 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
       <span>
@@ -10,7 +10,7 @@
       </span>
     </div>
     <div>
-      <v-row class="mx-10 my-2">
+      <v-row class="mx-10 mb-2 mt-6">
         <div class="w-100 d-flex justify-end" style="gap: 10px">
           <v-btn
             variant="outlined"
@@ -77,7 +77,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10">
+          <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="items"
