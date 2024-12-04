@@ -62,7 +62,7 @@ export async function generateExcel(item) {
     const row = worksheet.addRow([
       ThaiNumbers(index + 1), //ลำดับ
       data.plaint, //ข้อหา
-      ThaiNumbers(data.amount || 0), //จำนวน
+      ThaiNumbers(data.amount.toLocaleString() || 0), //จำนวน
     ])
     row.eachCell((cell, colNumber) => {
       if ([2].includes(colNumber)) {
@@ -85,9 +85,9 @@ export async function generateExcel(item) {
   })
 
   const footer = worksheet.addRow([
-    `จากเรื่องร้องเรียนทั้งหมด ${ThaiNumbers(item.length)} เรื่อง`,
+    `จากเรื่องร้องเรียนทั้งหมด ${ThaiNumbers(item.length.toLocaleString())} เรื่อง`,
     '',
-    ThaiNumbers(sumAmount),
+    ThaiNumbers(sumAmount.toLocaleString()),
   ])
   footer.height = 30
   worksheet.mergeCells(

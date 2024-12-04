@@ -7,7 +7,7 @@
       <span> รายงานภาพรวมจำนวนการรายงานผล </span>
     </v-card-title>
     <div>
-      <v-row class="mx-10 ">
+      <v-row class="mx-10">
         <div class="w-100 d-flex justify-end" style="gap: 10px">
           <v-btn
             variant="outlined"
@@ -70,6 +70,11 @@
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
+              <template v-slot:[`item.sum`]="{ item }">
+                <span>{{
+                  item.meetting + item.estimate + item.result + item.other
+                }}</span>
+              </template>
             </v-data-table>
           </div>
         </v-col>
@@ -77,9 +82,10 @@
     </div>
   </v-card>
 </template>
-              
-    <script setup>
+
+<script setup>
 import { ref } from 'vue'
+import { generatePDF } from '@/prints/register/Overview_report'
 
 const headers = [
   {
@@ -97,37 +103,37 @@ const headers = [
   },
   {
     title: 'เรื่องร้องเรียน',
-    key: 'process',
+    key: 'plaint',
     align: 'start',
     sortable: true,
   },
   {
     title: 'การประชุมคณะกรรมการกำกับการทวงถามหนี้ประจำจังหวัด',
-    key: 'finish_process',
+    key: 'meetting',
     align: 'start',
     sortable: true,
   },
   {
     title: 'การประเมินผลการปฏิบัติงานตาม พ.ร.บ. การทวงถามหนี้ พ.ศ.๒๕๕๘',
-    key: 'sum',
+    key: 'estimate',
     align: 'start',
     sortable: true,
   },
   {
     title: 'ผลการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้',
-    key: 'percentage',
+    key: 'result',
     align: 'start',
     sortable: true,
   },
   {
     title: 'อื่นๆ',
-    key: 'percentage',
+    key: 'other',
     align: 'start',
     sortable: true,
   },
   {
     title: 'รวม',
-    key: 'percentage',
+    key: 'sum',
     align: 'start',
     sortable: true,
   },
@@ -135,18 +141,204 @@ const headers = [
 
 const items = ref([
   {
-    agency: 'กรุงเทพมหานคร',
-    process: 1756,
-    finish_process: 1,
-    sum: 20,
-    percentage: 88,
+    agency: 'สภาทนายความ',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
   },
   {
-    agency: 'กรุงเทพมหานคร',
-    process: 1756,
-    finish_process: 1,
-    sum: 20,
-    percentage: 88,
+    agency: 'กองบัญชาการตำรวจนครบาล',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดเชียงราย',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดพะเยา',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดน่าน',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดแพร่',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดอุตรดิตถ์',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดลำพูน',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดเชียงใหม่',
+    plaint: 0,
+    meetting: 0,
+    estimate: 2,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดแม่ฮ่องสอน',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดนครสวรรค์',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดเพชรบูรณ์',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดพิจิตร',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดพิษณุโลก',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดสุโขทัย',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดตาก',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 1,
+  },
+  {
+    agency: 'จังหวัดอุทัยธานี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดลำปาง',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดกำแพงเพชร',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดสระบุรี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดปทุมธานี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดนนทบุรี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดลพบุรี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดชัยนาท',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
+  },
+  {
+    agency: 'จังหวัดสิงห์บุรี',
+    plaint: 0,
+    meetting: 0,
+    estimate: 0,
+    result: 0,
+    other: 0,
   },
 ])
 
@@ -157,9 +349,13 @@ function editItem(item) {
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
+
+const exportPdf = () => {
+  generatePDF(items.value)
+}
 </script>
-              
-              <style scoped>
+
+<style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

@@ -75,10 +75,10 @@ export async function generateExcel(item) {
     const row = worksheet.addRow([
       ThaiNumbers(index + 1), //ลำดับ
       data.id, //เรื่องร้องเรียนที่
-      ThaiNumbers(data.process || 0), //ระหว่างดำเนินการ
-      ThaiNumbers(data.finish_process || 0), //ดำเนินการแล้วเสร็จ
-      ThaiNumbers(data.sum || 0), //รวมทั้งหมด
-      ThaiNumbers(data.percentage || 0), //ยุติร้อยละ
+      ThaiNumbers(data.process.toLocaleString() || 0), //ระหว่างดำเนินการ
+      ThaiNumbers(data.finish_process.toLocaleString() || 0), //ดำเนินการแล้วเสร็จ
+      ThaiNumbers(data.sum.toLocaleString() || 0), //รวมทั้งหมด
+      ThaiNumbers(data.percentage.toLocaleString() || 0), //ยุติร้อยละ
     ])
     row.height = 30
     row.eachCell((cell, colNumber) => {
@@ -120,10 +120,10 @@ export async function generateExcel(item) {
   const footer = worksheet.addRow([
     'รวม',
     '',
-    ThaiNumbers(sumProcess),
-    ThaiNumbers(sumFinish),
-    ThaiNumbers(sumSum),
-    ThaiNumbers(sumPercent),
+    ThaiNumbers(sumProcess.toLocaleString()),
+    ThaiNumbers(sumFinish.toLocaleString()),
+    ThaiNumbers(sumSum.toLocaleString()),
+    ThaiNumbers(sumPercent.toLocaleString()),
   ])
   footer.height = 30
   worksheet.mergeCells(
