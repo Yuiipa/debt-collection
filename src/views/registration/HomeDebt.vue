@@ -179,50 +179,12 @@ const listService = [
   { title: 'Linkage', name: 'debt-home', icon: 'mdi-link-variant' },
 ]
 
-async function exportPdf() {
-  const generateExampleData = (count) => {
-    const exampleData = []
-    for (let i = 1; i <= count; i++) {
-      exampleData.push({
-        businessName: `นายชัยวัฒน์ สุขนิยม ${i}`,
-        registrationNumber: `55/${2555 + i}`,
-        businessType: 'บุคคลธรรมดา',
-        location: `บ้านเลขที่ ${
-          55 + i
-        } หมู่ที่ 4 ต.สุขพุก อ.กำเนิดแก้ว จ.ร้อยเอ็ด`,
-        registrationDate: `3 พฤษภาคม ${2558 + i}`,
-        phoneNumber: '',
-      })
-    }
-    return exampleData
-  }
-  await generateCollectPDF(generateExampleData(25))
+const exportPdf = () => {
+  generateCollectPDF(items.value)
 }
 
 const exportExcel = () => {
-  const generateExampleData = (count) => {
-    const exampleData = Array.from({ length: count }, (_, index) => {
-      const i = index + 1
-      return {
-        businessName: `ธุรกิจตัวอย่าง ${i}`,
-        registrationNumber: `REG-${1000 + i}`,
-        businessType: i % 2 === 0 ? 'บริษัทจำกัด' : 'บุคคลธรรมดา',
-        location: `อาคาร ${i} ซอย ${i + 1} เขตคลองสามวา กรุงเทพฯ`,
-        registrationDate: new Date(
-          2000 + i,
-          i % 12,
-          (i % 28) + 1
-        ).toLocaleDateString('th-TH', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        }),
-        phoneNumber: `09${Math.floor(Math.random() * 90000000) + 10000000}`,
-      }
-    })
-    return exampleData
-  }
-  generateExcel(generateExampleData(25))
+  generateExcel(items.value)
 }
 
 const toggleFilter = () => {
@@ -260,31 +222,51 @@ const headers = [
 
 const items = ref([
   {
-    registerNumber: '001/2566',
-    businessName: 'สำนักงาน จันทร์จิรา ฟองแก้ว ทนายความ',
+    registerNumber: '1/2559',
+    businessName: 'สำนักงานคชเสนาทนายความและธุรกิจ',
     type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
+    location: 'เลขที่ 44/11 ซอย นิมิตใหม่ 12 ถนน นิมิตใหม่ ตำบลทรายกองดิน อำเภอคลองสามวา จังหวัดกรุงเทพมหานคร',
+    registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
   {
-    registerNumber: '002/2566',
-    businessName: 'Jelly bean',
+    registerNumber: '7/2559',
+    businessName: 'สำนักงานทนายความนัฐพงษ์ พลศรีเมือง ',
     type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
+    location: 'เลขที่ 98/13 หมู่ 6 ตำบลขามใหญ่ อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธาน',
+    registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
   {
-    registerNumber: '003/2566',
-    businessName: 'KitKat',
+    registerNumber: '8/2559',
+    businessName: 'สำนักงานทนายความทวีศักดิ์โสมณี',
     type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
+    location: 'เลขที่ 1/2 ถนน เทศบาล 2 ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธาน',
+    registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
   {
-    registerNumber: '004/2566',
-    businessName: 'Eclair',
+    registerNumber: '9/2559',
+    businessName: 'สำนักงานทนายความณัฐพรโสมณี',
     type: 'ทนายความ',
-    location: 'จังหวัดแม่ฮ่องสอน',
+    location: 'เลขที่ 206-2 ถนน เกษมสุข ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี',
+    registrationDate: '27 พฤษภาคม 2559',
+    status: true,
+  },
+  {
+    registerNumber: '10/2559',
+    businessName: 'สำนักงานสุนทรทนายความและบุตร',
+    type: 'ทนายความ',
+    location: 'เลขที่ 207 หมู่ 11 ตำบลทับกุง อำเภอหนองแสง จังหวัดอุดรธานี',
+    registrationDate: '27 พฤษภาคม 2559',
+    status: true,
+  },
+  {
+    registerNumber: '14/2559',
+    businessName: 'สำนักงานณัฐพล แก้วขุนทดทนายความ',
+    type: 'ทนายความ',
+    location: 'เลขที่ 1 หมู่ 4 ถนน เทศบาล 14 ตำบลจักราช อำเภอจักราช จังหวัดนครราชสีมา',
+    registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
 ])

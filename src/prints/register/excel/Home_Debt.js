@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs'
+import { ThaiNumbers } from '@/components/helpers/utils.js'
 
 export async function generateExcel(item) {
   const workbook = new ExcelJS.Workbook()
@@ -64,18 +65,16 @@ export async function generateExcel(item) {
   let PublicComCount = 0 //บริษัทมหาชนจำกัด
   let LawyerCount = 0 //ทนายความ
   let LawyerCouncilCount = 0 //สภาทนายความ
-  let BOnaturalCount = 0 //ผู้ประกอบธุรกิจที่เป็นบุคคลธรรมดา
-  let BOjuristicCount = 0 //ผู้ประกอบธุรกิจที่เป็นนิติบุคคล
 
   item.forEach((data, index) => {
     const row = worksheet.addRow([
-      index + 1, // ลำดับ
+      ThaiNumbers((index + 1).toLocaleString()), // ลำดับ
       data.businessName, // ชื่อสถานประกอบธุรกิจ
-      data.registrationNumber, // เลขทะเบียนที่
-      data.businessType, // ประเภทกิจการ
-      data.location, // สถานที่ตั้ง
-      data.registrationDate, // วันที่จดทะเบียน
-      data.phoneNumber, // เบอร์โทรศัพท์
+      ThaiNumbers(data.registerNumber), // เลขทะเบียนที่
+      data.type, // ประเภทกิจการ
+      ThaiNumbers(data.location), // สถานที่ตั้ง
+      ThaiNumbers(data.registrationDate), // วันที่จดทะเบียน
+      data.phoneNumber || '-', // เบอร์โทรศัพท์
     ])
     row.height = 100
     row.eachCell((cell, colNumber) => {
@@ -93,7 +92,7 @@ export async function generateExcel(item) {
         }
       }
       if (colNumber === 4) {
-        switch (data.businessType) {
+        switch (data.type) {
           case 'บุคคลธรรมดา':
             NaturalCount++
             break
@@ -117,12 +116,6 @@ export async function generateExcel(item) {
             break
           case 'สภาทนายความ':
             LawyerCouncilCount++
-            break
-          case 'ผู้ประกอบธุรกิจที่เป็นบุคคลธรรมดา':
-            BOnaturalCount++
-            break
-          case 'ผู้ประกอบธุรกิจที่เป็นนิติบุคคล':
-            BOjuristicCount++
             break
         }
       }
@@ -155,12 +148,12 @@ export async function generateExcel(item) {
 
   const totalRow = worksheet.addRow([
     '#',
-    NaturalCount || 0,
-    OrdinaryUnregisCount || 0,
-    OrdinaryRegisCount || 0,
-    LimitPartnerCount || 0,
-    LimitCompanyCount || 0,
-    PublicComCount || 0,
+    ThaiNumbers(NaturalCount) || 0,
+    ThaiNumbers(OrdinaryUnregisCount) || 0,
+    ThaiNumbers(OrdinaryRegisCount) || 0,
+    ThaiNumbers(LimitPartnerCount) || 0,
+    ThaiNumbers(LimitCompanyCount) || 0,
+    ThaiNumbers(PublicComCount) || 0,
   ])
   totalRow.height = 30
   totalRow.alignment = { horizontal: 'center', vertical: 'middle' }
@@ -169,10 +162,10 @@ export async function generateExcel(item) {
     '#',
     'ทนายความ',
     '',
-    LawyerCount || 0,
+    ThaiNumbers(LawyerCount) || 0,
     'สภาทนายความ',
     '',
-    LawyerCouncilCount || 0,
+    ThaiNumbers(LawyerCouncilCount) || 0,
   ])
   worksheet.mergeCells(
     `B${worksheet.lastRow.number}:C${worksheet.lastRow.number}`
@@ -193,10 +186,19 @@ export async function generateExcel(item) {
     '#',
     'ผู้ประกอบธุรกิจที่เป็นบุคคลธรรมดา',
     '',
-    BOnaturalCount || 0,
+    ThaiNumbers((NaturalCount + LawyerCount).toLocaleString()) || 0,
     'ผู้ประกอบธุรกิจที่เป็นนิติบุคคล',
     '',
-    BOjuristicCount || 0,
+    ThaiNumbers(
+      (
+        OrdinaryUnregisCount +
+        OrdinaryRegisCount +
+        LimitPartnerCount +
+        LimitCompanyCount +
+        PublicComCount +
+        LawyerCouncilCount
+      ).toLocaleString()
+    ) || 0,
   ])
   worksheet.mergeCells(
     `B${worksheet.lastRow.number}:C${worksheet.lastRow.number}`
@@ -216,16 +218,18 @@ export async function generateExcel(item) {
   const totalRow4 = worksheet.addRow([
     'รวม',
     '',
-    NaturalCount +
-      OrdinaryUnregisCount +
-      OrdinaryRegisCount +
-      LimitPartnerCount +
-      LimitCompanyCount +
-      PublicComCount +
-      LawyerCount +
-      LawyerCouncilCount +
-      BOnaturalCount +
-      BOjuristicCount || 0,
+    ThaiNumbers(
+      (
+        NaturalCount +
+        OrdinaryUnregisCount +
+        OrdinaryRegisCount +
+        LimitPartnerCount +
+        LimitCompanyCount +
+        PublicComCount +
+        LawyerCount +
+        LawyerCouncilCount
+      ).toLocaleString() || 0
+    ),
     '',
     '',
     '',

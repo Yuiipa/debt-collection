@@ -1,7 +1,8 @@
 import pdf from '@/plugins/pdf'
+import { ThaiNumbers } from '@/components/helpers/utils.js'
 import * as icon from '@/static/icon.json'
 
-async function generatePDF(dataInfo) {
+export async function generatePDF(item) {
   const docDefinition = {
     background: {
       image: icon.logo,
@@ -12,14 +13,10 @@ async function generatePDF(dataInfo) {
       margin: [0, 80, 0, 0],
     },
     pageSize: 'A4',
-    pageOrientation: 'landscape', // เปลี่ยนเป็น landscape
-    pageMargins: [42, 25, 30, 60],
+    pageOrientation: 'landscape',
+    pageMargins: [42, 25, 30, 40],
 
-    content: [
-      ...page1Content(dataInfo),
-      { text: '', pageBreak: 'after' },
-      ...page2Content(),
-    ],
+    content: [...Content(item)],
     styles: {
       header: {
         fontSize: 18,
@@ -42,277 +39,336 @@ async function generatePDF(dataInfo) {
   window.pdfMake.createPdf(docDefinition).open()
 }
 
-function page1Content(dataInfo) {
-  const tablePages = createTableWithPagination(dataInfo)
-
-  // เพิ่มส่วนหัวไว้ในทุกหน้า
-  const headerContent = [
+function Content(item) {
+  const totalIndividual = item.filter(
+    (row) => row.type === 'บุคคลธรรมดา'
+  ).length
+  const totalUnregistered = item.filter(
+    (row) => row.type === 'ห้างหุ้นส่วนสามัญ (ไม่จดทะเบียน)'
+  ).length
+  const totalRegistered = item.filter(
+    (row) => row.type === 'ห้างหุ้นส่วนสามัญ (จดทะเบียน)'
+  ).length
+  const totalLimitedPartnership = item.filter(
+    (row) => row.type === 'ห้างหุ้นส่วนจำกัด'
+  ).length
+  const totalCompany = item.filter(
+    (row) => row.type === 'บริษัทจำกัด'
+  ).length
+  const totalPublicCompany = item.filter(
+    (row) => row.type === 'บริษัทมหาชนจำกัด'
+  ).length
+  const totalLawyer = item.filter(
+    (row) => row.type === 'ทนายความ'
+  ).length
+  const totalLawyerCouncil = item.filter(
+    (row) => row.type === 'สำนักงานทนายความ'
+  ).length
+  return [
     {
       text: 'รายงานข้อมูลผู้จดทะเบียนการประกอบธุรกิจทวงถามหนี้ตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘',
       alignment: 'center',
-      style: 'header',
-      lineHeight: 1,
-      margin: [0, 0, 0, 5],
+      bold: true,
+      margin: [0, 0, 0, 0],
+      fontSize: 18,
+      lineHeight: 1.4,
     },
     {
       text: 'กรมการปกครอง กระทรวงมหาดไทย',
       alignment: 'center',
-      style: 'header',
-      margin: [0, 0, 0, 15],
+      bold: true,
+      margin: [0, -5, 0, 0],
+      fontSize: 18,
+      lineHeight: 1.4,
     },
-  ]
-
-  return tablePages.map((pageContent, index) => ({
-    stack: [
-      ...headerContent, // เพิ่มส่วนหัว
-      {
-        table: {
-          headerRows: 1,
-          widths: [40, '*', 80, 100, 150, 80, 80],
-          body: pageContent,
-        },
-        layout: {
-          fillColor: function (rowIndex, node, columnIndex) {
-            return rowIndex === 0 ? '#AAAB92' : null // ใส่สีพื้นหลัง Header
-          },
-          hLineWidth: function (i, node) {
-            return 0.5 // ความหนาเส้นแนวนอน
-          },
-          vLineWidth: function (i, node) {
-            return 0.5 // ความหนาเส้นแนวตั้ง
-          },
-          hLineColor: function (i, node) {
-            return 'black' // สีเส้นแนวนอน
-          },
-          vLineColor: function (i, node) {
-            return 'black' // สีเส้นแนวตั้ง
-          },
-        },
-      },
-    ],
-    ...(index < tablePages.length - 1), // เพิ่ม pageBreak ยกเว้นหน้าสุดท้าย
-  }))
-}
-
-function page2Content() {
-  return [
     {
       table: {
         headerRows: 1,
-        widths: [40, '*', '*', '*', '*', '*', '*'], // กำหนดขนาดคอลัมน์ให้ใกล้เคียง
+        widths: ['10%', '15%', '15%', '15%', '15%', '15%', '15%'],
         body: [
           [
             {
-              text: 'แยกราย\nประเภท',
+              text: 'ลำดับ',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'ชื่อสถานประกอบธุรกิจ',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'เลขทะเบียนที่',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'ประเภทกิจการ',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'สถานที่ตั้ง',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'วันที่จดทะเบียน',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+            {
+              text: 'เบอร์โทรศัพท์',
+              bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+              alignment: 'center',
+            },
+          ],
+          ...item.map((row, index) => [
+            {
+              text: ThaiNumbers(index + 1),
+              style: 'default',
+              alignment: 'center',
+            }, // ลำดับ
+            { text: row.businessName }, //ชื่อ
+            {
+              text: ThaiNumbers(row.registerNumber.toLocaleString()),
+              alignment: 'center',
+            }, // ทะเบียนเลขที่
+            {
+              text: row.type,
+              alignment: 'center',
+            }, // ประเภท
+            {
+              text: row.location,
+            }, // ทีตั้ง
+            {
+              text: ThaiNumbers(row.registrationDate),
+              alignment: 'center',
+            }, // วันที่
+            {
+              text: row.phoneNumber || '-',
+              alignment: 'center',
+            }, // เบอร์โทรศัพท์
+          ]),
+          [
+            {
+              text: 'แยกราย ประเภท',
               alignment: 'center',
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
             },
             {
               text: 'บุคคลธรรมดา',
               alignment: 'center',
               bold: true,
-              fillColor: '#AAAB92',
-              margin: [0, 10, 0, 10],
-            },
-            {
-              text: 'ห้างหุ้นส่วนสามัญ\n(ไม่จดทะเบียน)',
-              alignment: 'center',
-              bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
             },
             {
-              text: 'ห้างหุ้นส่วนสามัญ\n(จดทะเบียน)',
+              text: 'ห้างหุ้นส่วนสามัญ (ไม่จดทะเบียน)',
               alignment: 'center',
               bold: true,
+              fontSize: 16,
+              fillColor: '#AAAB92',
+            },
+            {
+              text: 'ห้างหุ้นส่วนสามัญ (จดทะเบียน)',
+              alignment: 'center',
+              bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
             },
             {
               text: 'ห้างหุ้นส่วนจำกัด',
               alignment: 'center',
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
-              margin: [0, 10, 0, 10],
             },
             {
               text: 'บริษัทจำกัด',
               alignment: 'center',
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
-              margin: [0, 10, 0, 10],
             },
             {
               text: 'บริษัทมหาชนจำกัด',
               alignment: 'center',
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
-              margin: [0, 10, 0, 10],
             },
           ],
-
           [
-            { text: '#', alignment: 'center' },
-            { text: '2', alignment: 'center' },
-            { text: '0', alignment: 'center' },
-            { text: '0', alignment: 'center' },
-            { text: '0', alignment: 'center' },
-            { text: '0', alignment: 'center' },
-            { text: '0', alignment: 'center' },
+            {
+              text: '#',
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalIndividual), //ผลรวมจำนวนบุคคลธรรมดา
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalUnregistered), //ห้างหุ้นส่วนสามัญไม่จดทะเบียน
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalRegistered), //ห้างหุ้นส่วนสามัญจดทะเบียน
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalLimitedPartnership), //ห้างหุ้นส่วนจำกัด
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalCompany), //บริษัทจำกัด
+              alignment: 'center',
+              fontSize: 16,
+            },
+            {
+              text: ThaiNumbers(totalPublicCompany), //บริษัทมหาชนจำกัด
+              alignment: 'center',
+              fontSize: 16,
+            },
           ],
           [
-            { text: '#', alignment: 'center' },
+            {
+              text: '#',
+              alignment: 'center',
+              fontSize: 16,
+            },
             {
               text: 'ทนายความ',
-              colSpan: 2,
               alignment: 'center',
+              colSpan: 2,
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
             },
-            '',
-            { text: '1', alignment: 'center' },
+            {},
+            {
+              text: ThaiNumbers(totalLawyer), //ทนายความ
+              alignment: 'center',
+              fontSize: 16,
+            },
             {
               text: 'สภาทนายความ',
-              colSpan: 2,
               alignment: 'center',
+              colSpan: 2,
               bold: true,
+              fontSize: 16,
               fillColor: '#AAAB92',
             },
-            '',
-            { text: '1', alignment: 'center' },
+            {},
+            {
+              text: ThaiNumbers(totalLawyerCouncil), //สภาทนายความ
+              alignment: 'center',
+              fontSize: 16,
+            },
           ],
           [
-            { text: '#', alignment: 'center' },
+            {
+              text: '#',
+              alignment: 'center',
+              fontSize: 16,
+            },
             {
               text: 'ผู้ประกอบธุรกิจที่เป็นบุคคลธรรมดา',
-              colSpan: 2,
               alignment: 'center',
+              colSpan: 2,
               bold: true,
-              fillColor: '#d4d4b0',
+              fontSize: 16,
+              fillColor: '#C4C598',
             },
-            '',
-            { text: '1', alignment: 'center' },
+            {},
+            {
+              text: ThaiNumbers(
+                (totalLawyer + totalIndividual).toLocaleString()
+              ),
+              alignment: 'center',
+              fontSize: 16,
+            },
             {
               text: 'ผู้ประกอบธุรกิจที่เป็นนิติบุคคล',
-              colSpan: 2,
               alignment: 'center',
+              colSpan: 2,
               bold: true,
-              fillColor: '#d4d4b0',
+              fontSize: 16,
+              fillColor: '#C4C598',
             },
-            '',
-            { text: '1', alignment: 'center' },
+            {},
+            {
+              text: ThaiNumbers(
+                (
+                  totalUnregistered +
+                  totalRegistered +
+                  totalLimitedPartnership +
+                  totalCompany +
+                  totalPublicCompany +
+                  totalLawyerCouncil
+                ).toLocaleString()
+              ),
+              alignment: 'center',
+              fontSize: 16,
+            },
           ],
           [
             {
               text: 'รวม',
+              alignment: 'center',
               colSpan: 2,
-              alignment: 'center',
               bold: true,
+              fontSize: 16,
               fillColor: '#D9D9D9',
             },
-            '',
+            {},
             {
-              text: '15',
-              colSpan: 5,
+              text: ThaiNumbers(
+                (
+                  totalLawyer +
+                  totalIndividual +
+                  totalUnregistered +
+                  totalRegistered +
+                  totalLimitedPartnership +
+                  totalCompany +
+                  totalPublicCompany +
+                  totalLawyerCouncil
+                ).toLocaleString()
+              ),
               alignment: 'center',
+              colSpan: 5,
+              bold: true,
+              fontSize: 16,
               fillColor: '#D9D9D9',
             },
-            '',
-            '',
-            '',
-            '',
+            {},
+            {},
+            {},
+            {},
           ],
         ],
-      },
-      layout: {
-        hLineWidth: function () {
-          return 0.5 // ความหนาเส้นแนวนอน
-        },
-        vLineWidth: function () {
-          return 0.5 // ความหนาเส้นแนวตั้ง
-        },
-        hLineColor: function () {
-          return 'black' // สีเส้นแนวนอน
-        },
-        vLineColor: function () {
-          return 'black' // สีเส้นแนวตั้ง
-        },
       },
     },
   ]
 }
-function createTableWithPagination(dataInfo) {
-  const rows = dataInfo.map((item, index) => [
-    { text: index + 1, alignment: 'center' },
-    { text: item.businessName, alignment: 'left' },
-    { text: item.registrationNumber, alignment: 'center' },
-    { text: item.businessType, alignment: 'left' },
-    { text: item.location, alignment: 'left' },
-    { text: item.registrationDate, alignment: 'center' },
-    { text: item.phoneNumber || '-', alignment: 'center' },
-  ])
-
-  const header = [
-    { text: 'ลำดับ', bold: true, alignment: 'center' },
-    { text: 'ชื่อสถานประกอบธุรกิจ', bold: true, alignment: 'center' },
-    { text: 'เลขทะเบียนที่', bold: true, alignment: 'center' },
-    { text: 'ประเภทกิจการ', bold: true, alignment: 'center' },
-    { text: 'สถานที่ตั้ง', bold: true, alignment: 'center' },
-    { text: 'วันที่จดทะเบียน', bold: true, alignment: 'center' },
-    { text: 'เบอร์โทรศัพท์', bold: true, alignment: 'center' },
-  ]
-
-  const pageHeight = 600 // กำหนดความสูงของหน้ากระดาษ (A4 landscape)
-  let currentHeight = 0 // ความสูงสะสมของตาราง
-  const tableChunks = [] // เก็บข้อมูลของแต่ละหน้า
-
-  let currentPage = [header] // เริ่มต้นหน้าด้วย header
-
-  rows.forEach((row, index) => {
-    const rowHeight = 20 // กำหนดความสูงของแต่ละแถว (อาจปรับให้เหมาะสมกับเนื้อหา)
-
-    // ถ้ารวมแถวแล้วเกินพื้นที่หน้ากระดาษ ให้เริ่มหน้าใหม่
-    if (currentHeight + rowHeight > pageHeight) {
-      tableChunks.push(currentPage) // เก็บหน้าปัจจุบัน
-      currentPage = [header] // สร้างหน้าใหม่พร้อม header
-      currentHeight = 0 // รีเซ็ตความสูงสะสม
-    }
-
-    currentPage.push(row) // เพิ่มแถวปัจจุบันลงในหน้า
-    currentHeight += rowHeight // เพิ่มความสูงสะสม
-  })
-
-  // เก็บหน้าสุดท้ายที่เหลือ
-  if (currentPage.length > 1) {
-    tableChunks.push(currentPage)
-  }
-
-  return tableChunks
-}
-
-function createTableContent(dataInfo) {
-  // หัวตาราง
-  const header = [
-    { text: 'ลำดับ', bold: true, alignment: 'center' },
-    { text: 'ชื่อสถานประกอบธุรกิจ', bold: true, alignment: 'center' },
-    { text: 'เลขทะเบียนที่', bold: true, alignment: 'center' },
-    { text: 'ประเภทกิจการ', bold: true, alignment: 'center' },
-    { text: 'สถานที่ตั้ง', bold: true, alignment: 'center' },
-    { text: 'วันที่จดทะเบียน', bold: true, alignment: 'center' },
-    { text: 'เบอร์โทรศัพท์', bold: true, alignment: 'center' },
-  ]
-
-  // เนื้อหาตาราง
-  const rows = dataInfo.map((item, index) => [
-    { text: index + 1, alignment: 'center' },
-    { text: item.businessName, alignment: 'left' },
-    { text: item.registrationNumber, alignment: 'center' },
-    { text: item.businessType, alignment: 'left' },
-    { text: item.location, alignment: 'left' },
-    { text: item.registrationDate, alignment: 'center' },
-    { text: item.phoneNumber || '-', alignment: 'center' },
-  ])
-
-  return [header, ...rows]
-}
-
-export { generatePDF }
