@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex justify-start mt-4 px-10">
+  <v-card-title class="d-flex justify-center mt-8 px-10">
     <span
-      class="d-flex align-center justify-center text-blue-darken-4 text-h4"
+      class="d-flex align-center justify-center text-h5 text-md-h4 font-weight-bold text-wrap" style="color: #1a237e"
     >
       บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้
     </span>
-  </div>
+  </v-card-title>
   <v-container class="d-flex justify-start">
     <div class="elevation-3 rounded-lg w-100">
       <!-- Tabs -->
@@ -22,22 +22,11 @@
         <v-window-item value="employee">
           <div class="pa-8">
             <v-row>
-              <v-col cols="12">
+              <v-col cols="12" class="pl-8">
                 <span> ไฟล์บัญชีรายชื่อ </span>
               </v-col>
-              <v-col cols="12">
-                <!-- v-file-input สำหรับเลือกไฟล์ -->
-                <v-file-input
-                  label="ลากไฟล์มาวางตรงนี้ หรือคลิกเพื่อเลือกไฟล์"
-                  show-size
-                  variant="outlined"
-                  density="compact"
-                  truncate-length="15"
-                  multiple
-                  @change="handleFileChange"
-                ></v-file-input>
-              </v-col>
             </v-row>
+            <UploadFile/>
           </div>
         </v-window-item>
 
@@ -59,19 +48,7 @@
                 hide-details="auto"
               ></v-text-field>
             </v-row>
-            <v-row>
-              <v-col cols="12">
-              <v-file-input
-                label="ลากไฟล์มาวางตรงนี้ หรือคลิกเพื่อเลือกไฟล์"
-                show-size
-                variant="outlined"
-                density="compact"
-                truncate-length="15"
-                multiple
-                @change="handleFileChange"
-              ></v-file-input>
-            </v-col>
-            </v-row>
+            <UploadFile/>
           </div>
         </v-window-item>
       </v-window>
@@ -81,6 +58,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import UploadFile from '@/components/UploadFile.vue'
 
 // ตัวแปร state สำหรับแท็บและไฟล์
 const activeTab = ref('employee')

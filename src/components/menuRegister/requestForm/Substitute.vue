@@ -2,7 +2,7 @@
   <v-form ref="form">
     <div class="d-flex justify-center align-end mt-10 mb-4 px-10">
       <span>
-        <span class="text-h4" style="color: #1a237e">
+        <span class="text-h5 text-md-h4 font-weight-bold text-wrap" style="color: #1a237e">
           คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้
         </span>
       </span>
@@ -43,6 +43,7 @@
           </div>
           <v-text-field
             class="v-col-12 px-0"
+            placeholder="ข้าพเจ้า"
             variant="outlined"
             density="compact"
             hide-details="auto"
@@ -283,6 +284,7 @@
         </v-col>
         <v-text-field
           class="v-col-12 v-col-md-11"
+          placeholder="อื่นๆ ระบุ"
           variant="outlined"
           density="compact"
           hide-details="auto"

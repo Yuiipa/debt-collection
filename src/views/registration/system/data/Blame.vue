@@ -1,11 +1,10 @@
 <template>
   <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
-      <span>จัดการข้อหาหรือฐานความผิด
-      </span>
+      <span>จัดการข้อหาหรือฐานความผิด </span>
     </v-card-title>
     <div>
       <v-row class="px-16">
@@ -44,7 +43,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -90,16 +88,16 @@ const handleSave = () => {
 }
 
 const headers = [
-    { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
-    {
-      title: 'ความผิดมาตรา',
-      key: 'section',
-      align: 'start',
-      sortable: true,
-      width: '190px',
-    },
-    { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
-  ]
+  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ความผิดมาตรา',
+    key: 'section',
+    align: 'start',
+    sortable: true,
+    width: '190px',
+  },
+  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
+]
 
 const items = ref([
   {

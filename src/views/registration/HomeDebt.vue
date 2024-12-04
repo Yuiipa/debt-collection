@@ -1,14 +1,14 @@
 <template>
   <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
       <span> ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
     </v-card-title>
-    <div class="px-10 pt-2">
+    <div class="px-10 pt-4">
       <v-row>
-        <v-col>
+        <v-col class="pa-0">
           <div>
             <v-row class="d-flex align-center justify-space-between">
               <div class="d-flex" style="gap: 10px">
@@ -16,7 +16,7 @@
                   variant="outlined"
                   append-icon="mdi-file-excel"
                   style="color: green"
-                  class="rounded-lg"
+                  class="rounded-lg px-2 px-sm-5"
                   size="large"
                   id="excel"
                   @click="exportExcel()"
@@ -27,7 +27,7 @@
                   variant="outlined"
                   append-icon="mdi-printer"
                   style="color: orange"
-                  class="rounded-lg"
+                  class="rounded-lg px-2 px-sm-5"
                   size="large"
                   id="print"
                   @click="exportPdf()"
@@ -43,7 +43,7 @@
                       : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
                   "
                   size="large"
-                  class="rounded-lg"
+                  class="rounded-lg px-2 px-sm-5"
                   id="print"
                   @click="toggleFilter()"
                 >

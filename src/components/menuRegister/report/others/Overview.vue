@@ -24,10 +24,18 @@
       </v-row>
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ไตรมาส</div>
+          <v-text-field
+            variant="outlined"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
           <v-text-field
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
             persistent-placeholder
             hide-details
             density="compact"
@@ -37,17 +45,6 @@
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
           <v-text-field
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"

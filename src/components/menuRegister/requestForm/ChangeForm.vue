@@ -1,12 +1,12 @@
 <template>
   <v-form ref="form">
-    <div class="d-flex justify-start align-end mt-10 mb-4 px-10">
+    <v-card-title class="d-flex justify-center align-end mt-10 mb-4 px-10">
       <span>
-        <span class="text-blue-darken-4 text-h4">
+        <span class=" text-h4" style="color: #1a237e">
           คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
         </span>
       </span>
-    </div>
+    </v-card-title>
     <div
       class="ma-8 mt-2 pa-6 elevation-3 rounded-lg"
       style="background-color: white"
@@ -25,7 +25,7 @@
       ></v-divider>
       <v-row class="d-flex justify-end">
         <v-col cols="12" md="3" class="pl-2 py-0">
-          <div class="v-col-12 py-0 font-weight-bold">เขียนที่</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>เขียนที่</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -36,17 +36,20 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="pl-2 py-0">
-          <div class="v-col-12 py-0 font-weight-bold">ข้าพเจ้า</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>ข้าพเจ้า</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
             density="compact"
             hide-details="auto"
           ></v-text-field>
+          <div class="v-col-12 py-0 pr-0 text-body-2" style="color: red">
+            (ชื่อที่ใช้ในการประกอบธุรกิจทวงถามหนี้)
+          </div>
         </v-col>
         <v-col cols="12" md="6" class="pl-2 py-0">
           <div class="v-col-12 py-0 font-weight-bold">
-            ซึ่งได้จดทะเบียนการประกอบธุรกิจทวงถามหนี้ ทะเบียนเลขที่
+            <div style="color: red" class="d-inline-flex pr-1">*</div>ซึ่งได้จดทะเบียนการประกอบธุรกิจทวงถามหนี้ ทะเบียนเลขที่
           </div>
           <v-text-field
             class="v-col-12"
@@ -99,7 +102,7 @@
       </v-row>
       <v-row class="mt-6">
         <v-col cols="12" md="6" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">ที่อยู่ อาคาร เป็น</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>ที่อยู่ อาคาร</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -117,7 +120,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="3" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">เลขที่</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>เลขที่</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -128,7 +131,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">หมู่ที่</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>หมู่ที่</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -157,7 +160,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">จังหวัด</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>จังหวัด</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -166,7 +169,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">เขต/อำเภอ</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>เขต/อำเภอ</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -175,7 +178,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">แขวง/ตำบล</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>แขวง/ตำบล</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -186,7 +189,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">โทรศัพท์</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>โทรศัพท์</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -195,7 +198,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">โทรสาร</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>โทรสาร</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -204,7 +207,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="4" class="py-0 px-0">
-          <div class="v-col-12 py-0 font-weight-bold">จดหมายอิเล็กทรอนิกส์</div>
+          <div class="v-col-12 py-0 font-weight-bold"><div style="color: red" class="d-inline-flex pr-1">*</div>จดหมายอิเล็กทรอนิกส์</div>
           <v-text-field
             class="v-col-12"
             variant="outlined"
@@ -216,7 +219,7 @@
       <v-divider
         class="opacity-100 mt-6 mb-10"
         :thickness="2"
-        color="blue"
+        color="grey"
       ></v-divider>
       <v-row>
         <v-col cols="12" md="5" class="d-flex align-center">
@@ -259,6 +262,7 @@
         <v-col cols="12" md="6" class="pl-2 py-0">
           <v-text-field
             class="v-col-12"
+            placeholder="ระบุ"
             variant="outlined"
             density="compact"
             hide-details="auto"

@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex justify-start mt-8 px-10">
+  <div class="d-flex justify-center mt-8 px-10">
     <span
-      class="d-flex align-center justify-center text-blue-darken-4 text-h4"
+      class="d-flex align-center justify-center text-h5 text-md-h4 font-weight-bold text-wrap" style="color: #1a237e"
     >
     {{title_route}}
     </span>
@@ -32,23 +32,11 @@
         ></v-text-field>
         </v-row>
         <v-row>
-          <v-col class="py-0">
+          <v-col class="px-4">
             <span> {{ subtitle_route }} </span>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-file-input
-              label="ลากไฟล์มาวางตรงนี้ หรือคลิกเพื่อเลือกไฟล์"
-              show-size
-              variant="outlined"
-              density="compact"
-              truncate-length="15"
-              multiple
-              @change="handleFileChange"
-            ></v-file-input>
-          </v-col>
-        </v-row>
+        <UploadFile/>
         <v-row>
           <v-col
             cols="12"
@@ -82,7 +70,7 @@
 <script setup>
 import { ref,onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-const router = useRouter()
+import UploadFile from '@/components/UploadFile.vue'
 const route = useRoute()
 
 const title_route = ref('')

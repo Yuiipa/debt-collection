@@ -1,14 +1,14 @@
 <template>
   <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
       <span> จัดการข้อมูลผู้ใช้งาน</span>
     </v-card-title>
     <div>
       <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
+        <v-col cols="12" sm="7" md="9" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -18,7 +18,7 @@
             class="full-width-input"
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="1" class="align-center justify-start d-flex">
+        <v-col cols="6" sm="2" md="1" class="align-center justify-start d-flex">
           <v-btn
             left
             class="px-6"
@@ -26,7 +26,7 @@
             >ค้นหา</v-btn
           >
         </v-col>
-        <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+        <v-col cols="6" sm="3" md="2" class="align-center justify-end d-flex">
           <v-btn
             prepend-icon="mdi-account-plus"
             color="green"

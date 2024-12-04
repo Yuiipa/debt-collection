@@ -1,41 +1,40 @@
 <template>
     <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
       <v-card-title
-        class="d-flex justify-center ma-2 text-h5 font-weight-bold"
+        class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
         style="color: #1a237e"
       >
         <span>
-          รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด
+          รายงานสรุปรายงานตามมาตรา ๒๘
   
         </span>
       </v-card-title>
       <div>
         <v-row class="mx-8 my-2">
           <v-col md="3" cols="12">
-            <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+            <div class="mb-2 font-weight-bold">ปี</div>
             <v-text-field
               variant="outlined"
-              placeholder="ตั้งแต่วันที่"
               persistent-placeholder
               hide-details
               density="compact"
             />
           </v-col>
           <v-col md="3" cols="12">
-            <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+            <div class="mb-2 font-weight-bold">
+              ไตรมาส</div>
             <v-text-field
               variant="outlined"
-              placeholder="ถึงวันที่"
               persistent-placeholder
               hide-details
               density="compact"
             />
           </v-col>
           <v-col md="3" cols="12">
-            <div class="mb-2 font-weight-bold">จังหวัด</div>
+            <div class="mb-2 font-weight-bold">
+              สังกัด/หน่วยงาน</div>
             <v-text-field
               variant="outlined"
-              placeholder="ทั้งหมด"
               persistent-placeholder
               hide-details
               density="compact"
