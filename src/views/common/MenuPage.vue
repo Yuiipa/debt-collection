@@ -13,30 +13,32 @@
       <v-row>
         <v-col cols="12" class="d-flex justify-center">
           <v-card
-            class="mr-4 d-flex flex-column align-center pa-4 rounded-xl"
+            class="mr-4 d-flex flex-column justify-space-between align-center pa-4 rounded-xl"
             variant="outlined"
             style="height: 30vh; width: 50vh"
             id="license"
             @click="$router.push({ name: 'debt-home-registration' })"
           >
-            <v-icon size="100" class="my-2">mdi-file-document-edit</v-icon>
-            <span class="text-h5 text-center mt-16">การจดทะเบียน</span>
-            <!-- <v-icon size="50" class="mb-2">mdi-minus</v-icon> -->
+            <v-icon :style="{ fontSize: '6vw' }"
+              >mdi-file-document-edit</v-icon
+            >
+            <span class="text-h5 mb-4 text-center">การจดทะเบียน</span>
           </v-card>
+
           <v-card
-            class="ml-4 d-flex flex-column align-center pa-4 rounded-xl"
+            class="ml-4 d-flex flex-column justify-space-between align-center pa-4 rounded-xl"
             variant="outlined"
             style="height: 30vh; width: 50vh"
             id="report"
             @click="$router.push({ name: 'debt-home-appeal' })"
           >
-            <v-icon size="100" class="my-2"
+            <v-icon :style="{ fontSize: '6vw' }"
               >mdi-chart-bell-curve-cumulative</v-icon
             >
-            <span class="text-h5 text-center mt-12"
-              >การรายงานเรื่องร้องเรียน</span
-            >
-            <span class="text-h5 text-center">และผลการปฏิบัติงานอื่น ๆ</span>
+            <div class="text-center">
+              <span class="text-h5">การรายงานเรื่องร้องเรียน</span>
+              <span class="text-h5">และผลการปฏิบัติงานอื่น ๆ</span>
+            </div>
           </v-card>
         </v-col>
       </v-row>
