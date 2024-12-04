@@ -12,7 +12,7 @@
           <HomeChart :systems="mockSystems" />
         </div>
       </v-col>
-      <v-col cols="12" md="4" class="d-flex justify-center align-center mt-14 mb-6 mt-sm-6 ">
+      <v-col cols="12" md="4" class="d-flex justify-center align-center mt-16 mb-6 mt-sm-6 ">
         <div class="d-flex text-center">
           <v-row justify="center" align="center" >
             <v-col cols="12" md="12" class="d-flex justify-center">
@@ -73,14 +73,14 @@ const mockSystems = [
 }
 
 /* สำหรับหน้าจอที่มีความกว้างตั้งแต่ 350px ถึง 400px */
-@media (min-width: 350px) and (max-width: 400px) {
+@media (min-width: 350px) and (max-width: 500px) {
   .responsive-chart {
     height: 200px;
   }
 }
 
 /* สำหรับหน้าจอที่มีความกว้างตั้งแต่ 400px ขึ้นไป */
-@media (min-width: 400px) {
+@media (min-width: 500px) {
   .responsive-chart {
     height: 300px;
   }

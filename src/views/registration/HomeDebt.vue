@@ -139,9 +139,9 @@
 
       <v-row class="rounded-lg mt-8 mb-6">
         <v-data-table :headers="headers" :items="items" class="elevation-1">
-          <template v-slot:[`item.index`]="{ index }">
+          <!-- <template v-slot:[`item.index`]="{ index }">
             <span>{{ index + 1 }}</span>
-          </template>
+          </template> -->
           <template v-slot:[`item.data`]="{ item }">
             <v-btn variant="plain" small @click="navigate(item)">
               ข้อมูล >
@@ -196,7 +196,12 @@ function navigate() {
   router.push({ name: 'debt-home-registration-detail_business' })
 }
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true, width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    }
+   },
   {
     title: 'เลขที่ทะเบียน',
     key: 'registerNumber',
@@ -217,8 +222,9 @@ const headers = [
     align: 'start',
     sortable: true,
   },
-  { title: 'ข้อมูล', key: 'data', align: 'center', sortable: false },
+  
   { title: 'สถานะ', key: 'status', align: 'center', sortable: false },
+  { title: 'ข้อมูล', key: 'data', align: 'center', sortable: false },
 ]
 
 const items = ref([

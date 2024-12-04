@@ -1,20 +1,24 @@
 <template>
-  <v-sheet class="fill-height d-flex flex-column" style="background-color: transparent">
+  <v-sheet
+    class="fill-height d-flex flex-column"
+    style="background-color: transparent"
+  >
     <v-row class="chart-container flex-grow-1">
       <Doughnut id="my-chart-id" :options="chartOptions" :data="chartData" />
       <div class="d-none d-md-flex">
-        <div class="chart-center-text " v-if="centerText">
-        <span style="font-size: 16px; display: block">{{
-          centerText.label
-        }}</span>
-        <span style="font-size: 24px; display: block">{{
-          centerText.value
-        }}</span>
+        <div class="chart-center-text" v-if="centerText">
+          <span style="font-size: 16px; display: block">{{
+            centerText.label
+          }}</span>
+          <span style="font-size: 24px; display: block">{{
+            centerText.value
+          }}</span>
+        </div>
       </div>
-      </div>
-      
     </v-row>
-    <v-row class="legend-container justify-center pt-md-6 mt-md-16">
+    <v-row
+      class="legend-container justify-start justify-md-center pt-md-6 mt-md-16 px-4"
+    >
       <div
         v-for="(label, index) in chartData.labels"
         :key="index"
@@ -100,20 +104,19 @@ export default defineComponent({
     })
 
     function getChartData(systems) {
-  return {
-    labels: systems.map((item) => item.name),
-    datasets: [
-      {
-        label: 'จำนวนการเข้าใช้',
-        data: systems.map((item) => item.usage),
-        backgroundColor: systems.map((item) => item.color),
-        borderColor: '#FFFFFF', // ตั้งค่าเส้นแบ่งสีขาว
-        borderWidth: 2, // ความหนาของเส้นแบ่ง
-      },
-    ],
-  };
-}
-
+      return {
+        labels: systems.map((item) => item.name),
+        datasets: [
+          {
+            label: 'จำนวนการเข้าใช้',
+            data: systems.map((item) => item.usage),
+            backgroundColor: systems.map((item) => item.color),
+            borderColor: '#FFFFFF', // ตั้งค่าเส้นแบ่งสีขาว
+            borderWidth: 2, // ความหนาของเส้นแบ่ง
+          },
+        ],
+      }
+    }
 
     function toggleDatasetVisibility(index) {
       hiddenDatasets.value[index] = !hiddenDatasets.value[index]
@@ -168,6 +171,4 @@ export default defineComponent({
   display: inline-block;
   border-radius: 50%;
 }
-
-
 </style>
