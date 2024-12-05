@@ -6,68 +6,70 @@
     >
       <span>{{ titletext }}</span>
     </v-card-title>
-    <v-row class="ma-2" v-if="addReport">
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="ไตรมาสที่"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">เดือน</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="เดือน"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ถึงเดือน</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="ถึงเดือน"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ปี</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="ปี"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col cols="12">
-        <div class="mb-2 font-weight-bold">ชื่อไฟล์</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="ชื่อไฟล์"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col cols="12">
-        <div class="mb-2 font-weight-bold">อัปโหลด</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="อัปโหลด"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-    </v-row>
+    <v-expand-transition class="mt-6">
+      <v-row class="ma-2" v-if="addReport">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="ไตรมาสที่"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">เดือน</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="เดือน"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ถึงเดือน</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="ถึงเดือน"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ปี</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="ปี"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">ชื่อไฟล์</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="ชื่อไฟล์"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col cols="12">
+          <div class="mb-2 font-weight-bold">อัปโหลด</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="อัปโหลด"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+      </v-row>
+    </v-expand-transition>
     <v-row class="ma-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">วันที่</div>
@@ -93,6 +95,11 @@
             variant="outlined"
             prepend-icon="mdi-plus"
             class="rounded-lg"
+            :style="
+              addReport
+                ? 'background-color:#39ab4e;color:white'
+                : 'color:#39ab4e;background-color:white'
+            "
             size="large"
             id="add"
             @click="addReport = !addReport"
@@ -117,7 +124,7 @@
             style="font-size: 14px"
             @click="downloadReport(item)"
           >
-            เรียกดู
+            <div class="text-decoration-underline">เรียกดู</div>
           </v-btn>
         </template>
       </v-data-table>
@@ -202,13 +209,5 @@ const downloadReport = async (item) => {
 
 .primary--text {
   color: #1a237e !important;
-}
-.v-btn#add:hover {
-  color: green !important;
-  background-color: white !important;
-}
-.v-btn#add {
-  background-color: green !important;
-  color: white !important;
 }
 </style>

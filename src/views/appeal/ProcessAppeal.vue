@@ -6,7 +6,25 @@
     >
       <span>การดำเนินการเรื่องร้องเรียน</span>
     </v-card-title>
-    <v-row class="ma-1 my-2">
+    <v-row class="d-flex justify-end ma-4 mt-0">
+      <v-btn
+        variant="outlined"
+        append-icon="mdi-filter"
+        :style="
+          filter
+            ? 'background-color: #1a237e; color: white; border: none'
+            : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+        "
+        size="large"
+        class="rounded-lg px-2 px-sm-5"
+        id="print"
+        @click="filter = !filter"
+      >
+        ตัวกรอง
+      </v-btn>
+    </v-row>
+    <v-expand-transition class="mt-6">
+    <v-row class="ma-1 my-2 d-flex justify-end" v-if="filter">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
         <v-text-field
@@ -47,9 +65,7 @@
           density="compact"
         />
       </v-col>
-    </v-row>
-    <v-row class="ma-1 mb-2 d-flex justify-end">
-      <v-col class="d-flex justify-end" cols="1">
+      <v-col class="d-flex justify-end" cols="2">
         <v-btn
           style="height: 47px; background-color: #1a237e; color: white"
           prepend-icon="mdi-magnify"
@@ -58,6 +74,7 @@
         </v-btn>
       </v-col>
     </v-row>
+  </v-expand-transition>
     <v-card class="ma-4 rounded-lg">
       <v-data-table
         :headers="$vuetify.display.mdAndUp ? headers : headers2"
@@ -75,6 +92,7 @@
             variant="outlined"
             style="font-size: 14px; color: orange"
             class="rounded-pill"
+            id="missdoc"
           >
             ขาดเอกสารสำคัญ
           </v-btn>
@@ -83,6 +101,7 @@
             variant="outlined"
             style="font-size: 14px; color: green"
             class="rounded-pill"
+            id="comdoc"
           >
             เอกสารครบถ้วน
           </v-btn>
@@ -94,7 +113,7 @@
             style="font-size: 14px"
             @click="openDetails(item)"
           >
-            เรียกดู
+          <div class="text-decoration-underline">เรียกดู</div>
           </v-btn>
         </template>
       </v-data-table>
@@ -129,6 +148,7 @@ import ProcessAppealDetails from '@/components/menuAppeal/processAppeal/ProcessA
 const dialog = ref(false)
 const selectItem = ref({})
 const search = ref('')
+const filter = ref(false)
 
 const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
@@ -281,5 +301,25 @@ const calculateIndex = (index) => {
 
 .primary--text {
   color: #1a237e !important;
+}
+
+.v-btn#comdoc:hover {
+  background-color: green !important;
+  color: white !important;
+}
+
+.v-btn#comdoc {
+  color: green !important;
+  background-color: transparent !important;
+}
+
+.v-btn#missdoc:hover {
+  background-color: orange !important;
+  color: white !important;
+}
+
+.v-btn#missdoc {
+  color: orange !important;
+  background-color: transparent !important;
 }
 </style>

@@ -35,33 +35,39 @@
         >
       </v-col>
       <v-col md="3" cols="12" class="d-flex justify-end align-end mb-1">
-        <div>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-file-excel"
-            style="color: green"
-            class="mr-4 rounded-lg"
-            size="large"
-            id="excel"
-            @click="exportExcel()"
-          >
-            Excel
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-printer"
-            style="color: orange"
-            class="rounded-lg"
-            size="large"
-            id="print"
-            @click="exportPDF()"
-          >
-            พิมพ์
-          </v-btn>
-        </div>
+        <v-menu offset-y>
+          <template v-slot:activator="{ props }">
+            <v-btn
+              v-bind="props"
+              variant="outlined"
+              prepend-icon="mdi-tray-arrow-down"
+              :style="exportBtn ?'color: white;background-color: #1a237e': 'background-color: white;color: #1a237e'"
+              class="rounded-lg"
+              size="large"
+              id="export"
+              @click="exportBtn = !exportBtn"
+            >
+              Export
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item class="d-flex justify-start" @click="exportExcel()">
+              <v-list-item-icon>
+                <v-icon class="text-green">mdi-file-excel</v-icon>
+              </v-list-item-icon>
+              <span class="mx-2">Excel</span>
+            </v-list-item>
+            <v-list-item @click="exportPDF()">
+              <v-list-item-icon>
+                <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
+              </v-list-item-icon>
+              <span class="mx-2">PDF</span>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-col>
     </v-row>
-    <v-card variant="flat" class="mx-4">
+    <v-card class="ma-4 rounded-lg">
       <v-data-table
         :headers="$vuetify.display.mdAndUp ? headers : headers2"
         :items="homeappeal"
@@ -100,6 +106,7 @@ import { ref } from 'vue'
 import { generatePDF } from '@/prints/appeal/HomeAppeal.js'
 import { generateExcel } from '@/prints/appeal/ExcelHomeAppeal.js'
 
+const exportBtn = ref(false)
 const search = ref('')
 
 const headers = ref([
@@ -122,7 +129,7 @@ const homeappeal = []
 
 for (let i = 0; i < 100; i++) {
   const id = `1000${i + 1}/2567`
-  const datetime = `10/0${(i + 1)}/2567`
+  const datetime = `10/0${i + 1}/2567`
   const status = Math.floor(Math.random() * 2)
   homeappeal.push({
     id: id,
@@ -174,10 +181,12 @@ const calculateIndex = (index) => {
 
 const exportPDF = () => {
   generatePDF(homeappeal)
+  exportBtn.value = false
 }
 
 const exportExcel = () => {
   generateExcel(homeappeal)
+  exportBtn.value = false
 }
 </script>
 
@@ -209,27 +218,28 @@ const exportExcel = () => {
   background-color: #ffffff;
 }
 
-.v-btn#excel:hover,
-.v-btn#comdoc {
+.v-btn#comdoc:hover {
   background-color: green !important;
   color: white !important;
 }
 
-.v-btn#excel,
-.v-btn#comdoc:hover {
+.v-btn#comdoc {
   color: green !important;
-  background-color: white !important;
+  background-color: transparent !important;
 }
 
-.v-btn#print:hover,
-.v-btn#missdoc {
+.v-btn#missdoc:hover {
   background-color: orange !important;
   color: white !important;
 }
 
-.v-btn#print,
-.v-btn#missdoc:hover {
+.v-btn#missdoc {
   color: orange !important;
-  background-color: white !important;
+  background-color: transparent !important;
+}
+
+.v-btn#export:hover {
+  color: white !important;
+  background-color: #1a237e !important;
 }
 </style>

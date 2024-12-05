@@ -45,7 +45,7 @@
             style="font-size: 14px"
             @click="openDetails(item)"
           >
-            เรียกดู
+          <div class="text-decoration-underline">เรียกดู</div>
           </v-btn>
         </template>
       </v-data-table>

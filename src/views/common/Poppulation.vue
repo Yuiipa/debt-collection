@@ -9,8 +9,8 @@
       </v-card-title>
     </v-card>
     <div class="px-16">
-      <v-row class="d-flex justify-start align-center mt-6 px-4">
-        <v-col cols="5">
+      <v-row class="d-flex justify-start align-center my-4">
+        <v-col md="6" cols="12">
           <v-text-field
             v-model="search"
             label="ค้นหาด้วยชื่อธุรกิจ ประเภท จังหวัด"
@@ -21,17 +21,8 @@
             density="compact"
           />
         </v-col>
-        <v-col cols="1" class="d-flex justify-start">
-          <v-btn
-            color="#1a237e"
-            class="white--text"
-            style="height: 40px; width: 100%"
-          >
-            ค้นหา
-          </v-btn>
-        </v-col>
       </v-row>
-      <v-card class="mt-4 rounded-lg">
+      <v-card class="my-4 rounded-lg">
         <v-data-table
           :headers="$vuetify.display.mdAndUp ? headers : headers2"
           :items="desserts"
@@ -48,11 +39,11 @@
           <template v-slot:[`item.info`]="{ item }">
             <v-btn
               append-icon="mdi-chevron-right"
-              variant="plain"
+              variant="text"
               style="font-size: 14px"
               @click="openDialog(item)"
             >
-              ข้อมูล
+              <div class="text-decoration-underline">ข้อมูล</div>
             </v-btn>
           </template>
         </v-data-table>
