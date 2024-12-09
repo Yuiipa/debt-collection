@@ -38,33 +38,34 @@
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
+          <DatePicker
+          v-model="formSearch.endDate"
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
+          <v-autocomplete
+          v-model="formSearch.province"
             variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"
-          />
+            :items="itemsProvince"
+          ></v-autocomplete>
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
           <v-btn
@@ -99,37 +100,36 @@
         class="d-flex justify-center"
         style="background-color: white; height: 400px"
       >
-        <BarChart :data="graph" /></v-col
+        <BarChart :data="processedItems" /></v-col
     ></v-row>
   </v-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive ,computed } from 'vue'
 import BarChart from '@/components/charts/barChart.vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountTypeBusiness'
 import {generatePDF} from '@/prints/register/CountTypeBusiness'
 
-const graph = [
-  {
-    usage_name: 'กรุงเทพมหานคร',
-    dataset1_count: 10,
-    dataset2_count: 15,
-    dataset3_count: 20,
-  },
-  {
-    usage_name: 'ปทุมธานี',
-    dataset1_count: 5,
-    dataset2_count: 10,
-    dataset3_count: 15,
-  },
-  {
-    usage_name: 'จังหวัดนครราชสีมา',
-    dataset1_count: 20,
-    dataset2_count: 25,
-    dataset3_count: 30,
-  },
-]
+
+const formSearch = reactive({
+  startDate: null,
+  endDate: null,
+  province: 'ทั้งหมด',
+})
+const processedItems = computed(() => {
+  return items.map((item) => ({
+    usage_name: item.province,
+    dataset1: item.individual,
+    dataset2: item.unregisteredPartnership,
+    dataset3: item.registeredPartnership,
+    dataset4: item.limitedPartnership,
+    dataset5: item.limitedCompany,
+    dataset6: item.publiclimitedCompany,
+    dataset7: item.lawyer,
+    dataset8: item.lawyersCouncil,
+  }));
+});
 const headers = [
   {
     title: 'ลำดับที่',
@@ -176,9 +176,31 @@ const headers = [
     sortable: true,
     width: '160px',
   },
+  
+  {
+    title: 'บริษัทจำกัดมหาชน',
+    key: 'publiclimitedCompany',
+    align: 'start',
+    sortable: true,
+    width: '160px',
+  },
+  {
+    title: 'ทนายความ',
+    key: 'lawyer',
+    align: 'start',
+    sortable: true,
+    width: '160px',
+  },
+  {
+    title: 'สำนักงานทนายความ',
+    key: 'lawyersCouncil',
+    align: 'start',
+    sortable: true,
+    width: '160px',
+  },
 ]
 
-const items = ref([
+const items = reactive([
   {
     province: 'กรุงเทพมหานคร',
     individual: 41,
@@ -187,8 +209,8 @@ const items = ref([
     limitedPartnership: 13,
     limitedCompany: 564,
     publiclimitedCompany: 16,
-    Lawyer: 36,
-    LawyersCouncil: 962,
+    lawyer: 36,
+    lawyersCouncil: 962,
   },
   {
     province: 'จังหวัดปทุมธานี',
@@ -198,8 +220,8 @@ const items = ref([
     limitedPartnership: 7,
     limitedCompany: 36,
     publiclimitedCompany: 16,
-    Lawyer: 0,
-    LawyersCouncil: 11,
+    lawyer: 0,
+    lawyersCouncil: 11,
   },
   {
     province: 'จังหวัดนครราชสีมา',
@@ -209,8 +231,8 @@ const items = ref([
     limitedPartnership: 33,
     limitedCompany: 26,
     publiclimitedCompany: 16,
-    Lawyer: 2,
-    LawyersCouncil: 14,
+    lawyer: 2,
+    lawyersCouncil: 14,
   },
   {
     province: 'จังหวัดสมุทรปราการ',
@@ -220,8 +242,8 @@ const items = ref([
     limitedPartnership: 5,
     limitedCompany: 52,
     publiclimitedCompany: 16,
-    Lawyer: 5,
-    LawyersCouncil: 55,
+    lawyer: 5,
+    lawyersCouncil: 55,
   },
   {
     province: 'จังหวัดปราจีนบุรี',
@@ -231,8 +253,8 @@ const items = ref([
     limitedPartnership: 0,
     limitedCompany: 1,
     publiclimitedCompany: 16,
-    Lawyer: 0,
-    LawyersCouncil: 9,
+    lawyer: 0,
+    lawyersCouncil: 9,
   },
   {
     province: 'จังหวัดเชียงใหม่',
@@ -242,8 +264,8 @@ const items = ref([
     limitedPartnership: 25,
     limitedCompany: 23,
     publiclimitedCompany: 16,
-    Lawyer: 0,
-    LawyersCouncil: 8,
+    lawyer: 0,
+    lawyersCouncil: 8,
   },
   {
     province: 'จังหวัดอุบลราชธานี',
@@ -253,8 +275,8 @@ const items = ref([
     limitedPartnership: 20,
     limitedCompany: 22,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 12,
+    lawyer: 1,
+    lawyersCouncil: 12,
   },
   {
     province: 'จังหวัดขอนแก่น',
@@ -264,8 +286,8 @@ const items = ref([
     limitedPartnership: 29,
     limitedCompany: 23,
     publiclimitedCompany: 16,
-    Lawyer: 0,
-    LawyersCouncil: 32,
+    lawyer: 0,
+    lawyersCouncil: 32,
   },
   {
     province: 'จังหวัดจันทบุรี',
@@ -275,8 +297,8 @@ const items = ref([
     limitedPartnership: 2,
     limitedCompany: 8,
     publiclimitedCompany: 16,
-    Lawyer: 0,
-    LawyersCouncil: 34,
+    lawyer: 0,
+    lawyersCouncil: 34,
   },
   {
     province: 'จังหวัดอุดรธานี',
@@ -286,8 +308,8 @@ const items = ref([
     limitedPartnership: 36,
     limitedCompany: 11,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 15,
+    lawyer: 1,
+    lawyersCouncil: 15,
   },
   {
     province: 'จังหวัดสงขลา',
@@ -297,8 +319,8 @@ const items = ref([
     limitedPartnership: 16,
     limitedCompany: 27,
     publiclimitedCompany: 16,
-    Lawyer: 28,
-    LawyersCouncil: 36,
+    lawyer: 28,
+    lawyersCouncil: 36,
   },
   {
     province: 'จังหวัดลพบุรี',
@@ -308,8 +330,8 @@ const items = ref([
     limitedPartnership: 2,
     limitedCompany: 3,
     publiclimitedCompany: 16,
-    Lawyer: 20,
-    LawyersCouncil: 36,
+    lawyer: 20,
+    lawyersCouncil: 36,
   },
   {
     province: 'จังหวัดนครศรีธรรมราช',
@@ -319,8 +341,8 @@ const items = ref([
     limitedPartnership: 12,
     limitedCompany: 18,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 7,
+    lawyer: 1,
+    lawyersCouncil: 7,
   },
   {
     province: 'จังหวัดสกลนคร',
@@ -330,8 +352,8 @@ const items = ref([
     limitedPartnership: 1,
     limitedCompany: 2,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 38,
+    lawyer: 1,
+    lawyersCouncil: 38,
   },
   {
     province: 'จังหวัดชุมพร',
@@ -341,8 +363,8 @@ const items = ref([
     limitedPartnership: 3,
     limitedCompany: 6,
     publiclimitedCompany: 16,
-    Lawyer: 9,
-    LawyersCouncil: 88,
+    lawyer: 9,
+    lawyersCouncil: 88,
   },
   {
     province: 'จังหวัดนนทบุรี',
@@ -352,8 +374,8 @@ const items = ref([
     limitedPartnership: 6,
     limitedCompany: 229,
     publiclimitedCompany: 16,
-    Lawyer: 3,
-    LawyersCouncil: 26,
+    lawyer: 3,
+    lawyersCouncil: 26,
   },
   {
     province: 'จังหวัดชัยภูมิ',
@@ -363,8 +385,8 @@ const items = ref([
     limitedPartnership: 1,
     limitedCompany: 0,
     publiclimitedCompany: 16,
-    Lawyer: 3,
-    LawyersCouncil: 26,
+    lawyer: 3,
+    lawyersCouncil: 26,
   },
   {
     province: 'จังหวัดนครปฐม',
@@ -374,8 +396,8 @@ const items = ref([
     limitedPartnership: 3,
     limitedCompany: 6,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 0,
+    lawyer: 1,
+    lawyersCouncil: 0,
   },
   {
     province: 'จังหวัดสุราษฎร์ธานี',
@@ -385,8 +407,8 @@ const items = ref([
     limitedPartnership: 16,
     limitedCompany: 19,
     publiclimitedCompany: 16,
-    Lawyer: 1,
-    LawyersCouncil: 4,
+    lawyer: 1,
+    lawyersCouncil: 4,
   },
   {
     province: 'จังหวัดชลบุรี',
@@ -396,8 +418,8 @@ const items = ref([
     limitedPartnership: 8,
     limitedCompany: 19,
     publiclimitedCompany: 16,
-    Lawyer: 4,
-    LawyersCouncil: 218,
+    lawyer: 4,
+    lawyersCouncil: 218,
   },
 ])
 
@@ -419,17 +441,18 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
-.v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
-  cursor: pointer;
-  font-weight: bold;
-}
 
 .rounded-table {
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;
   overflow: hidden;
+}
+
+.v-table :deep(th) {
+  background-color: #1a237e;
+  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .v-table :deep(table > thead) {
@@ -438,7 +461,7 @@ const exportPdf = () => {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

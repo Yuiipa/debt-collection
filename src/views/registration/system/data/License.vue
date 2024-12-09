@@ -1,5 +1,9 @@
 <template>
-  <v-card class="my-4 mx-4 mx-md-12" variant="flat" style="background-color: #fafafa">
+  <v-card
+    class="my-4 mx-4 mx-md-12"
+    variant="flat"
+    style="background-color: #fafafa"
+  >
     <v-card-title
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
@@ -140,7 +144,7 @@ const items = ref([
 ])
 </script>
   
-  <style scoped>
+<style scoped>
 th {
   background-color: #1a237e;
   color: white;

@@ -6,7 +6,6 @@
     >
       <span>คำขอจดทะเบียนการประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
-    <!-- <v-container> -->
       <v-row class="d-flex justify-center">
         <v-col cols="12" md="4" class="d-flex justify-center mb-4">
           <v-card

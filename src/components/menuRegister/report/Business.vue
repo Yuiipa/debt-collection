@@ -38,33 +38,34 @@
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
+          <DatePicker
+          v-model="formSearch.endDate"
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
+          <v-autocomplete
+          v-model="formSearch.province"
             variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"
-          />
+            :items="itemsProvince"
+          ></v-autocomplete>
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
           <v-btn
@@ -95,9 +96,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportBusiness'
 import { generatePDF } from '@/prints/register/Business'
+
+const formSearch = reactive({
+  startDate: null,
+  endDate: null,
+  province: 'ทั้งหมด',
+})
 
 const headers = [
   {
@@ -125,6 +132,24 @@ const headers = [
     align: 'start',
     sortable: true,
   },
+  {
+    title: 'สถานที่ตั้ง',
+    key: 'location',
+    align: 'start',
+    sortable: true,
+  },
+  {
+    title: 'วันที่จดทะเบียน',
+    key: 'registrationDate',
+    align: 'start',
+    sortable: true,
+  },
+  {
+    title: 'เบอร์โทรศัพท์',
+    key: 'phoneNumber',
+    align: 'start',
+    sortable: true,
+  },
 ]
 
 const items = ref([
@@ -135,7 +160,7 @@ const items = ref([
     location:
       'เลขที่ 248/1 หมู่ที่ 5 ซอย ถนนเทพารักษ์ ตำบลแพรกษา อำเภอเมืองสมุทรปราการ จังหวัดสมุทรปราการ',
     registrationDate: '22 เมษายน 2559',
-    phoneNumber: '',
+    phoneNumber: '0840167110',
   },
   {
     businessName: 'สำนักงานทนายความ ยุติธรรม',
@@ -238,17 +263,17 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {
@@ -257,7 +282,7 @@ const exportPdf = () => {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

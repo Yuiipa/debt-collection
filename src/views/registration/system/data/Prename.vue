@@ -4,8 +4,7 @@
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
-      <span> จัดการข้อมูลคำนำหน้าชื่อ
-      </span>
+      <span> จัดการข้อมูลคำนำหน้าชื่อ </span>
     </v-card-title>
     <div>
       <v-row class="px-16">
@@ -44,7 +43,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -53,11 +51,22 @@
 
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn variant="text" size="small" @click="openEditDialog(2)">
-                  <v-icon left size="26">mdi-pencil</v-icon>
+                <v-btn
+                  variant="text"
+                  size="small"
+                  class="mr-1"
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="openEditDialog(2)"
+                >
+                  <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
-                <v-btn variant="text" size="small" @click="deleteItem(item)">
-                  <v-icon left size="26">mdi-delete</v-icon>
+                <v-btn
+                  variant="text"
+                  size="small"
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
+                >
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -121,18 +130,18 @@ function deleteItem(item) {
 }
 </script>
     
-    <style scoped>
-.v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; 
-  cursor: pointer;
-  font-weight: bold;
-}
-
+<style scoped>
 .rounded-table {
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;
   overflow: hidden;
+}
+
+.v-table :deep(th) {
+  background-color: #1a237e;
+  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .v-table :deep(table > thead) {
@@ -141,7 +150,7 @@ function deleteItem(item) {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

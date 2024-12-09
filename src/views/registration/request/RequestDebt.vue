@@ -34,7 +34,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -42,15 +41,14 @@
                   >mdi-chevron-up</v-icon
                 ><span span class="pr-12">{{ index + 1 }}</span>
               </template>
-
               <template v-slot:[`item.select`]="{ item }">
                 <v-btn
                   variant="plain"
+                  append-icon="mdi-chevron-right"
                   small
-                  class="d-flex justify-center"
                   @click="navigate(item)"
                 >
-                  เลือก >
+                  <div class="text-decoration-underline">เลือก</div>
                 </v-btn>
               </template>
             </v-data-table>
@@ -145,7 +143,7 @@ onMounted(() => {
   } else if (currentPath === '/debt/Blame_Business') {
     name_route.value = 'debt-BlameBusiness-form'
     title_route.value = 'ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้'
-  } 
+  }
 })
 
 function navigate() {

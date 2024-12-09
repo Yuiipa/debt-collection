@@ -111,12 +111,7 @@
                 <div class="v-col-12 py-0">
                   มติที่ประชุมคณะกรรมการกำกับการทวงถามหนี้ประจำท้องที่
                 </div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
+                <UploadFile/>
               </v-col>
             </v-row>
           </div>
@@ -162,6 +157,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import Swal from 'sweetalert2'
+import UploadFile from '@/components/UploadFile.vue'
 
 // รับ props ด้วย defineProps
 const props = defineProps({

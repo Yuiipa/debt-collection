@@ -13,10 +13,10 @@
         </v-card-title>
         <v-divider :thickness="2" color="#1a237e" />
       </div>
-      <v-divider class="opacity-100" :thickness="1"></v-divider>
+
       <v-card-text class="pa-8">
         <v-form ref="form">
-          <div >
+          <div>
             <v-row>
               <v-col cols="12" md="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">เลขประจำตัวประชาชน</div>
@@ -25,6 +25,8 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-mask="'#-####-#####-##-#'"
+                  v-model="internalItem.pid"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -36,6 +38,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.title"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -47,6 +50,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.firstName"
                 ></v-text-field>
               </v-col>
 
@@ -57,6 +61,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.lastName"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -68,6 +73,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.position"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -79,6 +85,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.document"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -90,6 +97,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.email"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -101,40 +109,40 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
+                  v-model="internalItem.phone"
                 ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" md="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">สิทธิ์การใช้งาน</div>
-                <v-text-field
+                <v-autocomplete
                   class="v-col-12"
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="12" class="pl-2 py-0">
-                <div class="v-col-12 py-0">เอกสารแนบ</div>
-                <v-text-field
-                  class="v-col-12"
-                  variant="outlined"
-                  density="compact"
-                  hide-details="auto"
-                ></v-text-field>
+                  v-model="internalItem.role"
+                  :items="roles"
+                ></v-autocomplete>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" md="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">สถานะการใช้งาน</div>
-                <v-text-field
+                <v-autocomplete
                   class="v-col-12"
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
-                ></v-text-field>
+                  v-model="internalItem.status"
+                  :items="statuses"
+                ></v-autocomplete>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" md="12" class="pl-2 py-0">
+                <div class="v-col-12 py-0">เอกสารแนบ</div>
+                <UploadFile />
               </v-col>
             </v-row>
           </div>
@@ -176,13 +184,13 @@
     </v-card>
   </v-dialog>
 </template>
-  
+
+
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue';
+import UploadFile from '@/components/UploadFile.vue';
+import Swal from 'sweetalert2';
 
-import Swal from 'sweetalert2'
-
-// รับ props ด้วย defineProps
 const props = defineProps({
   showDialog: {
     type: Boolean,
@@ -192,190 +200,66 @@ const props = defineProps({
     type: Object,
     required: false,
   },
-})
+});
 
-// ใช้งาน emit
-const emit = defineEmits(['update:showDialog', 'saved'])
+const emit = defineEmits(['update:showDialog', 'saved']);
 
-// ค่าภายใน component
-const internalShowDialog = ref(props.showDialog)
-const internalItem = ref({ ...props.item })
-const userForm = ref(null)
-const oldStatus = ref(2)
+const internalShowDialog = ref(props.showDialog);
 
-// Watch props.showDialog
+const defaultItem = {
+  pid: '',
+  title: '',
+  firstName: '',
+  lastName: '',
+  position: '',
+  document: '',
+  role: 'กรมการปกครอง',
+  status: 'ใช้งาน',
+};
+
+const internalItem = ref({ ...defaultItem, ...props.item });
+
+const roles = ['กรมการปกครอง', 'จังหวัด', 'สภาทนายความ', 'กองบัญชาการตำรวจนครบาล'];
+const statuses = ['ใช้งาน', 'ไม่ใช้งาน'];
+
 watch(
   () => props.showDialog,
   (val) => {
-    internalShowDialog.value = val
-  }
-)
-
-// Watch internalShowDialog
-watch(internalShowDialog, (val) => {
-  emit('update:showDialog', val)
-  if (!val) {
-    internalItem.value = { ...props.item } // รีเซ็ตค่า internalItem เมื่อปิด dialog
-  }
-})
-
-// Watch props.item
-watch(
-  () => props.item,
-  (val) => {
+    internalShowDialog.value = val;
     if (val) {
-      internalItem.value = { ...val }
-      oldStatus.value = val.status // ตั้งค่า oldStatus จาก props.item.status
+      internalItem.value = { ...defaultItem, ...props.item };
     }
   }
-)
+);
 
-// ปิด dialog
+watch(internalShowDialog, (val) => {
+  emit('update:showDialog', val);
+  if (!val) {
+    internalItem.value = { ...defaultItem, ...props.item }; // Reset values
+  }
+});
+
 const close = () => {
-  internalShowDialog.value = false
-  internalItem.value = { ...props.item } // รีเซ็ตค่า internalItem เมื่อปิด dialog
-}
+  internalShowDialog.value = false;
+  internalItem.value = { ...defaultItem, ...props.item };
+};
 
-// ฟังก์ชัน validate ข้อมูล
-const validateUserData = () => {
-  let missingFields = []
-  const requiredFields = {
-    empPid: 'รหัสพนักงาน',
-    fName: 'ชื่อ',
-    lName: 'นามสกุล',
-    age: 'อายุ',
-    sex: 'เพศ',
-    govId: 'หน่วยงาน',
-    role: 'สิทธิ์',
-    quota: 'โควต้า',
-    quotaRemain: 'โควต้าคงเหลือ',
-  }
-
-  Object.keys(requiredFields).forEach((field) => {
-    if (
-      internalItem.value[field] === null ||
-      internalItem.value[field] === undefined ||
-      internalItem.value[field] === ''
-    ) {
-      missingFields.push(requiredFields[field])
-    }
-  })
-
-  return missingFields
-}
-
-// ฟังก์ชัน save
 const save = async () => {
   try {
-    const isValid = await userForm.value.validate()
-    if (!isValid.valid) {
-      const missingFields = validateUserData()
-      if (missingFields.length > 0) {
-        await Swal.fire({
-          title: 'แจ้งเตือน',
-          text: `กรุณากรอกข้อมูลให้ครบถ้วนในช่องต่อไปนี้: ${missingFields.join(
-            ', '
-          )}`,
-          icon: 'warning',
-        })
-        return
-      }
-    }
-
-    if (internalItem.value.role === 3) {
-      for (let i = 15; i <= 24; i++) {
-        internalItem.value.permission[i] = false
-      }
-    }
-
-    const result = await Swal.fire({
-      title: 'แจ้งเตือน!',
-      text: 'คุณต้องการแก้ไขสมาชิกหรือไม่?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'ยืนยัน',
-      cancelButtonText: 'ยกเลิก',
-    })
-
-    if (result.isConfirmed) {
-      internalShowDialog.value = false
-      await Swal.fire({
-        title: 'แก้ไขข้อมูลสำเร็จ',
-        icon: 'success',
-      })
-
-      emit('saved')
-    }
+    await Swal.fire({
+      title: 'บันทึกสำเร็จ',
+      icon: 'success',
+    });
+    emit('saved', internalItem.value);
+    internalShowDialog.value = false;
   } catch (error) {
-    const errorMessage =
-      error.response?.data?.message || 'เกิดข้อผิดพลาดในการเพิ่มสมาชิก'
     await Swal.fire({
       title: 'เกิดข้อผิดพลาด',
-      text: errorMessage,
+      text: error.message || 'ไม่สามารถบันทึกข้อมูลได้',
       icon: 'error',
-    })
-    console.error('Error adding member:', error)
+    });
   }
-}
+};
 </script>
-
-  
-<style scoped>
-.swal-custom-zindex {
-  z-index: 2000 !important;
-}
-.custom-date {
-  width: auto;
-}
-.custom-action {
-  height: 70px !important;
-}
-
-.v-field__input {
-  height: 40px !important;
-  padding: 12px 24px !important;
-}
-
-.flex-area-10 {
-  flex: 0 0 10%;
-  text-align: right;
-}
-
-.flex-area {
-  flex: 0 0 20%;
-  text-align: right;
-}
-
-.cancel-btn {
-  border: 2px solid #e12929;
-  background-color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.cancel-btn:hover {
-  background-color: #f30c0c;
-  color: white;
-}
-
-.save-btn {
-  background-color: #4c7aaf;
-  color: white;
-  height: 45px;
-  width: 150px;
-}
-
-.save-btn:hover {
-  background-color: #0e77ee;
-}
-
-@media (max-width: 960px) {
-  .flex-area {
-    flex: 0 0 33.33%;
-  }
-}
-</style>
   
   

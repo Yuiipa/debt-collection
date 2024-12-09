@@ -39,32 +39,33 @@
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.endDate"
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
+          <div class="mb-2 font-weight-bold">หน่วยงาน</div>
+          <v-autocomplete
+            v-model="formSearch.agency"
             variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"
+            :items="itemsAgency"
           />
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
@@ -96,10 +97,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref ,reactive} from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportAppeal_Province'
 import { generatePDF } from '@/prints/register/AppealProvince'
 
+const formSearch = reactive({
+  startDate: null,
+  endDate: null,
+  agency: 'ทั้งหมด',
+})
 const headers = [
   {
     title: 'ลำดับที่',
@@ -176,19 +182,19 @@ const exportPdf = () => {
   font-weight: bold;
 }
 
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(table > thead) {
   background-color: #ffffff;
   cursor: pointer;
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
+}
+
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
 }
 </style>

@@ -8,45 +8,6 @@
     </v-card-title>
     <div class="px-12 pt-2">
       <v-row class="d-flex align-center justify-space-between">
-        <div class="d-flex" style="gap: 10px">
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-file-excel"
-            style="color: green"
-            class="rounded-lg px-2 px-sm-5"
-            size="large"
-            id="excel"
-            @click="exportExcel()"
-          >
-            Excel
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-printer"
-            style="color: orange"
-            class="rounded-lg px-2 px-sm-5"
-            size="large"
-            id="print"
-            @click="exportPdf()"
-          >
-            พิมพ์
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-filter"
-            :style="
-              showFilter
-                ? 'background-color: #1a237e; color: white; border: none'
-                : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
-            "
-            size="large"
-            class="rounded-lg px-2 px-sm-5"
-            id="print"
-            @click="toggleFilter()"
-          >
-            ตัวกรอง
-          </v-btn>
-        </div>
         <v-menu transition="open-on-focus">
           <template v-slot:activator="{ props }">
             <v-avatar size="46" v-bind="props">
@@ -70,13 +31,71 @@
             </v-list-item>
           </v-list>
         </v-menu>
+
+        <v-col
+          md="4"
+          cols="12"
+          class="d-flex justify-end px-0 align-center mb-1"
+          style="gap: 10px"
+        >
+          <v-menu offset-y>
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                variant="outlined"
+                prepend-icon="mdi-tray-arrow-down"
+                :style="
+                  exportBtn
+                    ? 'color: white;background-color: #1a237e'
+                    : 'background-color: white;color: #1a237e'
+                "
+                class="rounded-lg"
+                size="large"
+                id="export"
+                @click="exportBtn = !exportBtn"
+              >
+                Export
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item class="d-flex justify-start" @click="exportExcel()">
+                <v-list-item-icon>
+                  <v-icon class="text-green">mdi-file-excel</v-icon>
+                </v-list-item-icon>
+                <span class="mx-2">Excel</span>
+              </v-list-item>
+              <v-list-item @click="exportPDF()">
+                <v-list-item-icon>
+                  <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
+                </v-list-item-icon>
+                <span class="mx-2">PDF</span>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-filter"
+            :style="
+              showFilter
+                ? 'background-color: #1a237e; color: white; border: none'
+                : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+            "
+            size="large"
+            class="rounded-lg px-2 px-sm-5"
+            id="print"
+            @click="toggleFilter()"
+          >
+            ตัวกรอง
+          </v-btn>
+        </v-col>
       </v-row>
 
       <!-- ตัวกรอง -->
       <v-expand-transition class="mt-6">
         <div v-if="showFilter">
           <v-row>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">เลขที่คำขอ</div>
               <v-text-field
                 class="v-col-12"
@@ -85,7 +104,7 @@
                 hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
               <v-text-field
                 class="v-col-12"
@@ -94,7 +113,7 @@
                 hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
               <v-text-field
                 class="v-col-12"
@@ -105,7 +124,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">เลขประจำตัวประชาชนผู้ประกอบธุรกิจ</div>
               <v-text-field
                 class="v-col-12"
@@ -114,7 +133,7 @@
                 hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
               <v-text-field
                 class="v-col-12"
@@ -123,7 +142,7 @@
                 hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="12" md="4" class="pl-2 py-0">
+            <v-col cols="12" md="4" class="pa-0">
               <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
               <v-text-field
                 class="v-col-12"
@@ -133,18 +152,28 @@
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col md="12" cols="12" class="d-flex justify-end mb-1">
+              <v-btn
+                prepend-icon="mdi-magnify"
+                style="background-color: #1a237e; color: white"
+                >ค้นหา</v-btn
+              >
+            </v-col>
+          </v-row>
         </div>
       </v-expand-transition>
 
-
       <v-row class="rounded-lg mt-8 mb-6">
         <v-data-table :headers="headers" :items="items" class="elevation-1">
-          <!-- <template v-slot:[`item.index`]="{ index }">
-            <span>{{ index + 1 }}</span>
-          </template> -->
           <template v-slot:[`item.data`]="{ item }">
-            <v-btn variant="plain" small @click="navigate(item)">
-              ข้อมูล >
+            <v-btn
+              variant="plain"
+              append-icon="mdi-chevron-right"
+              small
+              @click="navigate(item)"
+            >
+              <div class="text-decoration-underline">ข้อมูล</div>
             </v-btn>
           </template>
           <template v-slot:[`item.status`]="{ item }">
@@ -196,12 +225,17 @@ function navigate() {
   router.push({ name: 'debt-home-registration-detail_business' })
 }
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true, width: '100px',
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
     value: (item) => {
       const index = items.value.indexOf(item)
       return index + 1
-    }
-   },
+    },
+  },
   {
     title: 'เลขที่ทะเบียน',
     key: 'registerNumber',
@@ -222,7 +256,7 @@ const headers = [
     align: 'start',
     sortable: true,
   },
-  
+
   { title: 'สถานะ', key: 'status', align: 'center', sortable: false },
   { title: 'ข้อมูล', key: 'data', align: 'center', sortable: false },
 ]
@@ -232,7 +266,8 @@ const items = ref([
     registerNumber: '1/2559',
     businessName: 'สำนักงานคชเสนาทนายความและธุรกิจ',
     type: 'ทนายความ',
-    location: 'เลขที่ 44/11 ซอย นิมิตใหม่ 12 ถนน นิมิตใหม่ ตำบลทรายกองดิน อำเภอคลองสามวา จังหวัดกรุงเทพมหานคร',
+    location:
+      'เลขที่ 44/11 ซอย นิมิตใหม่ 12 ถนน นิมิตใหม่ ตำบลทรายกองดิน อำเภอคลองสามวา จังหวัดกรุงเทพมหานคร',
     registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
@@ -240,7 +275,8 @@ const items = ref([
     registerNumber: '7/2559',
     businessName: 'สำนักงานทนายความนัฐพงษ์ พลศรีเมือง ',
     type: 'ทนายความ',
-    location: 'เลขที่ 98/13 หมู่ 6 ตำบลขามใหญ่ อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธาน',
+    location:
+      'เลขที่ 98/13 หมู่ 6 ตำบลขามใหญ่ อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธาน',
     registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
@@ -248,7 +284,8 @@ const items = ref([
     registerNumber: '8/2559',
     businessName: 'สำนักงานทนายความทวีศักดิ์โสมณี',
     type: 'ทนายความ',
-    location: 'เลขที่ 1/2 ถนน เทศบาล 2 ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธาน',
+    location:
+      'เลขที่ 1/2 ถนน เทศบาล 2 ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธาน',
     registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
@@ -256,7 +293,8 @@ const items = ref([
     registerNumber: '9/2559',
     businessName: 'สำนักงานทนายความณัฐพรโสมณี',
     type: 'ทนายความ',
-    location: 'เลขที่ 206-2 ถนน เกษมสุข ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี',
+    location:
+      'เลขที่ 206-2 ถนน เกษมสุข ตำบลวารินชำราบ อำเภอวารินชำราบ จังหวัดอุบลราชธานี',
     registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
@@ -272,7 +310,8 @@ const items = ref([
     registerNumber: '14/2559',
     businessName: 'สำนักงานณัฐพล แก้วขุนทดทนายความ',
     type: 'ทนายความ',
-    location: 'เลขที่ 1 หมู่ 4 ถนน เทศบาล 14 ตำบลจักราช อำเภอจักราช จังหวัดนครราชสีมา',
+    location:
+      'เลขที่ 1 หมู่ 4 ถนน เทศบาล 14 ตำบลจักราช อำเภอจักราช จังหวัดนครราชสีมา',
     registrationDate: '27 พฤษภาคม 2559',
     status: true,
   },
@@ -282,7 +321,7 @@ const items = ref([
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
-  color: white;
+  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
 }
@@ -293,7 +332,7 @@ const items = ref([
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

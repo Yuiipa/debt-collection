@@ -34,7 +34,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -43,11 +42,11 @@
               <template v-slot:[`item.select`]="{ item }">
                 <v-btn
                   variant="plain"
+                  append-icon="mdi-chevron-right"
                   small
-                  class="d-flex justify-center"
                   @click="navigate(item)"
                 >
-                  เลือก >
+                  <div class="text-decoration-underline">เลือก</div>
                 </v-btn>
               </template>
               <template v-slot:[`item.status`]="{}">
@@ -70,9 +69,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
-
-
 
 const headers = [
   {

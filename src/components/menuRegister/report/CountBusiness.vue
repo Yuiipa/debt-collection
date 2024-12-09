@@ -38,33 +38,34 @@
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
+          <DatePicker
+          v-model="formSearch.endDate"
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
+          <v-autocomplete
+          v-model="formSearch.province"
             variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"
-          />
+            :items="itemsProvince"
+          ></v-autocomplete>
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
           <v-btn
@@ -99,29 +100,31 @@
         class="d-flex justify-center"
         style="background-color: white; height: 400px"
       >
-        <AreaChart :data="graph" /></v-col
+        <AreaChart :data="mappedGraphData" /></v-col
     ></v-row>
   </v-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { generatePDF } from '@/prints/register/CountBusiness'
 import { generateExcel } from '@/prints/register/excel/ReportCountBusiness'
-
 import AreaChart from '@/components/charts/AreaChart.vue'
-const graph = [
-  { usage_count: 385, usage_name: 'กรุงเทพมหานคร' },
-  { usage_count: 251, usage_name: 'เชียงใหม่' },
-  { usage_count: 89, usage_name: 'ภูเก็ต' },
-  { usage_count: 159, usage_name: 'ชลบุรี' },
-  { usage_count: 359, usage_name: 'ขอนแก่น' },
-  { usage_count: 421, usage_name: 'สงขลา' },
-  { usage_count: 275, usage_name: 'นครราชสีมา' },
-  { usage_count: 310, usage_name: 'สุราษฎร์ธานี' },
-  { usage_count: 195, usage_name: 'ระยอง' },
-  { usage_count: 320, usage_name: 'อยุธยา' },
-]
+
+const itemsProvince = ref(['ทั้งหมด', 'กรุงเทพ', 'นนทบุรี'])
+
+const formSearch = reactive({
+  startDate: null,
+  endDate: null,
+  province: 'ทั้งหมด',
+})
+
+const mappedGraphData = computed(() => {
+  return items.map((item) => ({
+    usage_count: item.amount,
+    usage_name: item.province,
+  }))
+})
 
 const headers = [
   {
@@ -146,7 +149,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     province: 'กรุงเทพมหานคร',
     amount: 1634,
@@ -247,17 +250,17 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {
@@ -266,7 +269,7 @@ const exportPdf = () => {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

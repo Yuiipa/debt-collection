@@ -48,11 +48,16 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn variant="text" size="small" @click="openEditDialog(2)">
-                  <v-icon left size="26">mdi-pencil</v-icon>
+                <v-btn  variant="text"
+                  size="small"
+                  class="mr-1"
+                  style="background-color: #e3f2fd; color: #1565c0" @click="openEditDialog(2)">
+                  <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
-                <v-btn variant="text" size="small" @click="deleteItem(item)">
-                  <v-icon left size="26">mdi-delete</v-icon>
+                <v-btn  variant="text"
+                  size="small"
+                  style="background-color: #e3f2fd; color: #1565c0" @click="deleteItem(item)">
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -158,17 +163,17 @@ const filteredItems = computed(() => {
 </script>
     
 <style scoped>
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {
@@ -177,7 +182,7 @@ const filteredItems = computed(() => {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

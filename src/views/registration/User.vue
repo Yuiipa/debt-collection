@@ -38,27 +38,27 @@
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1"
-            >
-              <!-- ลำดับที่ -->
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
+                <v-btn
+                  class="mr-1"
+                  variant="text"
+                  size="small"
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="openEditDialog(item)"
+                >
+                  <v-icon left size="26">mdi-pencil-outline</v-icon>
+                </v-btn>
                 <v-btn
                   variant="text"
                   size="small"
-                  @click="openEditDialog(item)"
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
                 >
-                  <v-icon left size="26">mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn variant="text" size="small" @click="deleteItem(item)">
-                  <v-icon left size="26">mdi-delete</v-icon>
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -69,26 +69,34 @@
   </v-card>
   <edit-dialog
     v-model:showDialog="showEditDialog"
-    :item="items"
+    :item="selectedItem"
     @saved="handleSave"
   ></edit-dialog>
 </template>
   
-  <script setup>
+<script setup>
 import { ref } from 'vue'
 import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
 const showEditDialog = ref(false)
-
-const openEditDialog = () => {
+const selectedItem = ref(null)
+const openEditDialog = (item = null) => {
+  selectedItem.value = item ? { ...item } : null // หากไม่มี item ส่งมา ให้ตั้งค่าเป็น null
   showEditDialog.value = true
 }
+
 const handleSave = () => {
   console.log(save)
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+  },
   {
     title: 'เลขประจำตัวประชาชน',
     key: 'pid',
@@ -163,7 +171,7 @@ function deleteItem(item) {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

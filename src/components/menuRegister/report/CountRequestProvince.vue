@@ -38,32 +38,33 @@
       <v-row class="mx-8 my-2">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
+          <DatePicker
+            v-model="formSearch.endDate"
             variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
             hide-details
+            persistent-placeholder
             density="compact"
           />
         </v-col>
         <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-text-field
+          <div class="mb-2 font-weight-bold">หน่วยงาน</div>
+          <v-autocomplete
+            v-model="formSearch.agency"
             variant="outlined"
-            placeholder="ทั้งหมด"
             persistent-placeholder
             hide-details
             density="compact"
+            :items="itemsAgency"
           />
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
@@ -98,10 +99,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountRequestProvince'
-import { generatePDF } from '@/prints/register/CountRequestProvince';
+import { generatePDF } from '@/prints/register/CountRequestProvince'
 
+const itemsAgency = ref([
+  'จังหวัดสมุทรปราการ',
+  'จังหวัดนนทบุรี',
+  'จังหวัดปทุมธานี',
+])
+const formSearch = reactive({
+  startDate: null,
+  endDate: null,
+  agency: '',
+})
 const headers = [
   {
     title: 'ลำดับที่',
@@ -182,17 +193,17 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {
@@ -201,7 +212,7 @@ const exportPdf = () => {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

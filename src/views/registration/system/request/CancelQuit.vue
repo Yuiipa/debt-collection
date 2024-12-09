@@ -34,7 +34,6 @@
               :headers="headers"
               :items="items"
               class="elevation-1 rounded-table"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -44,20 +43,21 @@
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
+                  variant="text"
                   size="small"
-                  color="green"
-                  class="mr-1 mb-1"
+                  class="mr-1"
+                  style="background-color: #e3f2fd; color: #1565c0"
                   @click="openEditDialog()"
                 >
-                  <v-icon left size="18">mdi-pencil</v-icon> แก้ไข
+                  <v-icon left size="18">mdi-pencil-outline</v-icon>
                 </v-btn>
                 <v-btn
+                  variant="text"
                   size="small"
-                  class="mb-1"
-                  color="red"
+                  style="background-color: #e3f2fd; color: #1565c0"
                   @click="deleteItem(item)"
                 >
-                  <v-icon left size="18">mdi-delete</v-icon> ลบ
+                  <v-icon left size="18">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -87,7 +87,13 @@ const handleSave = () => {
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true ,width: '100px',},
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+  },
   {
     title: 'วันที่',
     key: 'date',
@@ -115,7 +121,13 @@ const headers = [
     sortable: true,
     width: '100px',
   },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false,width: '100px' },
+  {
+    title: 'ดำเนินการ',
+    key: 'process',
+    align: 'center',
+    sortable: false,
+    width: '100px',
+  },
 ]
 
 const items = ref([
@@ -133,18 +145,18 @@ function deleteItem(item) {
 }
 </script>
   
-  <style scoped>
+<style scoped>
+.rounded-table {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden;
+}
+
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {
@@ -153,7 +165,7 @@ function deleteItem(item) {
   font-weight: bold;
 }
 
-.v-table ::v-deep tr:nth-child(even) {
+.v-table :deep(tr:nth-child(even)) {
   background-color: #f1f1f1e5;
 }
 </style>

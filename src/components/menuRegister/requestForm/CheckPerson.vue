@@ -30,24 +30,38 @@
           บัตรประจำตัวประชาชน
         </div>
         <v-text-field
-          class="v-col-12 v-col-sm-6"
+          class="v-col-12 v-col-sm-6 pr-0"
           variant="outlined"
           density="compact"
           hide-details="auto"
         ></v-text-field>
       </v-row>
       <v-row class="mt-6 d-flex justify-end">
-        
-          <v-btn color="lime-darken-3 " class="ma-1 v-col-12 v-col-sm-1" height="40" outlined @click="navigate()">
-            ข้าม
-          </v-btn>
-          <v-btn color="green-darken-1" class="ma-1 v-col-12 v-col-sm-4  v-col-md-3" height="40" outlined>
-            ตรวจสอบข้อมูลนิติบุคคล
-          </v-btn>
-          <v-btn color="blue-darken-4" class="ma-1 v-col-12 v-col-sm-3 v-col-md-2" height="40" outlined>
-            ตรวจสอบข้อมูล
-          </v-btn>
-        
+        <v-btn
+          color="lime-darken-3 "
+          class="ma-1 v-col-12 v-col-sm-1"
+          height="40"
+          outlined
+          @click="navigate()"
+        >
+          ข้าม
+        </v-btn>
+        <v-btn
+          color="green-darken-1"
+          class="ma-1 v-col-12 v-col-sm-4 v-col-md-3"
+          height="40"
+          outlined
+        >
+          ตรวจสอบข้อมูลนิติบุคคล
+        </v-btn>
+        <v-btn
+          color="blue-darken-4"
+          class="ma-1 v-col-12 v-col-sm-3 v-col-md-2"
+          height="40"
+          outlined
+        >
+          ตรวจสอบข้อมูล
+        </v-btn>
       </v-row>
     </div>
   </v-form>

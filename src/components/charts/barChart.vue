@@ -58,17 +58,42 @@
           {
             label: 'Dataset 1',
             backgroundColor: 'rgba(54, 162, 235, 0.7)', // สีน้ำเงิน
-            data: props.data.map((item) => item.dataset1_count),
+            data: props.data.map((item) => item.dataset1),
           },
           {
             label: 'Dataset 2',
             backgroundColor: 'rgba(255, 99, 132, 0.7)', // สีแดง
-            data: props.data.map((item) => item.dataset2_count),
+            data: props.data.map((item) => item.dataset2),
           },
           {
             label: 'Dataset 3',
             backgroundColor: 'rgba(75, 192, 192, 0.7)', // สีเขียว
-            data: props.data.map((item) => item.dataset3_count),
+            data: props.data.map((item) => item.dataset3),
+          },
+          {
+            label: 'Dataset 1',
+            backgroundColor: 'rgba(54, 162, 235, 0.7)', // สีน้ำเงิน
+            data: props.data.map((item) => item.dataset4),
+          },
+          {
+            label: 'Dataset 2',
+            backgroundColor: 'rgba(255, 99, 132, 0.7)', // สีแดง
+            data: props.data.map((item) => item.dataset6),
+          },
+          {
+            label: 'Dataset 3',
+            backgroundColor: 'rgba(75, 192, 192, 0.7)', // สีเขียว
+            data: props.data.map((item) => item.dataset6),
+          },
+          {
+            label: 'Dataset 1',
+            backgroundColor: 'rgba(54, 162, 235, 0.7)', // สีน้ำเงิน
+            data: props.data.map((item) => item.dataset7),
+          },
+          {
+            label: 'Dataset 2',
+            backgroundColor: 'rgba(255, 99, 132, 0.7)', // สีแดง
+            data: props.data.map((item) => item.dataset8),
           },
         ]
   
