@@ -39,34 +39,19 @@
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-            >
-              <!-- ลำดับที่ -->
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
               </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
-              <template v-slot:[`item.process`]="{ item }">
+              <template v-slot:[`item.note`]="{ }">
                 <v-btn
-                  variant="text"
-                  size="small"
-                  class="mr-1"
-                  @click="editItem(item)"
-                  style="background-color: #e3f2fd; color: #1565c0"
+                  variant="outlined"
+                  color="blue-lighten-2"
+                  class="rounded-pill"
+                  prepend-icon="mdi-tray-arrow-down"
+                  @click="console.log('dowload')"
                 >
-                  <v-icon left size="26"> mdi-pencil-outline </v-icon>
-                </v-btn>
-                <v-btn
-                  variant="text"
-                  size="small"
-                  @click="deleteItem(item)"
-                  style="background-color: #e3f2fd; color: #1565c0"
-                >
-                  <v-icon left size="26">mdi-delete-outline</v-icon>
+                  ดาวน์โหลด
                 </v-btn>
               </template>
             </v-data-table>
@@ -77,7 +62,7 @@
   </v-card>
 </template>
       
-      <script setup>
+<script setup>
 import { ref } from 'vue'
 
 const headers = [
@@ -104,7 +89,7 @@ const headers = [
     align: 'start',
     sortable: true,
   },
-  { title: 'หมายเหตุ', key: 'note', align: 'start', sortable: false },
+  { title: 'หมายเหตุ', key: 'note', align: 'center', sortable: false },
   {
     title: 'ดำเนินการ',
     key: 'process',
@@ -147,12 +132,6 @@ function deleteItem(item) {
 </script>
       
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

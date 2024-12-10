@@ -13,7 +13,6 @@
         </v-card-title>
         <v-divider :thickness="2" color="#1a237e" />
       </div>
-      <v-divider class="opacity-100" :thickness="1"></v-divider>
       <v-card-text class="py-0">
         <v-form ref="form">
           <div class="my-8 mx-4" style="background-color: white">

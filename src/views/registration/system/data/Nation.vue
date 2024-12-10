@@ -7,21 +7,18 @@
       <span> จัดการข้อมูลสัญชาติ</span>
     </v-card-title>
     <div>
-      <v-row class="px-16">
-        <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
+      <v-row class="px-13 pr-10">
+        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
           <v-text-field
-            label="ค้นหาด้วยชื่อ-นามสกุล,อีเมล,ชื่อหน่วยงาน หรือ ตำแหน่ง"
+            label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
-            append-inner-icon="mdi-magnify"
-            class="full-width-input"
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="1" class="align-center justify-start d-flex">
+        <v-col cols="6" sm="2" class="align-center justify-start d-flex">
           <v-btn
-            left
-            class="px-6"
+            prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
             >ค้นหา</v-btn
           >
@@ -39,12 +36,7 @@
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-              
-            >
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
@@ -52,15 +44,21 @@
 
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn  variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
                   class="mr-1"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="openEditDialog(2)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="openEditDialog(2)"
+                >
                   <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
-                <v-btn variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="deleteItem(item)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
+                >
                   <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
@@ -126,12 +124,6 @@ function deleteItem(item) {
 </script>
     
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

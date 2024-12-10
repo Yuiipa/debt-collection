@@ -14,14 +14,11 @@
             variant="outlined"
             density="compact"
             hide-details
-            append-inner-icon="mdi-magnify"
-            class="full-width-input"
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="2" class="align-center justify-start d-flex">
+        <v-col cols="6" sm="4" class="align-center justify-start d-flex">
           <v-btn
-            left
-            class="px-6"
+            prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
             >ค้นหา</v-btn
           >
@@ -33,13 +30,11 @@
             <v-data-table
               :headers="headers"
               :items="items"
-              class="elevation-1 rounded-table"
+              class="elevation-1"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
-                <v-icon style="font-size: 16px" span class="pr-6"
-                  >mdi-chevron-up</v-icon
-                ><span span class="pr-12">{{ index + 1 }}</span>
+                <span span class="pr-12">{{ index + 1 }}</span>
               </template>
               <template v-slot:[`item.select`]="{ item }">
                 <v-btn
@@ -59,7 +54,7 @@
   </v-card>
 </template>
     
-    <script setup>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
@@ -152,12 +147,6 @@ function navigate() {
 </script>
     
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

@@ -21,12 +21,12 @@
               <v-col cols="12" md="12" class="pl-2 py-0">
                 <div class="v-col-12 py-0">เลขประจำตัวประชาชน</div>
                 <v-text-field
+                  v-model="internalItem.pid"
                   class="v-col-12"
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
                   v-mask="'#-####-#####-##-#'"
-                  v-model="internalItem.pid"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -187,9 +187,9 @@
 
 
 <script setup>
-import { ref, watch, computed } from 'vue';
-import UploadFile from '@/components/UploadFile.vue';
-import Swal from 'sweetalert2';
+import { ref, watch, computed } from 'vue'
+import UploadFile from '@/components/UploadFile.vue'
+import Swal from 'sweetalert2'
 
 const props = defineProps({
   showDialog: {
@@ -200,11 +200,11 @@ const props = defineProps({
     type: Object,
     required: false,
   },
-});
+})
 
-const emit = defineEmits(['update:showDialog', 'saved']);
+const emit = defineEmits(['update:showDialog', 'saved'])
 
-const internalShowDialog = ref(props.showDialog);
+const internalShowDialog = ref(props.showDialog)
 
 const defaultItem = {
   pid: '',
@@ -215,51 +215,56 @@ const defaultItem = {
   document: '',
   role: 'กรมการปกครอง',
   status: 'ใช้งาน',
-};
+}
 
-const internalItem = ref({ ...defaultItem, ...props.item });
+const internalItem = ref({ ...defaultItem, ...props.item })
 
-const roles = ['กรมการปกครอง', 'จังหวัด', 'สภาทนายความ', 'กองบัญชาการตำรวจนครบาล'];
-const statuses = ['ใช้งาน', 'ไม่ใช้งาน'];
+const roles = [
+  'กรมการปกครอง',
+  'จังหวัด',
+  'สภาทนายความ',
+  'กองบัญชาการตำรวจนครบาล',
+]
+const statuses = ['ใช้งาน', 'ไม่ใช้งาน']
 
 watch(
   () => props.showDialog,
   (val) => {
-    internalShowDialog.value = val;
+    internalShowDialog.value = val
     if (val) {
-      internalItem.value = { ...defaultItem, ...props.item };
+      internalItem.value = { ...defaultItem, ...props.item }
     }
   }
-);
+)
 
 watch(internalShowDialog, (val) => {
-  emit('update:showDialog', val);
+  emit('update:showDialog', val)
   if (!val) {
-    internalItem.value = { ...defaultItem, ...props.item }; // Reset values
+    internalItem.value = { ...defaultItem, ...props.item } // Reset values
   }
-});
+})
 
 const close = () => {
-  internalShowDialog.value = false;
-  internalItem.value = { ...defaultItem, ...props.item };
-};
+  internalShowDialog.value = false
+  internalItem.value = { ...defaultItem, ...props.item }
+}
 
 const save = async () => {
   try {
     await Swal.fire({
       title: 'บันทึกสำเร็จ',
       icon: 'success',
-    });
-    emit('saved', internalItem.value);
-    internalShowDialog.value = false;
+    })
+    emit('saved', internalItem.value)
+    internalShowDialog.value = false
   } catch (error) {
     await Swal.fire({
       title: 'เกิดข้อผิดพลาด',
       text: error.message || 'ไม่สามารถบันทึกข้อมูลได้',
       icon: 'error',
-    });
+    })
   }
-};
+}
 </script>
   
   
