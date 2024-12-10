@@ -50,7 +50,7 @@
         <template v-if="step == 1"> <FormUpload /> </template>
         <template v-if="step == 2"> <DirextoryUpload /> </template>
         <template v-if="step == 3"> <ReceivingAgency /> </template>
-        <div class="d-flex justify-end mr-16 mb-6">
+        <div class="d-flex justify-end mr-8 mb-6">
           <v-btn
             size="x-large"
             color="grey-darken-1"

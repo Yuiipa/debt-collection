@@ -35,36 +35,10 @@
         >
       </v-col>
       <v-col md="3" cols="12" class="d-flex justify-end align-end mb-1">
-        <v-menu offset-y>
-          <template v-slot:activator="{ props }">
-            <v-btn
-              v-bind="props"
-              variant="outlined"
-              prepend-icon="mdi-tray-arrow-down"
-              :style="exportBtn ?'color: white;background-color: #1a237e': 'background-color: white;color: #1a237e'"
-              class="rounded-lg"
-              size="large"
-              id="export"
-              @click="exportBtn = !exportBtn"
-            >
-              Export
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item class="d-flex justify-start" @click="exportExcel()">
-              <v-list-item-icon>
-                <v-icon class="text-green">mdi-file-excel</v-icon>
-              </v-list-item-icon>
-              <span class="mx-2">Excel</span>
-            </v-list-item>
-            <v-list-item @click="exportPDF()">
-              <v-list-item-icon>
-                <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
-              </v-list-item-icon>
-              <span class="mx-2">PDF</span>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+          <ExportMenu
+            :exportExcel="exportExcel"
+            :exportPdf="exportPDF"
+          />
       </v-col>
     </v-row>
     <v-card class="ma-4 rounded-lg">
@@ -103,6 +77,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import ExportMenu from '@/components/widget/ExportMenu.vue';
 import { generatePDF } from '@/prints/appeal/HomeAppeal.js'
 import { generateExcel } from '@/prints/appeal/ExcelHomeAppeal.js'
 
