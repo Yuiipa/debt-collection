@@ -73,7 +73,7 @@
     <v-row class="ma-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">วันที่</div>
-        <v-text-field
+        <DatePicker
           variant="outlined"
           placeholder="วันที่"
           persistent-placeholder

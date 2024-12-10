@@ -8,7 +8,6 @@
     </v-card-title>
     <v-row class="ma-1 my-2">
       <v-col md="4" cols="12">
-        <div class="mb-2 font-weight-bold">ค้นหา</div>
         <v-text-field
           v-model="search"
           variant="outlined"

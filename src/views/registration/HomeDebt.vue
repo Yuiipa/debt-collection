@@ -16,7 +16,7 @@
             color="#FFC107"
             class="rounded-lg px-2 px-sm-5 mr-2"
           >
-            หนังสืออ่านบัตร
+            หนังสือสั่งการ
           </v-btn>
           <v-btn
             variant="outlined"
