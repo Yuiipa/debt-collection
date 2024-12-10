@@ -7,8 +7,8 @@
       <span> คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
     <div>
-      <v-row class="px-10 pl-13">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+      <v-row class="mx-8">
+        <v-col cols="12" md="3">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -16,17 +16,30 @@
             hide-details
           ></v-text-field>
         </v-col>
-        <v-col cols="6" md="2" class="align-center justify-start d-flex">
+        <v-col cols="12" md="3">
+          <v-select
+          :items="['เรื่องเพิกถอนเข้า','เรื่องเพิกถอนออก']"
+            label="รายละเอียดเรื่อง"
+            variant="outlined"
+            density="compact"
+            hide-details
+          ></v-select>
+        </v-col>
+        <v-col cols="6" md="3">
           <v-btn
             prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
+            class="mr-2"
           >
+            ค้นหา
+          </v-btn>
         </v-col>
-        <v-col cols="6" md="6" class="align-center justify-end d-flex">
-          <v-btn color="green"
+        <v-col cols="6" md="3" class="d-flex justify-end">
+          <v-btn
+            color="green"
             prepend-icon="mdi-plus-circle-outline"
-            @click="openEditDialog">
+            @click="openEditDialog"
+          >
             เพิ่มข้อมูล
           </v-btn>
         </v-col>
@@ -34,11 +47,7 @@
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1"
-            >
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
@@ -67,8 +76,8 @@
     @saved="handleSave"
   ></edit-dialog>
 </template>
-    
-    <script setup>
+
+<script setup>
 import { ref } from 'vue'
 import EditDialog from '@/components/menuRegister/requestForm/Revoke.vue'
 
@@ -82,7 +91,13 @@ const handleSave = () => {
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true ,width: '100px',},
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+  },
   {
     title: 'วันที่แจ้งเพิกถอน',
     key: 'pid',
@@ -121,7 +136,7 @@ function deleteItem(item) {
   console.log('ลบ:', item)
 }
 </script>
-    
+
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
@@ -140,4 +155,3 @@ function deleteItem(item) {
   background-color: #f1f1f1e5;
 }
 </style>
-    
