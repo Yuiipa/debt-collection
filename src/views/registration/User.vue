@@ -15,7 +15,6 @@
             density="compact"
             hide-details
             append-inner-icon="mdi-magnify"
-            class="full-width-input"
           ></v-text-field>
         </v-col>
         <v-col cols="6" sm="2" md="1" class="align-center justify-start d-flex">

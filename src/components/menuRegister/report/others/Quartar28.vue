@@ -64,7 +64,13 @@
 </template>
               
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+
+const formSearch = reactive({
+  years: null,
+  quarter: null,
+  agency: null,
+})
 
 const headers = [
   {

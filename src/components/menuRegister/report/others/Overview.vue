@@ -6,86 +6,84 @@
     >
       <span> รายงานภาพรวมจำนวนการรายงานผล </span>
     </v-card-title>
-    <div>
-      <v-row class="mx-10">
-        <div class="w-100 d-flex justify-end" style="gap: 10px">
-          <v-btn
+    <v-row class="mx-8 my-2">
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ไตรมาส</div>
+        <v-text-field
+         v-model="formSearch.quarter"
+          variant="outlined"
+          persistent-placeholder
+          hide-details
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+        <DatePicker
+            v-model="formSearch.startDate"
             variant="outlined"
-            append-icon="mdi-printer"
-            style="color: orange"
-            class="rounded-lg"
-            size="large"
-            id="print"
-            @click="exportPdf()"
+            hide-details
+            persistent-placeholder
+            density="compact"
+          />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+        <DatePicker
+            v-model="formSearch.endDate"
+            variant="outlined"
+            hide-details
+            persistent-placeholder
+            density="compact"
+          />
+      </v-col>
+      <v-col
+        md="3"
+        cols="12"
+        class="d-flex align-end mb-1 justify-space-between"
+      >
+        <v-btn
+          prepend-icon="mdi-magnify"
+          style="background-color: #1a237e; color: white"
+          >ค้นหา</v-btn
+        >
+        <ExportMenu :exportPdf="exportPdf" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <div class="px-10 rounded-lg pb-2">
+          <v-data-table
+            :headers="headers"
+            :items="items"
+            class="elevation-1 rounded-table"
           >
-            พิมพ์
-          </v-btn>
+            <!-- ลำดับที่ -->
+            <template v-slot:[`item.index`]="{ index }">
+              <span>{{ index + 1 }}</span>
+            </template>
+            <template v-slot:[`item.sum`]="{ item }">
+              <span>{{
+                item.meetting + item.estimate + item.result + item.other
+              }}</span>
+            </template>
+          </v-data-table>
         </div>
-      </v-row>
-      <v-row class="mx-8 my-2">
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ไตรมาส</div>
-          <v-text-field
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <v-text-field
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <v-text-field
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12" class="d-flex align-end mb-1">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
-          >
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-            >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-              <template v-slot:[`item.sum`]="{ item }">
-                <span>{{
-                  item.meetting + item.estimate + item.result + item.other
-                }}</span>
-              </template>
-            </v-data-table>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { generatePDF } from '@/prints/register/Overview_report'
+import ExportMenu from '@/components/widget/ExportMenu.vue'
+
+const formSearch = reactive({
+  quarter: null,
+  startDate: null,
+  endDate: null,
+})
 
 const headers = [
   {
@@ -139,7 +137,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     agency: 'สภาทนายความ',
     plaint: 0,
@@ -342,16 +340,8 @@ const items = ref([
   },
 ])
 
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
-
-function deleteItem(item) {
-  console.log('ลบ:', item)
-}
-
 const exportPdf = () => {
-  generatePDF(items.value)
+  generatePDF(items)
 }
 </script>
 

@@ -53,7 +53,7 @@
                   variant="outlined"
                   color="blue-lighten-2"
                   class="rounded-pill"
-                  prepend-icon="mdi-cloud-download"
+                  prepend-icon="mdi-tray-arrow-down"
                   @click="downloadItem(item)"
                 >
                   ดาวน์โหลด

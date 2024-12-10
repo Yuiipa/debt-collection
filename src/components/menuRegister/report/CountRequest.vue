@@ -8,87 +8,64 @@
         รายงานคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
       </span>
     </v-card-title>
-    <div>
-      <v-row class="ma-1 mx-8 my-2">
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <DatePicker
-            v-model="formSearch.startDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <DatePicker
+    <v-row class="ma-1 mx-8 my-2">
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+        <DatePicker
+          v-model="formSearch.startDate"
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+        <DatePicker
           v-model="formSearch.endDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12" class="d-flex align-end mb-1">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
+      </v-col>
+      <v-col
+        md="6"
+        cols="12"
+        class="d-flex align-end mb-1 justify-space-between"
+      >
+        <v-btn
+          prepend-icon="mdi-magnify"
+          style="background-color: #1a237e; color: white"
+          >ค้นหา</v-btn
+        >
+        <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <div class="px-10 rounded-lg pb-2">
+          <v-data-table
+            :headers="headers"
+            :items="items"
+            class="elevation-1 rounded-table"
           >
-        </v-col>
-        <v-col md="3" cols="12" class="d-flex align-end mb-1">
-          <div class="w-100 d-flex justify-end" style="gap: 10px">
-            <v-btn
-              variant="outlined"
-              append-icon="mdi-file-excel"
-              style="color: green"
-              class="rounded-lg"
-              size="large"
-              id="excel"
-              @click="exportExcel()"
-            >
-              Excel
-            </v-btn>
-            <v-btn
-              variant="outlined"
-              append-icon="mdi-printer"
-              style="color: orange"
-              class="rounded-lg"
-              size="large"
-              id="print"
-              @click="exportPdf()"
-            >
-              พิมพ์
-            </v-btn>
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-            >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-            </v-data-table>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
+            <!-- ลำดับที่ -->
+            <template v-slot:[`item.index`]="{ index }">
+              <span>{{ index + 1 }}</span>
+            </template>
+          </v-data-table>
+        </div>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script setup>
-import { ref,reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountRequest'
-import { generatePDF } from '@/prints/register/CountRequest';
-
+import { generatePDF } from '@/prints/register/CountRequest'
+import ExportMenu from '@/components/widget/ExportMenu.vue'
 
 const formSearch = reactive({
   startDate: null,
@@ -340,14 +317,6 @@ const items = ref([
   },
 ])
 
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
-
-function deleteItem(item) {
-  console.log('ลบ:', item)
-}
-
 const exportExcel = () => {
   generateExcel(items.value)
 }
@@ -358,7 +327,6 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
-
 .rounded-table {
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;

@@ -67,7 +67,3 @@ const handleFileChange = (files) => {
   // ดำเนินการกับไฟล์ เช่น อัปโหลด
 }
 </script>
-
-<style scoped>
-/* เพิ่มสไตล์เพิ่มเติมถ้าต้องการ */
-</style>

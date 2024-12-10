@@ -8,90 +8,68 @@
         รายงานคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
       </span>
     </v-card-title>
-    <div>
-      <v-row class="mx-10 my-2">
-        <div class="w-100 d-flex justify-end" style="gap: 10px">
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-file-excel"
-            style="color: green"
-            class="rounded-lg"
-            size="large"
-            id="excel"
-            @click="exportExcel()"
-          >
-            Excel
-          </v-btn>
-          <v-btn
-            variant="outlined"
-            append-icon="mdi-printer"
-            style="color: orange"
-            class="rounded-lg"
-            size="large"
-            id="print"
-            @click="exportPdf()"
-          >
-            พิมพ์
-          </v-btn>
-        </div>
-      </v-row>
-      <v-row class="mx-8 my-2">
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-          <DatePicker
-            v-model="formSearch.startDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-          <DatePicker
+
+    <v-row class="mx-8 my-2">
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+        <DatePicker
+          v-model="formSearch.startDate"
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+        <DatePicker
           v-model="formSearch.endDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">จังหวัด</div>
-          <v-autocomplete
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="mb-2 font-weight-bold">จังหวัด</div>
+        <v-autocomplete
           v-model="formSearch.province"
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-            :items="itemsProvince"
-          ></v-autocomplete>
-        </v-col>
-        <v-col md="3" cols="12" class="d-flex align-end mb-1">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
+          variant="outlined"
+          persistent-placeholder
+          hide-details
+          density="compact"
+          :items="itemsProvince"
+        ></v-autocomplete>
+      </v-col>
+      <v-col
+        md="3"
+        cols="12"
+        class="d-flex align-end mb-1 justify-space-between"
+      >
+        <v-btn
+          prepend-icon="mdi-magnify"
+          style="background-color: #1a237e; color: white"
+          >ค้นหา</v-btn
+        >
+        <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <div class="px-10 rounded-lg pb-2">
+          <v-data-table
+            :headers="headers"
+            :items="items"
+            class="elevation-1 rounded-table"
           >
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-            >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-            </v-data-table>
-          </div>
-        </v-col>
-      </v-row>
-    </div>
+            <!-- ลำดับที่ -->
+            <template v-slot:[`item.index`]="{ index }">
+              <span>{{ index + 1 }}</span>
+            </template>
+          </v-data-table>
+        </div>
+      </v-col>
+    </v-row>
   </v-card>
   <v-card class="pt-2 mx-14 my-12 px-2 elevation-3">
     <v-row>
@@ -106,11 +84,11 @@
 </template>
 
 <script setup>
-import { ref,reactive ,computed } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import BarChart from '@/components/charts/barChart.vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountTypeBusiness'
-import {generatePDF} from '@/prints/register/CountTypeBusiness'
-
+import { generatePDF } from '@/prints/register/CountTypeBusiness'
+import ExportMenu from '@/components/widget/ExportMenu.vue'
 
 const formSearch = reactive({
   startDate: null,
@@ -128,8 +106,8 @@ const processedItems = computed(() => {
     dataset6: item.publiclimitedCompany,
     dataset7: item.lawyer,
     dataset8: item.lawyersCouncil,
-  }));
-});
+  }))
+})
 const headers = [
   {
     title: 'ลำดับที่',
@@ -176,7 +154,7 @@ const headers = [
     sortable: true,
     width: '160px',
   },
-  
+
   {
     title: 'บริษัทจำกัดมหาชน',
     key: 'publiclimitedCompany',
@@ -423,25 +401,16 @@ const items = reactive([
   },
 ])
 
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
-
-function deleteItem(item) {
-  console.log('ลบ:', item)
-}
-
 const exportExcel = () => {
-  generateExcel(items.value)
+  generateExcel(items)
 }
 
 const exportPdf = () => {
-  generatePDF(items.value)
+  generatePDF(items)
 }
 </script>
 
 <style scoped>
-
 .rounded-table {
   border-top-left-radius: 12px !important;
   border-top-right-radius: 12px !important;

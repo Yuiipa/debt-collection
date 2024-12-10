@@ -7,65 +7,91 @@
       <span> รายงานการประชุมคณะกรรมการกำกับการทวงถามหนี้ประจำท้องที่ </span>
     </div>
     <div>
-      <v-row class="mx-8 my-2">
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ตั้งแต่วันที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ถึงวันที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ทั้งหมด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงเดือน</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ทั้งหมด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ปี</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="ทั้งหมด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12" class="d-flex align-end mb-1">
+      <v-row class="mx-8">
+        <v-col cols="12" class="d-flex justify-end">
+          <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
           <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
+            variant="outlined"
+            append-icon="mdi-filter"
+            :style="
+              showFilter
+                ? 'background-color: #1a237e; color: white; border: none'
+                : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+            "
+            size="large"
+            class="rounded-lg px-2 px-sm-5"
+            id="print"
+            @click="toggleFilter()"
           >
+            ตัวกรอง
+          </v-btn>
         </v-col>
       </v-row>
+      <v-expand-transition>
+        <v-row v-if="showFilter" class="mx-8 my-0">
+          <v-col md="12" cols="12">
+            <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
+            <v-text-field
+              v-model="formSearch.agency"
+              class="v-col-md-3 pa-0 pr-5"
+              variant="outlined"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
+            <v-text-field
+              v-model="formSearch.quarter"
+              variant="outlined"
+              placeholder="ไตรมาสที่"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
+            <DatePicker
+              v-model="formSearch.startDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ถึงเดือน</div>
+            <DatePicker
+              v-model="formSearch.endDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ปี</div>
+            <v-text-field
+              v-model="formSearch.years"
+              variant="outlined"
+              placeholder="ทั้งหมด"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="12" cols="12" class="d-flex justify-end align-end mb-1">
+            <v-btn
+              prepend-icon="mdi-magnify"
+              style="background-color: #1a237e; color: white"
+              >ค้นหา</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-expand-transition>
+
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
@@ -83,7 +109,7 @@
                   variant="outlined"
                   color="blue-lighten-2"
                   class="rounded-pill"
-                  prepend-icon="mdi-cloud-download"
+                  prepend-icon="mdi-tray-arrow-down"
                   @click="downloadItem(item)"
                 >
                   ดาวน์โหลด
@@ -92,12 +118,12 @@
 
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
-                variant="text"
+                  variant="text"
                   size="small"
                   style="background-color: #e3f2fd; color: #1565c0"
                   @click="deleteItem(item)"
                 >
-                <v-icon left size="26">mdi-delete-outline</v-icon>
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -109,7 +135,21 @@
 </template>
               
     <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+
+const showFilter = ref(false)
+
+const toggleFilter = () => {
+  showFilter.value = !showFilter.value
+}
+
+const formSearch = reactive({
+  agency: null,
+  quarter: null,
+  startDate: null,
+  endDate: null,
+  years: null,
+})
 
 const headers = [
   {
@@ -153,7 +193,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     agency: 'จังหวัดกาฬสินธุ์',
     date: '06/11/2567',
@@ -165,10 +205,6 @@ const items = ref([
     document: 'สรุปการรายงานผลการปฏิบัติงานตา',
   },
 ])
-
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
 
 function deleteItem(item) {
   console.log('ลบ:', item)

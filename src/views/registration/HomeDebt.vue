@@ -8,29 +8,35 @@
     </v-card-title>
     <div class="px-12 pt-2">
       <v-row class="d-flex align-center justify-space-between">
-        <v-menu transition="open-on-focus">
-          <template v-slot:activator="{ props }">
-            <v-avatar size="46" v-bind="props">
-              <v-icon size="38">mdi-dots-horizontal</v-icon>
-            </v-avatar>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(item, index) in listService"
-              :key="index"
-              @click="$router.push({ name: item.name })"
-            >
-              <v-list-item-content class="d-flex align-center">
-                <v-list-item-icon class="mr-2">
-                  <v-icon>{{ item.icon }}</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>
-                  {{ item.title }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <div>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-book-open"
+            size="large"
+            color="#FFC107"
+            class="rounded-lg px-2 px-sm-5 mr-2"
+          >
+            หนังสืออ่านบัตร
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-credit-card"
+            size="large"
+            color="#03A9F4"
+            class="rounded-lg px-2 px-sm-5 mr-2"
+          >
+            เครื่องอ่านบัตร
+          </v-btn>
+          <v-btn
+            variant="outlined"
+            append-icon="mdi-link-variant"
+            size="large"
+            color="#FF5722"
+            class="rounded-lg px-2 px-sm-5"
+          >
+            Linkage
+          </v-btn>
+        </div>
 
         <v-col
           md="4"
@@ -38,41 +44,10 @@
           class="d-flex justify-end px-0 align-center mb-1"
           style="gap: 10px"
         >
-          <v-menu offset-y>
-            <template v-slot:activator="{ props }">
-              <v-btn
-                v-bind="props"
-                variant="outlined"
-                prepend-icon="mdi-tray-arrow-down"
-                :style="
-                  exportBtn
-                    ? 'color: white;background-color: #1a237e'
-                    : 'background-color: white;color: #1a237e'
-                "
-                class="rounded-lg"
-                size="large"
-                id="export"
-                @click="exportBtn = !exportBtn"
-              >
-                Export
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item class="d-flex justify-start" @click="exportExcel()">
-                <v-list-item-icon>
-                  <v-icon class="text-green">mdi-file-excel</v-icon>
-                </v-list-item-icon>
-                <span class="mx-2">Excel</span>
-              </v-list-item>
-              <v-list-item @click="exportPDF()">
-                <v-list-item-icon>
-                  <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
-                </v-list-item-icon>
-                <span class="mx-2">PDF</span>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
+          <ExportMenu
+            :exportExcel="exportExcel"
+            :exportPdf="exportPdf"
+          />
           <v-btn
             variant="outlined"
             append-icon="mdi-filter"
@@ -195,19 +170,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-const showFilter = ref(false)
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
 import { generateExcel } from '@/prints/register/excel/Home_Debt.js'
+import ExportMenu from '../../components/widget/ExportMenu.vue';
 
-const listService = [
-  {
-    title: 'หนังสืออ่านบัตร',
-    name: 'debt-change-password',
-    icon: 'mdi-book-open',
-  },
-  { title: 'เครื่องอ่านบัตร', name: 'debt-menu-page', icon: 'mdi-credit-card' },
-  { title: 'Linkage', name: 'debt-home', icon: 'mdi-link-variant' },
-]
+const showFilter = ref(false)
 
 const exportPdf = () => {
   generateCollectPDF(items.value)
