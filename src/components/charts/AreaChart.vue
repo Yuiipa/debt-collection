@@ -8,12 +8,12 @@
     </div>
   </v-sheet>
 </template>
-  
-  <script>
-import { defineComponent, ref, onMounted, watch, computed } from 'vue'
+
+<script setup>
+import { ref, watch, onMounted, computed } from 'vue'
 import {
   Chart as ChartJS,
-  LineController, // เพิ่ม LineController
+  LineController,
   Title,
   Tooltip,
   Legend,
@@ -24,7 +24,7 @@ import {
   Filler,
 } from 'chart.js'
 
-// ลงทะเบียน LineController และส่วนที่จำเป็นอื่นๆ
+// ลงทะเบียน Chart.js modules
 ChartJS.register(
   LineController,
   Title,
@@ -37,142 +37,102 @@ ChartJS.register(
   Filler
 )
 
-export default defineComponent({
-  name: 'AreaChart',
-  props: {
-    data: {
-      type: Array,
-      required: true,
-      default: () => [], // Provide an empty array as default
-    },
-  },
-  setup(props) {
-    const chartCanvas = ref(null)
-    let chartInstance = null
-
-    const initializeChart = () => {
-      if (chartInstance) {
-        chartInstance.destroy() // ทำลายกราฟเก่าก่อนสร้างใหม่
-      }
-
-      const ctx = chartCanvas.value.getContext('2d')
-
-      const data = {
-        labels: props.data.map((item) => item.usage_name),
-        datasets: [
-          {
-            label: 'Data',
-            backgroundColor: 'rgba(173, 216, 230, 0.5)', // สีฟ้าอ่อน (พร้อมความโปร่งใส)
-            borderColor: '#00008B', // สีน้ำเงินเข้ม
-            borderWidth: 1,
-            data: props.data.map((item) => item.usage_count),
-            fill: true, // เติมพื้นที่ใต้กราฟ
-            tension: 0.4, // เส้นโค้ง
-          },
-        ],
-      }
-
-      const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            beginAtZero: true,
-            grid: {
-              display: false, // ซ่อนเส้นแนวตั้ง
-            },
-            ticks: {
-              font: {
-                size: 16,
-                family: 'Kanit',
-              },
-            },
-            border: {
-              color: '#000000',
-            },
-          },
-          y: {
-            beginAtZero: true,
-            grid: {
-              display: true, // แสดงเส้นแนวนอน
-              color: '#d3d3d3', // สีของเส้น (สามารถปรับได้ตามต้องการ)
-              lineWidth: 1, // ความหนาของเส้น
-              drawBorder: true, // แสดงขอบกรอบแกน Y
-              drawTicks: true, // แสดงขีดเล็ก ๆ บนแกน Y
-            },
-            ticks: {
-              font: {
-                size: 16,
-                family: 'Kanit',
-              },
-            },
-            border: {
-              color: '#000000',
-            },
-          },
-        },
-        plugins: {
-          datalabels: {
-            display: false,
-          },
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                return `${context.dataset.label}: ${context.raw} `
-              },
-            },
-          },
-        },
-      }
-
-      // สร้างกราฟใหม่
-      chartInstance = new ChartJS(ctx, {
-        type: 'line',
-        data,
-        options,
-      })
-    }
-
-    const updateChart = () => {
-      if (chartInstance) {
-        // อัปเดตข้อมูลในกราฟ
-        chartInstance.data.labels = props.data.map((item) => item.usage_name)
-        chartInstance.data.datasets[0].data = props.data.map(
-          (item) => item.usage_count
-        )
-        chartInstance.update() // อัปเดตกราฟ
-      }
-    }
-
-    onMounted(() => {
-      initializeChart()
-    })
-
-    // อัปเดตข้อมูลในกราฟเมื่อ props.data เปลี่ยนแปลง
-    watch(
-      () => props.data,
-      () => {
-        updateChart()
-      },
-      { deep: true }
-    )
-
-    const chartHeight = computed(() => {
-      const baseHeight = 50
-      const labelCount = 5
-      const heightPerLabel = 30
-
-      return `${baseHeight + labelCount * heightPerLabel}px`
-    })
-
-    return {
-      chartCanvas,
-      chartHeight,
-    }
+// Props รับข้อมูลสำหรับกราฟ
+const props = defineProps({
+  data: {
+    type: Array,
+    required: true,
+    default: () => [], // ค่าเริ่มต้นเป็นอาร์เรย์ว่าง
   },
 })
+
+// Refs และตัวแปร
+const chartCanvas = ref(null) // อ้างอิงไปยัง element canvas
+let chartInstance = null // สำหรับเก็บอินสแตนซ์ของกราฟ
+
+// ฟังก์ชันสร้างกราฟ
+const initializeChart = () => {
+  if (chartInstance) {
+    chartInstance.destroy() // ทำลายกราฟเก่าก่อนสร้างใหม่
+  }
+
+  const ctx = chartCanvas.value.getContext('2d')
+
+  const data = {
+    labels: props.data.map((item) => item.usage_name),
+    datasets: [
+      {
+        label: 'Data',
+        backgroundColor: 'rgba(173, 216, 230, 0.5)', // สีฟ้าอ่อน
+        borderColor: '#00008B', // สีน้ำเงินเข้ม
+        borderWidth: 1,
+        data: props.data.map((item) => item.usage_count),
+        fill: true, // เติมพื้นที่ใต้กราฟ
+        tension: 0.4, // เส้นโค้ง
+      },
+    ],
+  }
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        beginAtZero: true,
+        grid: { display: false }, // ซ่อนเส้นแนวตั้ง
+        ticks: { font: { size: 16, family: 'Kanit' } },
+        border: { color: '#000000' },
+      },
+      y: {
+        beginAtZero: true,
+        grid: {
+          display: true, // แสดงเส้นแนวนอน
+          color: '#d3d3d3',
+          lineWidth: 1,
+          drawBorder: true,
+          drawTicks: true,
+        },
+        ticks: { font: { size: 16, family: 'Kanit' } },
+        border: { color: '#000000' },
+      },
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.dataset.label}: ${context.raw} `
+          },
+        },
+      },
+    },
+  }
+
+  chartInstance = new ChartJS(ctx, { type: 'line', data, options })
+}
+
+// ฟังก์ชันอัปเดตข้อมูลในกราฟ
+const updateChart = () => {
+  if (chartInstance) {
+    chartInstance.data.labels = props.data.map((item) => item.usage_name)
+    chartInstance.data.datasets[0].data = props.data.map(
+      (item) => item.usage_count
+    )
+    chartInstance.update() // อัปเดตกราฟ
+  }
+}
+
+// สร้างกราฟเมื่อ component ถูก mount
+onMounted(() => {
+  initializeChart()
+})
+
+// อัปเดตข้อมูลในกราฟเมื่อ props.data เปลี่ยน
+watch(
+  () => props.data,
+  () => {
+    updateChart()
+  },
+  { deep: true }
+)
 </script>
-  

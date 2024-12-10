@@ -8,20 +8,14 @@
     </v-card-title>
     <div>
       <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
+        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
+            v-model="searchQuery"
           ></v-text-field>
-        </v-col>
-        <v-col cols="6" sm="4" class="align-center justify-start d-flex">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
-          >
         </v-col>
       </v-row>
       <v-row>
@@ -29,7 +23,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
-              :items="items"
+              :items="filteredItems"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -53,14 +47,17 @@
     </div>
   </v-card>
 </template>
-    
+
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
 const router = useRouter()
 const route = useRoute()
+
 const name_route = ref('debt-changeBusiness-form')
 const title_route = ref('')
+const searchQuery = ref('') // เก็บข้อความค้นหา
 
 const headers = [
   { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
@@ -114,10 +111,18 @@ const items = ref([
   },
 ])
 
-onMounted(() => {
-  const currentPath = route.path // ใช้ useRoute เพื่อดึง path ปัจจุบัน
+// กรองข้อมูลตามข้อความค้นหา
+const filteredItems = computed(() =>
+  items.value.filter((item) =>
+    ['refLicId', 'name', 'type', 'location'].some((key) =>
+      item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+)
 
-  // ตัวอย่างเงื่อนไขการเปลี่ยนเส้นทาง
+onMounted(() => {
+  const currentPath = route.path
+
   if (currentPath === '/debt/ChangeBusiness') {
     name_route.value = 'debt-ChangeBusiness-form'
     title_route.value =
@@ -141,11 +146,11 @@ onMounted(() => {
   }
 })
 
-function navigate() {
+function navigate(item) {
   router.push({ name: name_route.value })
 }
 </script>
-    
+
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
@@ -164,4 +169,3 @@ function navigate() {
   background-color: #f1f1f1e5;
 }
 </style>
-    

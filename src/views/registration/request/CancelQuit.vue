@@ -8,20 +8,14 @@
     </v-card-title>
     <div>
       <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
+        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
+            v-model="searchQuery"
           ></v-text-field>
-        </v-col>
-        <v-col cols="6" sm="4" class="align-center justify-start d-flex">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
-          >
         </v-col>
       </v-row>
       <v-row>
@@ -29,7 +23,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
-              :items="items"
+              :items="filteredItems"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -61,11 +55,12 @@
     </div>
   </v-card>
 </template>
-    
+
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const headers = [
   {
@@ -109,7 +104,7 @@ const headers = [
     sortable: true,
     width: '100px',
   },
-]
+];
 
 const items = ref([
   {
@@ -136,13 +131,24 @@ const items = ref([
     type: 'สมทรง',
     location: 'เพชรพันธ์',
   },
-])
+]);
+
+const searchQuery = ref(''); // เก็บข้อความค้นหา
+
+// กรองเฉพาะบางฟิลด์
+const filteredItems = computed(() =>
+  items.value.filter((item) =>
+    ['refLicId', 'name', 'type'].some((key) =>
+      item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+);
 
 function navigate(item) {
-  router.push({ name: 'debt-CancelQuit-form' })
+  router.push({ name: 'debt-CancelQuit-form' });
 }
 </script>
-    
+
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;

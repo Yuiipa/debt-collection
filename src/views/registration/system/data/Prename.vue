@@ -8,7 +8,7 @@
     </v-card-title>
     <div>
       <v-row class="px-13 pr-10">
-        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
+        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -16,14 +16,14 @@
             hide-details
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="2" class="align-center justify-start d-flex">
+        <v-col cols="6" md="2" class="align-center justify-start d-flex">
           <v-btn
             prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
             >ค้นหา</v-btn
           >
         </v-col>
-        <v-col cols="6" sm="2" class="align-center justify-end d-flex">
+        <v-col cols="6" md="6" class="align-center justify-end d-flex">
           <v-btn
             color="green"
             prepend-icon="mdi-plus-circle-outline"

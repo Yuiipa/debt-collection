@@ -24,17 +24,13 @@
         class="d-flex justify-start"
         @click="exportExcel"
       >
-        <v-list-item-icon>
-          <v-icon class="text-green">mdi-file-excel</v-icon>
-        </v-list-item-icon>
+        <v-icon class="text-green">mdi-file-excel</v-icon>
         <span class="mx-2">Excel</span>
       </v-list-item>
-
       <!-- เงื่อนไขการแสดง PDF -->
       <v-list-item v-if="exportPdf" @click="exportPdf">
-        <v-list-item-icon>
-          <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
-        </v-list-item-icon>
+        <v-icon class="text-orange">mdi-file-pdf-box</v-icon>
+
         <span class="mx-2">PDF</span>
       </v-list-item>
     </v-list>

@@ -8,7 +8,7 @@
     </v-card-title>
     <div>
       <v-row class="px-10">
-        <v-col md="6" cols="12">
+        <v-col md="4" cols="12">
           <div class="mb-2 font-weight-bold">ประเภทความผิด</div>
           <v-select
             variant="outlined"
@@ -19,7 +19,7 @@
             v-model="selectedType"
           />
         </v-col>
-        <v-col cols="12" sm="6" class="align-end justify-end d-flex flex-column">
+        <v-col cols="12" md="8" class="align-end justify-end d-flex flex-column">
           <div class="mb-2"></div>
 
           <v-btn

@@ -122,13 +122,6 @@ const menuItems = [
 ]
 
 const selectedItem = ref('ทั้งหมด')
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
-
-function deleteItem(item) {
-  console.log('ลบ:', item)
-}
 </script>
       
 <style scoped>

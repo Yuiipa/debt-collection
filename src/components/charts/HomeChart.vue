@@ -7,12 +7,12 @@
       <Doughnut id="my-chart-id" :options="chartOptions" :data="chartData" />
       <div class="d-none d-md-flex">
         <div class="chart-center-text" v-if="centerText">
-          <span style="font-size: 16px; display: block">{{
-            centerText.label
-          }}</span>
-          <span style="font-size: 24px; display: block">{{
-            centerText.value
-          }}</span>
+          <span style="font-size: 16px; display: block">
+            {{ centerText.label }}
+          </span>
+          <span style="font-size: 24px; display: block">
+            {{ centerText.value }}
+          </span>
         </div>
       </div>
     </v-row>
@@ -41,102 +41,92 @@
   </v-sheet>
 </template>
 
-<script>
-import { Doughnut } from 'vue-chartjs'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js'
-import { ref, defineComponent, onMounted } from 'vue'
+<script setup>
+import { ref, onMounted } from 'vue';
+import { Doughnut } from 'vue-chartjs';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, ChartDataLabels)
+// ลงทะเบียน Chart.js modules
+ChartJS.register(Title, Tooltip, Legend, ArcElement, ChartDataLabels);
 
-export default defineComponent({
-  name: 'DonutChart',
-  components: { Doughnut },
-  props: {
-    systems: {
-      type: Array,
-      required: true,
+// Props
+const props = defineProps({
+  systems: {
+    type: Array,
+    required: true,
+  },
+});
+
+// Refs
+const centerText = ref({ label: '', value: '' });
+const hiddenDatasets = ref(Array(props.systems.length).fill(false));
+
+// กำหนดข้อมูลกราฟ
+const chartData = ref({
+  labels: props.systems.map((item) => item.name),
+  datasets: [
+    {
+      label: 'จำนวนการเข้าใช้',
+      data: props.systems.map((item) => item.usage),
+      backgroundColor: props.systems.map((item) => item.color),
+      borderColor: '#FFFFFF',
+      borderWidth: 2,
+    },
+  ],
+});
+
+// ออปชันของกราฟ
+const chartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: false,
+  cutout: '40%',
+  rotation: -90,
+  circumference: 180,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      enabled: true,
+      external(context) {
+        const tooltipModel = context.tooltip;
+        if (tooltipModel && tooltipModel.dataPoints) {
+          const index = tooltipModel.dataPoints[0].dataIndex;
+          const dataset = context.chart.data.datasets[0];
+          const label = context.chart.data.labels[index];
+          const value = dataset.data[index];
+
+          centerText.value = { label, value: `${value} ครั้ง` };
+        }
+      },
+    },
+    datalabels: {
+      display: false,
     },
   },
-  setup(props) {
-    const centerText = ref({ label: '', value: '' })
-    const chartData = ref(getChartData(props.systems))
-    const hiddenDatasets = ref(Array(props.systems.length).fill(false)) // Track hidden datasets
+});
 
-    onMounted(() => {
-      if (props.systems.length > 0) {
-        centerText.value = {
-          label: props.systems[0].name,
-          value: props.systems[0].usage,
-        }
-      }
-    })
+// ฟังก์ชัน toggle visibility
+const toggleDatasetVisibility = (index) => {
+  hiddenDatasets.value[index] = !hiddenDatasets.value[index];
+  const chart = ChartJS.getChart('my-chart-id');
+  chart.getDatasetMeta(0).data[index].hidden = hiddenDatasets.value[index];
+  chart.update();
+};
 
-    const chartOptions = ref({
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '40%',
-      rotation: -90, // เริ่มที่ด้านล่าง
-      circumference: 180, // ครึ่งวงกลม
-      plugins: {
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          enabled: true,
-          external: function (context) {
-            const tooltipModel = context.tooltip
-            if (tooltipModel && tooltipModel.dataPoints) {
-              const index = tooltipModel.dataPoints[0].dataIndex
-              const dataset = context.chart.data.datasets[0]
-              const label = context.chart.data.labels[index]
-              const value = dataset.data[index]
-
-              // อัปเดต centerText เมื่อ hover บนกราฟ
-              centerText.value = { label, value: `${value} ครั้ง` }
-            }
-          },
-        },
-        datalabels: {
-          display: false,
-        },
-      },
-    })
-
-    function getChartData(systems) {
-      return {
-        labels: systems.map((item) => item.name),
-        datasets: [
-          {
-            label: 'จำนวนการเข้าใช้',
-            data: systems.map((item) => item.usage),
-            backgroundColor: systems.map((item) => item.color),
-            borderColor: '#FFFFFF', // ตั้งค่าเส้นแบ่งสีขาว
-            borderWidth: 2, // ความหนาของเส้นแบ่ง
-          },
-        ],
-      }
-    }
-
-    function toggleDatasetVisibility(index) {
-      hiddenDatasets.value[index] = !hiddenDatasets.value[index]
-      const chart = ChartJS.getChart('my-chart-id')
-      chart.getDatasetMeta(0).data[index].hidden = hiddenDatasets.value[index]
-      chart.update()
-    }
-
-    return {
-      chartData,
-      chartOptions,
-      centerText,
-      hiddenDatasets,
-      toggleDatasetVisibility,
-    }
-  },
-})
+// ตั้งค่า centerText เมื่อ mount
+onMounted(() => {
+  if (props.systems.length > 0) {
+    centerText.value = {
+      label: props.systems[0].name,
+      value: props.systems[0].usage,
+    };
+  }
+});
 </script>
 
-<style>
+<style scoped>
 .chart-container {
   width: 100%;
   height: 100%;

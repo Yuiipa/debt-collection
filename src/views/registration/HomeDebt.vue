@@ -15,6 +15,7 @@
             size="large"
             color="#FFC107"
             class="rounded-lg px-2 px-sm-5 mr-2"
+            @click="toggleDialog()"
           >
             หนังสือสั่งการ
           </v-btn>
@@ -44,10 +45,7 @@
           class="d-flex justify-end px-0 align-center mb-1"
           style="gap: 10px"
         >
-          <ExportMenu
-            :exportExcel="exportExcel"
-            :exportPdf="exportPdf"
-          />
+          <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
           <v-btn
             variant="outlined"
             append-icon="mdi-filter"
@@ -66,12 +64,11 @@
         </v-col>
       </v-row>
 
-      <!-- ตัวกรอง -->
       <v-expand-transition class="mt-6">
         <div v-if="showFilter">
           <v-row>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">เลขที่คำขอ</div>
+              <div class="v-col-12 py-0">เลขที่ทะเบียน</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -80,7 +77,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <div class="v-col-12 py-0">ชื่อธุรกิจ</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -89,7 +86,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <div class="v-col-12 py-0">ประเภทการประกอบธุรกิจ</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -100,7 +97,7 @@
           </v-row>
           <v-row>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">เลขประจำตัวประชาชนผู้ประกอบธุรกิจ</div>
+              <div class="v-col-12 py-0">ที่ตั้งสถานประกอบธุรกิจ</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -109,7 +106,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">ทะเบียนเลขที่</div>
+              <div class="v-col-12 py-0">เบอร์โทรศัพท์ติดต่อ</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -118,7 +115,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4" class="pa-0">
-              <div class="v-col-12 py-0">ชื่อ-นามสกุล ผู้ขอจดทะเบียน</div>
+              <div class="v-col-12 py-0">สำนักงานที่รับจดทะเบียน</div>
               <v-text-field
                 class="v-col-12"
                 variant="outlined"
@@ -166,16 +163,26 @@
       </v-row>
     </div>
   </v-card>
+  <home-dialog v-model:showDialog="showHomeDialog"></home-dialog>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
 import { generateExcel } from '@/prints/register/excel/Home_Debt.js'
-import ExportMenu from '../../components/widget/ExportMenu.vue';
+import ExportMenu from '../../components/widget/ExportMenu.vue'
+import HomeDialog from '@/components/menuRegister/home/SampleDoc.vue'
 
 const showFilter = ref(false)
+const showHomeDialog = ref(false)
 
+const toggleDialog = () => {
+  showHomeDialog.value = !showHomeDialog.value
+}
+const toggleFilter = () => {
+  showFilter.value = !showFilter.value
+}
 const exportPdf = () => {
   generateCollectPDF(items.value)
 }
@@ -184,9 +191,6 @@ const exportExcel = () => {
   generateExcel(items.value)
 }
 
-const toggleFilter = () => {
-  showFilter.value = !showFilter.value
-}
 const router = useRouter()
 function navigate() {
   router.push({ name: 'debt-home-registration-detail_business' })

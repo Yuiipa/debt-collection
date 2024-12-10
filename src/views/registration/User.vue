@@ -8,38 +8,54 @@
     </v-card-title>
     <div>
       <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="7" md="9" class="pa-0 d-flex align-center">
+        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
-            append-inner-icon="mdi-magnify"
+            v-model="searchQuery"
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="2" md="1" class="align-center justify-start d-flex">
+        <v-col cols="6" md="2" class="align-center justify-start d-flex">
           <v-btn
-            left
-            class="px-6"
+            prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
           >
+            ค้นหา
+          </v-btn>
         </v-col>
-        <v-col cols="6" sm="3" md="2" class="align-center justify-end d-flex">
+        <v-col cols="12" md="6" class="align-center justify-end d-flex">
           <v-btn
             prepend-icon="mdi-account-plus"
             color="green"
             @click="openEditDialog()"
-            >เพิ่มผู้ใช้งาน</v-btn
           >
+            เพิ่มผู้ใช้งาน
+          </v-btn>
         </v-col>
       </v-row>
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table :headers="headers" :items="items" class="elevation-1">
+            <v-data-table
+              :headers="headers"
+              :items="filteredItems"
+              class="elevation-1"
+            >
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
+              </template>
+              <template v-slot:[`item.status`]="{ item }">
+                <v-switch
+                  v-model="item.status"
+                  color="#39ab4e"
+                  inset
+                  dense
+                  hide-details
+                  :false-value="false"
+                  :true-value="true"
+                ></v-switch>
               </template>
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
@@ -72,21 +88,23 @@
     @saved="handleSave"
   ></edit-dialog>
 </template>
-  
-<script setup>
-import { ref } from 'vue'
-import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
-const showEditDialog = ref(false)
-const selectedItem = ref(null)
+<script setup>
+import { ref, computed } from 'vue';
+import EditDialog from '@/components/menuRegister/user/Dialog.vue';
+
+const showEditDialog = ref(false);
+const selectedItem = ref(null);
+const searchQuery = ref(''); // เก็บข้อความค้นหา
+
 const openEditDialog = (item = null) => {
-  selectedItem.value = item ? { ...item } : null // หากไม่มี item ส่งมา ให้ตั้งค่าเป็น null
-  showEditDialog.value = true
-}
+  selectedItem.value = item ? { ...item } : null;
+  showEditDialog.value = true;
+};
 
 const handleSave = () => {
-  console.log(save)
-}
+  console.log('save');
+};
 
 const headers = [
   {
@@ -112,9 +130,17 @@ const headers = [
     align: 'start',
     sortable: true,
   },
+  { title: 'จังหวัด', key: 'province', align: 'start', sortable: true },
+  { title: 'สิทธิ์การใช้งาน', key: 'status', align: 'start', sortable: true },
   { title: 'เอกสารแนบ', key: 'document', align: 'start', sortable: false },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
-]
+  {
+    title: 'ดำเนินการ',
+    key: 'process',
+    align: 'center',
+    sortable: false,
+    width: '140px',
+  },
+];
 
 const items = ref([
   {
@@ -124,6 +150,8 @@ const items = ref([
     lastName: 'บุญยงค์',
     position: 'เจ้าหน้าที่ปฏิบัติการ',
     document: '',
+    province: 'กรุงเทพมหานคร',
+    status: true,
   },
   {
     pid: 8466851084319,
@@ -132,6 +160,8 @@ const items = ref([
     lastName: 'เพชรพันธ์',
     position: 'ทนาย',
     document: '',
+    province: 'กรุงเทพมหานคร',
+    status: true,
   },
   {
     pid: 8466851084319,
@@ -140,6 +170,8 @@ const items = ref([
     lastName: 'เพชรพันธ์',
     position: 'เจ้าหน้าที่ปฏิบัติการ',
     document: '',
+    province: 'กรุงเทพมหานคร',
+    status: true,
   },
   {
     pid: 8466851084319,
@@ -148,13 +180,25 @@ const items = ref([
     lastName: 'เพชรพันธ์',
     position: 'นิติกรชำนาญการ',
     document: '',
+    province: 'กรุงเทพมหานคร',
+    status: true,
   },
-])
+]);
+
+// กรองข้อมูลตามข้อความค้นหา
+const filteredItems = computed(() =>
+  items.value.filter((item) =>
+    Object.values(item).some((value) =>
+      value.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+);
 
 function deleteItem(item) {
-  console.log('ลบ:', item)
+  console.log('ลบ:', item);
 }
 </script>
+
   
   <style scoped>
 .v-table :deep(th) {
