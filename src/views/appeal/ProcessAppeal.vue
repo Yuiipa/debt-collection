@@ -47,7 +47,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-        <v-text-field
+        <DatePicker
           variant="outlined"
           placeholder="ตั้งแต่วันที่"
           persistent-placeholder
@@ -57,7 +57,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-        <v-text-field
+        <DatePicker
           variant="outlined"
           placeholder="ถึงวันที่"
           persistent-placeholder
@@ -93,6 +93,7 @@
             style="font-size: 14px; color: orange"
             class="rounded-pill"
             id="missdoc"
+            @click="$router.push({ name: 'debt-form-appeal', query: { step: 2 } })"
           >
             ขาดเอกสารสำคัญ
           </v-btn>

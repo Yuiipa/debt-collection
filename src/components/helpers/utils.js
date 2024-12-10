@@ -19,4 +19,26 @@ function ThaiNumbers(arabicNumber) {
     .join('')
 }
 
-export { ThaiNumbers }
+const months = [
+  'มกราคม',
+  'กุมภาพันธ์',
+  'มีนาคม',
+  'เมษายน',
+  'พฤษภาคม',
+  'มิถุนายน',
+  'กรกฎาคม',
+  'สิงหาคม',
+  'กันยายน',
+  'ตุลาคม',
+  'พฤศจิกายน',
+  'ธันวาคม',
+]
+
+function splitDate(date) {
+  const [day, month, year] = date ? date.split('/') : ['', '', '']
+  return day && month && year
+    ? `${day} ${months[parseInt(month) - 1]} ${year}`
+    : ''
+}
+
+export { ThaiNumbers, splitDate }

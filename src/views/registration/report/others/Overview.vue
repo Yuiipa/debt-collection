@@ -9,8 +9,9 @@
     <v-row class="mx-8 my-2">
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ไตรมาส</div>
-        <v-text-field
-         v-model="formSearch.quarter"
+        <v-select
+          :items="[1, 2, 3, 4]"
+          v-model="formSearch.quarter"
           variant="outlined"
           persistent-placeholder
           hide-details
@@ -20,22 +21,22 @@
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
         <DatePicker
-            v-model="formSearch.startDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
+          v-model="formSearch.startDate"
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
       </v-col>
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ถึงวันที่</div>
         <DatePicker
-            v-model="formSearch.endDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
+          v-model="formSearch.endDate"
+          variant="outlined"
+          hide-details
+          persistent-placeholder
+          density="compact"
+        />
       </v-col>
       <v-col
         md="3"
@@ -45,14 +46,30 @@
         <v-btn
           prepend-icon="mdi-magnify"
           style="background-color: #1a237e; color: white"
-          >ค้นหา</v-btn
+          @click="handleSearch()"
         >
+          ค้นหา
+        </v-btn>
         <ExportMenu :exportPdf="exportPdf" />
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col v-if="isSearch">
         <div class="px-10 rounded-lg pb-2">
+          <div
+            class="pb-4 text-h6 d-flex flex-column align-center"
+            style="color: #1a237e"
+          >
+            <div>
+              <v-icon class="mr-2">mdi-chart-box-multiple-outline</v-icon>
+              รายงานภาพรวมจำนวนการรายงานผล
+            </div>
+            <div>ไตรมาสที่ : {{ formSearch.quarter || '' }}</div>
+            <div>
+              ระหว่างวันที่ {{ splitDate(formSearch.startDate) || '' }} ถึง
+              {{ splitDate(formSearch.endDate) || '' }}
+            </div>
+          </div>
           <v-data-table
             :headers="headers"
             :items="items"
@@ -63,9 +80,9 @@
               <span>{{ index + 1 }}</span>
             </template>
             <template v-slot:[`item.sum`]="{ item }">
-              <span>{{
-                item.meetting + item.estimate + item.result + item.other
-              }}</span>
+              <span>
+                {{ item.meetting + item.estimate + item.result + item.other }}
+              </span>
             </template>
           </v-data-table>
         </div>
@@ -76,14 +93,47 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { splitDate } from '@/components/helpers/utils'
 import { generatePDF } from '@/prints/register/Overview_report'
 import ExportMenu from '@/components/widget/ExportMenu.vue'
+import Swal from 'sweetalert2'
 
 const formSearch = reactive({
   quarter: null,
   startDate: null,
   endDate: null,
 })
+
+const isSearch = ref(false)
+
+const handleSearch = () => {
+  const missingFields = []
+
+  if (!formSearch.quarter) missingFields.push('ไตรมาส')
+  if (!formSearch.startDate) missingFields.push('วันที่เริ่มต้น')
+  if (!formSearch.endDate) missingFields.push('วันที่สิ้นสุด')
+
+  if (missingFields.length > 0) {
+    Swal.fire({
+      title: 'คำเตือน!',
+      text: `กรุณาเลือก ${missingFields.join(', ')}`,
+      icon: 'warning',
+    })
+    isSearch.value = false
+    return
+  }
+  if (new Date(formSearch.endDate) < new Date(formSearch.startDate)) {
+    Swal.fire({
+      title: 'คำเตือน!',
+      text: 'วันที่สิ้นสุดต้องไม่ก่อนวันที่เริ่มต้น',
+      icon: 'error',
+    })
+    isSearch.value = false
+    return
+  }
+  isSearch.value = true
+}
+
 
 const headers = [
   {

@@ -70,10 +70,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import AppealRequest from '@/components/menuAppeal/formAppeal/AppealRequest.vue'
 import FormUpload from '@/components/menuAppeal/formAppeal/FormUpload.vue'
 import DirextoryUpload from '@/components/menuAppeal/formAppeal/DirextoryUpload.vue'
 import ReceivingAgency from '@/components/menuAppeal/formAppeal/ReceivingAgency.vue'
+
+const route = useRoute()
 const step = ref(0)
+
+onMounted(() => {
+  if (route.query.step) {
+    step.value = parseInt(route.query.step)
+  }
+})
 </script>
