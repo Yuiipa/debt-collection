@@ -7,21 +7,18 @@
       <span> จัดการข้อมูลผู้ใช้งาน</span>
     </v-card-title>
     <div>
-      <v-row class="px-16">
-        <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
+      <v-row class="px-13 pr-10">
+        <v-col cols="12" sm="8" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
-            append-inner-icon="mdi-magnify"
-            class="full-width-input"
           ></v-text-field>
         </v-col>
-        <v-col cols="6" sm="1" class="align-center justify-start d-flex">
+        <v-col cols="6" sm="4" class="align-center justify-start d-flex">
           <v-btn
-            left
-            class="px-6"
+            prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
             >ค้นหา</v-btn
           >
@@ -33,7 +30,7 @@
             <v-data-table
               :headers="headers"
               :items="items"
-              class="elevation-1 rounded-table"
+              class="elevation-1"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -146,12 +143,6 @@ function deleteItem(item) {
 </script>
   
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

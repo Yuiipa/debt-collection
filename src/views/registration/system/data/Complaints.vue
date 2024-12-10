@@ -7,7 +7,7 @@
       <span>จัดการข้อร้องเรียน</span>
     </v-card-title>
     <div>
-      <v-row class="pl-10 pr-12">
+      <v-row class="px-10">
         <v-col md="6" cols="12">
           <div class="mb-2 font-weight-bold">ประเภทความผิด</div>
           <v-select
@@ -37,8 +37,7 @@
             <v-data-table
               :headers="headers"
               :items="filteredItems"
-              class="elevation-1 rounded-table"
-              :items-per-page="10"
+              class="elevation-1"
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -163,12 +162,6 @@ const filteredItems = computed(() => {
 </script>
     
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

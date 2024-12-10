@@ -8,7 +8,7 @@
       </span>
     </v-card-title>
     <div>
-      <v-row class="px-16">
+      <v-row class="px-13 pr-10">
         <v-col cols="12" sm="9" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
@@ -43,7 +43,7 @@
             <v-data-table
               :headers="headers"
               :items="items"
-              class="elevation-1 rounded-table"
+              class="elevation-1"
               
             >
               <!-- ลำดับที่ -->
@@ -155,12 +155,6 @@ const getColor = (number) => {
 </script>
 
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

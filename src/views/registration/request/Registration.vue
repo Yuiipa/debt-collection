@@ -6,66 +6,66 @@
     >
       <span>คำขอจดทะเบียนการประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
-      <v-row class="d-flex justify-center">
-        <v-col cols="12" md="4" class="d-flex justify-center mb-4">
-          <v-card
-            class="d-flex flex-column align-center pa-4"
-            width="80%"
-            height="25vh"
-            variant="outlined"
-            elevation="2"
-            id="person"
-            @click="navigate()"
-          >
-            <v-icon size="100" class="my-2">mdi-account</v-icon>
-            <span class="text-h4 text-center mt-2">บุคคลธรรมดา</span>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="4" class="d-flex justify-center mb-4">
-          <v-card
-            class="d-flex flex-column align-center pa-4"
-            width="80%"
-            height="25vh"
-            variant="outlined"
-            elevation="2"
-            id="legal"
-            @click="navigate()"
-          >
-            <v-icon size="100" class="my-2">mdi-office-building</v-icon>
-            <span class="text-h4 text-center mt-2">นิติบุคคล</span>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row class="d-flex justify-center">
-        <v-col cols="12" md="4" class="d-flex justify-center mb-4">
-          <v-card
-            class="d-flex flex-column align-center pa-4"
-            width="80%"
-            height="25vh"
-            variant="outlined"
-            elevation="2"
-            id="lawyer"
-            @click="navigate()"
-          >
-            <v-icon size="100" class="my-2">mdi-gavel</v-icon>
-            <span class="text-h4 text-center mt-2">ทนายความ</span>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="4" class="d-flex justify-center mb-4">
-          <v-card
-            class="d-flex flex-column align-center pa-4"
-            width="80%"
-            height="25vh"
-            variant="outlined"
-            elevation="2"
-            id="lawfirm"
-            @click="navigate()"
-          >
-            <v-icon size="100" class="my-2">mdi-briefcase</v-icon>
-            <span class="text-h4 text-center mt-2">สำนักงานทนายความ</span>
-          </v-card>
-        </v-col>
-      </v-row>
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" md="4" class="d-flex justify-center mb-4">
+        <v-card
+          class="d-flex flex-column align-center pa-4"
+          width="80%"
+          height="25vh"
+          variant="outlined"
+          elevation="2"
+          id="person"
+          @click="navigate()"
+        >
+          <v-icon size="100" class="my-2">mdi-account</v-icon>
+          <span class="text-h4 text-center mt-2">บุคคลธรรมดา</span>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4" class="d-flex justify-center mb-4">
+        <v-card
+          class="d-flex flex-column align-center pa-4"
+          width="80%"
+          height="25vh"
+          variant="outlined"
+          elevation="2"
+          id="legal"
+          @click="navigate()"
+        >
+          <v-icon size="100" class="my-2">mdi-office-building</v-icon>
+          <span class="text-h4 text-center mt-2">นิติบุคคล</span>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" md="4" class="d-flex justify-center mb-4">
+        <v-card
+          class="d-flex flex-column align-center pa-4"
+          width="80%"
+          height="25vh"
+          variant="outlined"
+          elevation="2"
+          id="lawyer"
+          @click="navigate()"
+        >
+          <v-icon size="100" class="my-2">mdi-gavel</v-icon>
+          <span class="text-h4 text-center mt-2">ทนายความ</span>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="4" class="d-flex justify-center mb-4">
+        <v-card
+          class="d-flex flex-column align-center pa-4"
+          width="80%"
+          height="25vh"
+          variant="outlined"
+          elevation="2"
+          id="lawfirm"
+          @click="navigate()"
+        >
+          <v-icon size="100" class="my-2">mdi-briefcase</v-icon>
+          <span class="text-h4 text-center mt-2">สำนักงานทนายความ</span>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
