@@ -1,6 +1,6 @@
 <template>
   <v-form ref="form">
-    <v-card :class="$vuetify.display.mdAndUp?'ma-8 mx-16 custom-card':'ma-8 custom-card'">
+    <v-card :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลผู้ยื่นเรื่องร้องเรียน
@@ -192,7 +192,7 @@
       </v-row>
     </v-card>
 
-    <v-card  :class="$vuetify.display.mdAndUp?'ma-8 mx-16 custom-card':'ma-8 custom-card'">
+    <v-card  :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลเกี่ยวข้องผู้ร้องเรียน
@@ -310,7 +310,7 @@
       </v-row>
     </v-card>
 
-    <v-card :class="$vuetify.display.mdAndUp?'ma-8 mx-16 custom-card':'ma-8 custom-card'">
+    <v-card :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           เอกสารหลักฐานเกี่ยวกับเรื่องร้องเรียนดังกล่าว
