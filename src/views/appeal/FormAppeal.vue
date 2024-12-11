@@ -62,7 +62,7 @@
           <v-btn size="x-large" color="#1a237e" @click="step++" v-if="step < 3"
             >ถัดไป</v-btn
           >
-          <v-btn size="x-large" color="success" v-if="step >= 3">save</v-btn>
+          <v-btn size="x-large" color="#39ab4e" v-if="step >= 3">บันทึก</v-btn>
         </div>
       </v-stepper>
     </div>

@@ -78,6 +78,7 @@ const searchregister = [
     licid: '11590001',
     datetime: '10/01/2567',
     name: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
+    complainname: 'นายadf adf',
     type: 'บริษัทจำกัด',
     locate: 'จังหวัดสมุทรปราการ',
     status: true,

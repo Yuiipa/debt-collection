@@ -1,13 +1,10 @@
 <template>
   <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <v-card-title
-      class="d-flex justify-center ma-2 text-h4 font-weight-bold"
+      class="d-flex flex-column align-center justify-center ma-2 text-h4 font-weight-bold"
       style="color: #1a237e"
     >
-      <span
-        >ข้อมูลการถูกร้องเรียนของ บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์
-        จำกัด</span
-      >
+      <span> ข้อมูลการถูกร้องเรียนของ {{ name }} </span>
     </v-card-title>
     <v-row class="ma-1 my-2">
       <v-col md="4" cols="12">
@@ -75,7 +72,7 @@ const route = useRoute()
 const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
   { align: 'center', key: 'licid', title: 'เลขที่เรื่องร้องเรียน' },
-  { key: 'name', title: 'ชื่อผู้ร้อง' },
+  { key: 'complainname', title: 'ชื่อผู้ร้อง' },
   { align: 'center', key: 'crimeScene', title: 'สถานที่เกิดเหตุ' },
   { align: 'center', key: 'complaintPlace', title: 'สถานที่ร้องเรียน' },
   { align: 'center', key: 'datetime', title: 'วันที่ร้องเรียน' },
@@ -84,16 +81,18 @@ const headers = ref([
 
 const headers2 = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },
-  { align: 'center', key: 'id', title: 'เลขที่เรื่องร้องเรียน' },
+  { align: 'center', key: 'licid', title: 'เลขที่เรื่องร้องเรียน' },
   { align: 'center', key: 'identity', sortable: false, title: 'สถานะ' },
 ])
 
 const search_details = ref([])
+const name = ref('')
 
 onMounted(() => {
   if (route.query.item) {
     const item = JSON.parse(route.query.item)
     search_details.value.push(item)
+    name.value = search_details.value[0].name
   }
 })
 

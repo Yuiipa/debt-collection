@@ -24,57 +24,58 @@
       </v-btn>
     </v-row>
     <v-expand-transition class="mt-6">
-    <v-row class="ma-1 my-2 d-flex justify-end" v-if="filter">
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="เลขที่เรื่องร้องเรียน"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">สถานะ</div>
-        <v-text-field
-          variant="outlined"
-          placeholder="สถานะ"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-        <DatePicker
-          variant="outlined"
-          placeholder="ตั้งแต่วันที่"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-        <DatePicker
-          variant="outlined"
-          placeholder="ถึงวันที่"
-          persistent-placeholder
-          hide-details
-          density="compact"
-        />
-      </v-col>
-      <v-col class="d-flex justify-end" cols="2">
-        <v-btn
-          style="height: 47px; background-color: #1a237e; color: white"
-          prepend-icon="mdi-magnify"
-        >
-          <div class="text-h6">ค้นหา</div>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-expand-transition>
+      <v-row class="ma-1 my-2 d-flex justify-end" v-if="filter">
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">เลขที่เรื่องร้องเรียน</div>
+          <v-text-field
+            variant="outlined"
+            placeholder="เลขที่เรื่องร้องเรียน"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">สถานะ</div>
+          <v-select
+            :items="status"
+            variant="outlined"
+            placeholder="สถานะ"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+          <DatePicker
+            variant="outlined"
+            placeholder="ตั้งแต่วันที่"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+          <DatePicker
+            variant="outlined"
+            placeholder="ถึงวันที่"
+            persistent-placeholder
+            hide-details
+            density="compact"
+          />
+        </v-col>
+        <v-col class="d-flex justify-end" cols="2">
+          <v-btn
+            style="height: 47px; background-color: #1a237e; color: white"
+            prepend-icon="mdi-magnify"
+          >
+            <div class="text-h6">ค้นหา</div>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-expand-transition>
     <v-card class="ma-4 rounded-lg">
       <v-data-table
         :headers="$vuetify.display.mdAndUp ? headers : headers2"
@@ -93,7 +94,9 @@
             style="font-size: 14px; color: orange"
             class="rounded-pill"
             id="missdoc"
-            @click="$router.push({ name: 'debt-form-appeal', query: { step: 1 } })"
+            @click="
+              $router.push({ name: 'debt-form-appeal', query: { step: 1 } })
+            "
           >
             ขาดเอกสารสำคัญ
           </v-btn>
@@ -114,7 +117,7 @@
             style="font-size: 14px"
             @click="openDetails(item)"
           >
-          <div class="text-decoration-underline">เรียกดู</div>
+            <div class="text-decoration-underline">เรียกดู</div>
           </v-btn>
         </template>
       </v-data-table>
@@ -150,6 +153,18 @@ const dialog = ref(false)
 const selectItem = ref({})
 const search = ref('')
 const filter = ref(false)
+
+const status = ref([
+  'ทั้งหมด',
+  'มีความผิด',
+  'ยุติเรื่อง',
+  'รับเรื่อง',
+  'ส่งต่อ',
+  'ไม่รับเรื่อง',
+  'ไม่ชอบ',
+  'จำหน่าย',
+  'ดำเนินการ',
+])
 
 const headers = ref([
   { align: 'center', key: 'num', sortable: false, title: 'ลำดับที่' },

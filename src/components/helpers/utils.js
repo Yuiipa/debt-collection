@@ -41,4 +41,4 @@ function splitDate(date) {
     : ''
 }
 
-export { ThaiNumbers, splitDate }
+export { ThaiNumbers, splitDate, months }

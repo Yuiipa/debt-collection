@@ -10,7 +10,8 @@
       <v-row class="ma-2" v-if="addReport">
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
-          <v-text-field
+          <v-select
+            :items="[1, 2, 3, 4]"
             variant="outlined"
             placeholder="ไตรมาสที่"
             persistent-placeholder
@@ -20,7 +21,8 @@
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">เดือน</div>
-          <v-text-field
+          <v-select
+            :items="months"
             variant="outlined"
             placeholder="เดือน"
             persistent-placeholder
@@ -30,7 +32,8 @@
         </v-col>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ถึงเดือน</div>
-          <v-text-field
+          <v-select
+            :items="months"
             variant="outlined"
             placeholder="ถึงเดือน"
             persistent-placeholder
@@ -59,14 +62,8 @@
           />
         </v-col>
         <v-col cols="12">
-          <div class="mb-2 font-weight-bold">อัปโหลด</div>
-          <v-text-field
-            variant="outlined"
-            placeholder="อัปโหลด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
+          <div class="font-weight-bold">อัปโหลด</div>
+          <UploadFile />
         </v-col>
       </v-row>
     </v-expand-transition>
@@ -134,6 +131,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { months } from '@/components/helpers/utils.js'
+import UploadFile from '@/components/UploadFile'
 
 const addReport = ref(false)
 
