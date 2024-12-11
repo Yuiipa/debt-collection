@@ -42,7 +42,7 @@
             append-icon="mdi-chevron-right"
             variant="plain"
             style="font-size: 14px"
-            @click="openDetails(item)"
+            @click="$router.push({ name: 'debt-search-appeal-register-details', query: { item: JSON.stringify(item) } })"
           >
           <div class="text-decoration-underline">เรียกดู</div>
           </v-btn>
@@ -76,10 +76,14 @@ const headers2 = ref([
 const searchregister = [
   {
     licid: '11590001',
+    datetime: '10/01/2567',
     name: 'บริษัท พรอพเพอตี้ ออนเนสตี้ แมนเนจเมนท์ จำกัด',
     type: 'บริษัทจำกัด',
     locate: 'จังหวัดสมุทรปราการ',
     status: true,
+    crimeScene: 'เขารูปช้าง',
+    complaintPlace: 'กรุงเทพมหานคร',
+    identity: '0'
   },
 ]
 

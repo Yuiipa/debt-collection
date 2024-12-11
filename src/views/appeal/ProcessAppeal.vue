@@ -93,7 +93,7 @@
             style="font-size: 14px; color: orange"
             class="rounded-pill"
             id="missdoc"
-            @click="$router.push({ name: 'debt-form-appeal', query: { step: 2 } })"
+            @click="$router.push({ name: 'debt-form-appeal', query: { step: 1 } })"
           >
             ขาดเอกสารสำคัญ
           </v-btn>
