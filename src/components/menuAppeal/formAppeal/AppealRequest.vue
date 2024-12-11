@@ -1,6 +1,10 @@
 <template>
   <v-form ref="form">
-    <v-card :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
+    <v-card
+      :class="
+        $vuetify.display.mdAndUp ? 'ma-8 custom-card' : 'ma-8 custom-card'
+      "
+    >
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลผู้ยื่นเรื่องร้องเรียน
@@ -34,7 +38,7 @@
             คำนำหน้าชื่อ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
+          <v-autocomplete
             variant="outlined"
             placeholder="คำนำหน้าชื่อ"
             persistent-placeholder
@@ -94,6 +98,7 @@
             persistent-placeholder
             hide-details
             density="compact"
+            v-mask="'#-####-#####-##-#'"
           />
         </v-col>
         <v-col md="3" cols="12">
@@ -142,7 +147,10 @@
             จังหวัด
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
+          <v-autocomplete
+            :items="provinces"
+            item-title="description"
+            item-value="value"
             variant="outlined"
             placeholder="จังหวัด"
             persistent-placeholder
@@ -155,7 +163,7 @@
             อำเภอ/เขต
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
+          <v-autocomplete
             variant="outlined"
             placeholder="อำเภอ/เขต"
             persistent-placeholder
@@ -168,7 +176,7 @@
             ตำบล/แขวง
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
+          <v-autocomplete
             variant="outlined"
             placeholder="ตำบล/แขวง"
             persistent-placeholder
@@ -192,7 +200,11 @@
       </v-row>
     </v-card>
 
-    <v-card  :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
+    <v-card
+      :class="
+        $vuetify.display.mdAndUp ? 'ma-8 custom-card' : 'ma-8 custom-card'
+      "
+    >
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           ข้อมูลเกี่ยวข้องผู้ร้องเรียน
@@ -218,6 +230,35 @@
             hide-details
             density="compact"
           />
+        </v-col>
+        <v-col md="6" cols="12">
+          <div class="mb-2 font-weight-bold">
+            คู่กรณี
+          </div>
+          <div class="d-flex">
+            <v-radio-group
+            v-model="radio"
+            hide-details
+            row
+          >
+            <v-radio value="1"
+              ><template v-slot:label>
+                <span>ผู้ประกอบธุรกิจทวงถามหนี้</span>
+              </template></v-radio
+            >
+          </v-radio-group>
+          <v-radio-group
+          v-model="radio"
+          hide-details
+          row
+        >
+          <v-radio value="2"
+            ><template v-slot:label>
+              <span>ผู้ทวงถามหนี้ประเภทอื่น</span>
+            </template></v-radio
+          >
+        </v-radio-group>
+          </div>
         </v-col>
       </v-row>
       <v-row class="ma-1 mx-4">
@@ -254,7 +295,7 @@
       <v-row class="ma-1 mx-4">
         <v-col cols="12">
           <div class="mb-2 font-weight-bold">
-            เกิดเหตุที่
+            เหตุเกิดที่
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
           <v-textarea
@@ -310,7 +351,11 @@
       </v-row>
     </v-card>
 
-    <v-card :class="$vuetify.display.mdAndUp?'ma-8 custom-card':'ma-8 custom-card'">
+    <v-card
+      :class="
+        $vuetify.display.mdAndUp ? 'ma-8 custom-card' : 'ma-8 custom-card'
+      "
+    >
       <div class="py-4">
         <span class="font-weight-bold text-h5 mx-8" style="color: #1a237e">
           เอกสารหลักฐานเกี่ยวกับเรื่องร้องเรียนดังกล่าว
@@ -326,7 +371,7 @@
       <v-row class="ma-1 mx-4">
         <v-col cols="12">
           <div class="mb-2 font-weight-bold">สำเนาบัตรประจำตัวประชาชน</div>
-           <UploadFile />
+          <UploadFile />
         </v-col>
       </v-row>
       <v-row class="ma-1 mx-4">
@@ -362,7 +407,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { getListsCC } from '@/static/province'
 import UploadFile from '@/components/UploadFile'
+
+const provinces = ref(getListsCC())
+const radio = ref(null)
 </script>
 
 <style scoped>
