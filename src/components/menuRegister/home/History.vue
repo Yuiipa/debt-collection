@@ -1,28 +1,17 @@
 <template>
-  <div class="pt-12 px-10">
-    <v-row>
-      <v-col>
-        <div
-          class="pt-6 px-6 rounded-lg elevation-3"
-          style="background-color: white"
-        >
-          <v-row class="d-flex align-center justify-space-between pb-2">
-            <!-- Span ที่มีข้อความ -->
-            <span color="#1A237E" class="text-h5 text-blue-darken-4">
-              ประวัติการถูกร้องเรียนของสถานประกอบธุรกิจ
-            </span>
-          </v-row>
-          <v-row>
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="rounded-table"
-            >
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <template v-slot:[`item.status`]="{ item }">
+  <v-row class="px-13 pt-10">
+    <v-col>
+      <v-row class="d-flex align-center justify-space-between pb-2">
+        <!-- Span ที่มีข้อความ -->
+        <span color="#1A237E" class="text-h5 text-blue-darken-4">
+          ประวัติการถูกร้องเรียนของสถานประกอบธุรกิจ
+        </span>
+      </v-row>
+      <v-row>
+        <div class="rounded-lg elevation-1 w-100">
+          <v-data-table :headers="headers" :items="items">
+            <template v-slot:[`item.status`]="{ item }">
+              <div class="d-flex align-center justify-center">
                 <v-switch
                   v-model="item.status"
                   color="primary"
@@ -32,19 +21,29 @@
                   :false-value="false"
                   :true-value="true"
                 ></v-switch>
-              </template>
-            </v-data-table>
-          </v-row>
+              </div>
+            </template>
+          </v-data-table>
         </div>
-      </v-col>
-    </v-row>
-  </div>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 <script setup>
 import { ref } from 'vue'
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'เลขที่ร้องเรียน',
     key: 'registerNumber',
@@ -89,11 +88,6 @@ const items = ref([
   color: white;
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {

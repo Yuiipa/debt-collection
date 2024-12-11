@@ -26,12 +26,6 @@
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -40,7 +34,7 @@
                   style="background-color: #e3f2fd; color: #1565c0"
                   @click="openEditDialog(item)"
                 >
-                  <v-icon left size="18">mdi-pencil-outline</v-icon>
+                  <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
                 <v-btn
                   variant="text"
@@ -48,7 +42,7 @@
                   style="background-color: #e3f2fd; color: #1565c0"
                   @click="deleteItem(item)"
                 >
-                  <v-icon left size="18">mdi-delete-outline</v-icon>
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
             </v-data-table>
@@ -88,6 +82,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่',
@@ -121,7 +119,7 @@ const headers = [
     key: 'process',
     align: 'center',
     sortable: false,
-    width: '100px',
+    width: '140px',
   },
 ]
 
@@ -150,7 +148,10 @@ const items = ref([
 const filteredItems = computed(() =>
   items.value.filter((item) =>
     ['date', 'register', 'name'].some((key) =>
-      item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+      item[key]
+        ?.toString()
+        .toLowerCase()
+        .includes(searchQuery.value.toLowerCase())
     )
   )
 )

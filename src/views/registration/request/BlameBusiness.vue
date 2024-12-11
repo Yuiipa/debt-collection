@@ -4,7 +4,7 @@
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
-      <span> {{ title_route }}</span>
+      <span> ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
     <div>
       <v-row class="px-10 pl-13">
@@ -43,7 +43,7 @@
                   variant="plain"
                   append-icon="mdi-chevron-right"
                   small
-                  @click="openEditDialog(item)"
+                  @click="navigate(item)"
                 >
                   <div class="text-decoration-underline">เลือก</div>
                 </v-btn>
@@ -54,29 +54,14 @@
       </v-row>
     </div>
   </v-card>
-  <component
-    :is="editDialogComponent"
-    v-model:showDialog="showEditDialog"
-    :item="selectedItem"
-  ></component>
 </template>
+  
+  <script setup>
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-<script setup>
-import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-
-const showEditDialog = ref(false)
-const selectedItem = ref(null)
-const title_route = ref('')
-const searchQuery = ref('')
-const editDialogComponent = ref(null) // สำหรับ dynamic component
-
-const openEditDialog = (item = null) => {
-  selectedItem.value = item // กำหนด item ที่เลือก
-  showEditDialog.value = true
-}
+const router = useRouter()
+const searchQuery = ref('') // เก็บข้อความค้นหา
 
 const headers = [
   {
@@ -140,6 +125,7 @@ const items = ref([
   },
 ])
 
+// กรองข้อมูลตามข้อความค้นหา
 const filteredItems = computed(() =>
   items.value.filter((item) =>
     ['refLicId', 'name', 'type', 'location'].some((key) =>
@@ -151,46 +137,12 @@ const filteredItems = computed(() =>
   )
 )
 
-onMounted(() => {
-  const currentPath = route.path
-
-  if (currentPath === '/debt/ChangeBusiness') {
-    title_route.value =
-      'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/ChangeForm.vue')
-    )
-  } else if (currentPath === '/debt/Substitute') {
-    title_route.value =
-      'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/Substitute.vue')
-    )
-  } else if (currentPath === '/debt/ChangeRoster') {
-    title_route.value = 'บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/ChangeRoster.vue')
-    )
-  } else if (currentPath === '/debt/Quit_Business') {
-    title_route.value = 'คำขอเลิกประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/QuitBusiness.vue')
-    )
-  } else if (currentPath === '/debt/Renew_request') {
-    title_route.value = 'ขอต่ออายุประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/QuitBusiness.vue')
-    )
-  } else if (currentPath === '/debt/Blame_Business') {
-    title_route.value = 'ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
-      import('@/components/menuRegister/requestForm/BlameBusiness.vue')
-    )
-  }
-})
+function navigate(item) {
+  router.push({ name: 'debt-BlameBusiness-form' })
+}
 </script>
-
-<style scoped>
+  
+  <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
@@ -208,3 +160,4 @@ onMounted(() => {
   background-color: #f1f1f1e5;
 }
 </style>
+  

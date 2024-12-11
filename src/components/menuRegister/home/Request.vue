@@ -1,52 +1,47 @@
 <template>
-  <div class="px-10">
-    <v-row>
-      <v-col>
-        <div
-          class="pt-6 px-6 rounded-lg elevation-3"
-          style="background-color: white"
-        >
-          <v-row class="d-flex align-center justify-space-between pb-2">
-            <!-- Span ที่มีข้อความ -->
-            <span color="#1A237E" class="text-h5 text-blue-darken-4">
-              รายการคำขอ
-            </span>
-          </v-row>
-
-          
-          <v-row>
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="rounded-table "
-              
-            >
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-              <template v-slot:[`item.status`]="{ item }">
-                <v-switch
-                  v-model="item.status"
-                  color="primary"
-                  inset
-                  dense
-                  hide-details
-                  :false-value="false"
-                  :true-value="true"
-                ></v-switch>
-              </template>
-            </v-data-table>
-          </v-row>
+  <v-row class="px-13">
+    <v-col>
+      <v-row class="d-flex align-center justify-space-between pb-2">
+        <span color="#1A237E" class="text-h5 text-blue-darken-4">
+          รายการคำขอ
+        </span>
+      </v-row>
+      <v-row>
+        <div class="rounded-lg elevation-1 w-100">
+          <v-data-table :headers="headers" :items="items">
+            <template v-slot:[`item.status`]="{ item }">
+              <v-switch
+                v-model="item.status"
+                color="primary"
+                inset
+                dense
+                hide-details
+                :false-value="false"
+                :true-value="true"
+              ></v-switch>
+            </template>
+          </v-data-table>
         </div>
-      </v-col>
-    </v-row>
-  </div>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
+    width: '100px',
+  },
   {
     title: 'วันที่',
     key: 'date',
@@ -89,7 +84,6 @@ const items = ref([
     type: 'จังหวัดแม่ฮ่องสอน',
     document: true,
   },
-  
 ])
 </script>
 
@@ -99,11 +93,6 @@ const items = ref([
   color: white;
   cursor: pointer;
   font-weight: bold;
-}
-
-.rounded-table {
-  border-radius: 12px !important;
-  overflow: hidden;
 }
 
 .v-table :deep(table > thead) {

@@ -187,7 +187,7 @@
 
 
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 import UploadFile from '@/components/UploadFile.vue';
 import Swal from 'sweetalert2';
 

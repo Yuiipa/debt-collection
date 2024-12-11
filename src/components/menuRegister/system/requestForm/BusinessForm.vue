@@ -391,7 +391,7 @@
 </template>
                 
     <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch } from 'vue'
 
 // รับ props ด้วย defineProps
 const props = defineProps({

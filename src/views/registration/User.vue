@@ -43,9 +43,6 @@
               :items="filteredItems"
               class="elevation-1"
             >
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.status`]="{ item }">
                 <v-switch
                   v-model="item.status"
@@ -85,7 +82,6 @@
   <edit-dialog
     v-model:showDialog="showEditDialog"
     :item="selectedItem"
-    @saved="handleSave"
   ></edit-dialog>
 </template>
 
@@ -102,10 +98,6 @@ const openEditDialog = (item = null) => {
   showEditDialog.value = true;
 };
 
-const handleSave = () => {
-  console.log('save');
-};
-
 const headers = [
   {
     title: 'ลำดับที่',
@@ -113,6 +105,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'เลขประจำตัวประชาชน',

@@ -135,6 +135,11 @@
       <script setup>
 import { ref, reactive } from 'vue'
 
+const showFilter = ref(false)
+
+const toggleFilter = () => {
+  showFilter.value = !showFilter.value
+}
 const formSearch = reactive({
   agency: null,
   quarter: null,

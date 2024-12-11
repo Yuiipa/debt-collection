@@ -17,6 +17,18 @@
             v-model="searchQuery"
           ></v-text-field>
         </v-col>
+        <v-col
+          cols="12"
+          md="2"
+          class="align-center justify-md-start justify-end d-flex"
+        >
+          <v-btn
+            prepend-icon="mdi-magnify"
+            style="background-color: #1a237e; color: white"
+          >
+            ค้นหา
+          </v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>
@@ -26,16 +38,12 @@
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.select`]="{ item }">
                 <v-btn
                   variant="plain"
                   append-icon="mdi-chevron-right"
                   small
-                  @click="navigate(item)"
+                  @click="openEditDialog(item)"
                 >
                   <div class="text-decoration-underline">เลือก</div>
                 </v-btn>
@@ -54,13 +62,22 @@
       </v-row>
     </div>
   </v-card>
+  <edit-dialog
+    v-model:showDialog="showEditDialog"
+    :item="selectedItem"
+  ></edit-dialog>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import EditDialog from '@/components/menuRegister/requestForm/QuitBusiness.vue';
 
-const router = useRouter();
+const selectedItem = ref(null);
+const showEditDialog = ref(false);
+const openEditDialog = (item = null) => {
+  selectedItem.value = item; // กำหนด item ที่เลือก
+  showEditDialog.value = true;
+};
 
 const headers = [
   {
@@ -69,6 +86,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'เลขที่ทะเบียน',
@@ -143,10 +164,6 @@ const filteredItems = computed(() =>
     )
   )
 );
-
-function navigate(item) {
-  router.push({ name: 'debt-CancelQuit-form' });
-}
 </script>
 
 <style scoped>

@@ -180,28 +180,6 @@ export default {
 
       const base64File = await this.convertImageToBase64(file)
       this.files[this.clickIndex].base64 = base64File
-
-      const body = {
-        insType: this.instype,
-        fileId: this.clickIndex + 7,
-        imgDesc: ' ',
-        imgType: file.type,
-        imageBase64: base64File,
-      }
-
-      // try {
-      //   await api.postimage(
-      //     this.transformedRoute,
-      //     this.transformedsubRoute,
-      //     store.state.userProfile.rcode,
-      //     this.license.insDocId,
-      //     body
-      //   )
-      //   Swal.fire('อัพโหลดรูปสำเร็จ', '', 'success')
-      // } catch (error) {
-      //   Swal.fire('อัพโหลดรูปไม่สำเร็จ', 'เกิดข้อผิดพลาดในการอัพโหลด', 'error')
-      //   this.files[this.clickIndex].file = this.files[this.clickIndex].previousFile
-      // }
     },
     beforeFileChange(index) {
       // เก็บไฟล์เดิมก่อนที่จะถูกแทนที่
@@ -274,36 +252,6 @@ export default {
       const blob = new Blob([ab], { type: mimeString })
       return URL.createObjectURL(blob)
     },
-  },
-  async beforeMount() {
-    const siteReg = this.transformedRoute
-    const siteSubreg = this.transformedsubRoute
-    const insRcode = store.state.userProfile.rcode
-    const insDocId = this.license.insDocId
-
-    for (let i = 0; i < this.maxfile; i++) {
-      const fileId = i + 7 // fileId starts from 7 and increments
-      try {
-        const getResponse = await api.getimage(
-          siteReg,
-          siteSubreg,
-          insRcode,
-          insDocId,
-          fileId
-        )
-        const response = getResponse.data
-
-        if (response && response.length > 0) {
-          this.files[i].file = response[0]
-          this.files[i].base64 = response[0].imageBase64
-          this.files[i].blob = this.convertBase64ToImage(
-            response[0].imageBase64
-          )
-        }
-      } catch (error) {
-        console.log(`ไม่พบรายการไฟล์ที่ ${fileId}`)
-      }
-    }
   },
 }
 </script>

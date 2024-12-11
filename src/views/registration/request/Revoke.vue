@@ -18,7 +18,7 @@
         </v-col>
         <v-col cols="12" md="3">
           <v-select
-          :items="['เรื่องเพิกถอนเข้า','เรื่องเพิกถอนออก']"
+            :items="['เรื่องเพิกถอนเข้า', 'เรื่องเพิกถอนออก']"
             label="รายละเอียดเรื่อง"
             variant="outlined"
             density="compact"
@@ -48,10 +48,6 @@
         <v-col>
           <div class="px-10 rounded-lg pb-2">
             <v-data-table :headers="headers" :items="items" class="elevation-1">
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -97,6 +93,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่แจ้งเพิกถอน',

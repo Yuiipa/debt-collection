@@ -34,10 +34,6 @@
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.status`]="{ item }">
                 <div
                   class="rounded-pill text-center py-1 px-2"
@@ -79,7 +75,6 @@
   <edit-dialog
     v-model:showDialog="showEditDialog"
     :item="items"
-    @saved="handleSave"
   ></edit-dialog>
 </template>
   
@@ -94,10 +89,6 @@ const openEditDialog = () => {
   showEditDialog.value = true
 }
 
-const handleSave = () => {
-  console.log('save')
-}
-
 const headers = [
   {
     title: 'ลำดับที่',
@@ -105,6 +96,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่',

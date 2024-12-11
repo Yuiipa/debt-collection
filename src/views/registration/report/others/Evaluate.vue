@@ -30,69 +30,69 @@
       </v-col>
     </v-row>
     <v-expand-transition>
-      <v-row v-if="showFilter" class="mx-8 my-0">
-        <v-col md="12" cols="12">
-          <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
-          <v-text-field
-            v-model="formSearch.agency"
-            class="v-col-md-3 pa-0 pr-5"
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
-          <v-text-field
-            v-model="formSearch.quarter"
-            variant="outlined"
-            placeholder="ไตรมาสที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
-          <DatePicker
-            v-model="formSearch.startDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงเดือน</div>
-          <DatePicker
-            v-model="formSearch.endDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ปี</div>
-          <v-text-field
-            v-model="formSearch.years"
-            variant="outlined"
-            placeholder="ทั้งหมด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="12" cols="12" class="d-flex justify-end align-end mb-1">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
-          >
-        </v-col>
-      </v-row>
-    </v-expand-transition>
+        <v-row v-if="showFilter" class="mx-8 my-0">
+          <v-col md="12" cols="12">
+            <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
+            <v-text-field
+              v-model="formSearch.agency"
+              class="v-col-md-3 pa-0 pr-5"
+              variant="outlined"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
+            <v-text-field
+              v-model="formSearch.quarter"
+              variant="outlined"
+              placeholder="ไตรมาสที่"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
+            <DatePicker
+              v-model="formSearch.startDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ถึงเดือน</div>
+            <DatePicker
+              v-model="formSearch.endDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ปี</div>
+            <v-text-field
+              v-model="formSearch.years"
+              variant="outlined"
+              placeholder="ทั้งหมด"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="12" cols="12" class="d-flex justify-end align-end mb-1">
+            <v-btn
+              prepend-icon="mdi-magnify"
+              style="background-color: #1a237e; color: white"
+              >ค้นหา</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-expand-transition>
 
     <v-row>
       <v-col>
@@ -138,6 +138,11 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
+const showFilter = ref(false)
+
+const toggleFilter = () => {
+  showFilter.value = !showFilter.value
+}
 const formSearch = reactive({
   agency: null,
   quarter: null,

@@ -1,39 +1,9 @@
 
 const routeRequestForm = [
     {
-      path: '/debt/ChangeBusiness/form',
-      name: 'debt-ChangeBusiness-form',
-      component: () => import('@/components/menuRegister/requestForm/ChangeForm.vue'),
-    },
-    {
-      path: '/debt/Substitute/form',
-      name: 'debt-Substitute-form',
-      component: () => import('@/components/menuRegister/requestForm/Substitute.vue'),
-    },
-    {
-      path: '/debt/ChangeRoster/form',
-      name: 'debt-ChangeRoster-form',
-      component: () => import('@/components/menuRegister/requestForm/ChangeRoster.vue'),
-    },
-    {
-      path: '/debt/Quit_Business/form',
-      name: 'debt-QuitBusiness-form',
-      component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
-    },
-    {
-      path: '/debt/Renew_request/form',
-      name: 'debt-Renewrequest-form',
-      component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
-    },
-    {
       path: '/debt/Blame_Business/form',
       name: 'debt-BlameBusiness-form',
       component: () => import('@/components/menuRegister/requestForm/BlameBusiness.vue'),
-    },
-    {
-      path: '/debt/Cancel_Quit/form',
-      name: 'debt-CancelQuit-form',
-      component: () => import('@/components/menuRegister/requestForm/QuitBusiness.vue'),
     },
     {
       path: '/debt/Registration/check_person',
@@ -86,7 +56,7 @@ const routeRequestForm = [
     {
       path: '/debt/Blame_Business',
       name: 'debt-Blame_Business-registration',
-      component: () => import('@/views/registration/request/RequestDebt.vue'),
+      component: () => import('@/views/registration/request/BlameBusiness.vue'),
     },
     {
       path: '/debt/Cancel_Quit',

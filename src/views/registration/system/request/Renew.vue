@@ -26,10 +26,6 @@
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -86,6 +82,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่',
@@ -126,7 +126,7 @@ const headers = [
     key: 'process',
     align: 'center',
     sortable: false,
-    width: '100px',
+    width: '140px',
   },
 ]
 
@@ -157,8 +157,12 @@ const items = ref([
 // กรองข้อมูลตามข้อความค้นหา
 const filteredItems = computed(() => {
   return items.value.filter((item) =>
-    ['date', 'register', 'name', 'location']
-      .some((key) => item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase()))
+    ['date', 'register', 'name', 'location'].some((key) =>
+      item[key]
+        ?.toString()
+        .toLowerCase()
+        .includes(searchQuery.value.toLowerCase())
+    )
   )
 })
 

@@ -8,7 +8,7 @@
   </div>
   <v-form ref="form">
     <div
-      class="mx-10 my-4 pa-6 elevation-3 rounded-lg"
+      class="mx-10 my-2 pa-6 elevation-3 rounded-lg"
       style="background-color: white"
     >
       <v-row>
@@ -19,22 +19,29 @@
         </v-col>
       </v-row>
       <v-divider
-        class="opacity-100 mt-6 mb-10"
+        class="opacity-100 mt-4 mb-10"
         :thickness="2"
-        color="grey"
+        color="black"
       ></v-divider>
       <v-row>
         <div
-          class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-end text-end"
+          class="v-col-12 v-col-sm-4 py-0 d-flex align-center justify-start justify-sm-end text-end"
         >
           บัตรประจำตัวประชาชน
         </div>
         <v-text-field
-          class="v-col-12 v-col-sm-6 pr-0"
+          class="v-col-12 v-col-sm-7 v-col-md-5 pr-0"
+          placeholder="บัตรประจำตัวประชาชน"
           variant="outlined"
           density="compact"
           hide-details="auto"
-        ></v-text-field>
+          v-mask="'#-####-#####-##-#'"
+          ><template #append>
+            <v-btn @click="handleButtonClick" v-tooltip.bottom="'ดึงข้อมูลจากเครื่องอ่านบัตร'">
+              <v-icon size="26">mdi-card-account-details-outline</v-icon>
+            </v-btn>
+          </template></v-text-field
+        >
       </v-row>
       <v-row class="mt-6 d-flex justify-end">
         <v-btn

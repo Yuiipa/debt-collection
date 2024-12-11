@@ -40,10 +40,7 @@
         <v-col>
           <div class="px-10 rounded-lg pb-2">
             <v-data-table :headers="headers" :items="items" class="elevation-1">
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-              <template v-slot:[`item.note`]="{ }">
+              <template v-slot:[`item.note`]="{}">
                 <v-btn
                   variant="outlined"
                   color="blue-lighten-2"
@@ -60,11 +57,17 @@
       </v-row>
     </div>
   </v-card>
+  <edit-dialog
+    v-model:showDialog="showEditDialog"
+    :item="selectedItem"
+  ></edit-dialog>
 </template>
       
 <script setup>
 import { ref } from 'vue'
+import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
+const showEditDialog = ref(false)
 const headers = [
   {
     title: 'ลำดับที่',
@@ -72,6 +75,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.value.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่',
