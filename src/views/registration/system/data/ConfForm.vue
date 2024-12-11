@@ -4,26 +4,28 @@
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
-      <span>จัดการไฟล์แบบฟอร์ม </span>
+      <span>จัดการไฟล์แบบฟอร์ม</span>
     </v-card-title>
     <div>
       <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
           <v-text-field
+            v-model="searchQuery"
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
           ></v-text-field>
         </v-col>
-        <v-col cols="6" md="2" class="align-center justify-start d-flex">
+        <v-col cols="6" sm="2" class="align-center justify-start d-flex">
           <v-btn
             prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
           >
+            ค้นหา
+          </v-btn>
         </v-col>
-        <v-col cols="6" md="6" class="align-center justify-end d-flex">
+        <v-col cols="6" sm="6" class="align-center justify-end d-flex">
           <v-btn
             color="green"
             prepend-icon="mdi-plus-circle-outline"
@@ -36,7 +38,11 @@
       <v-row>
         <v-col>
           <div class="px-10 rounded-lg pb-2">
-            <v-data-table :headers="headers" :items="items" class="elevation-1">
+            <v-data-table
+              :headers="headers"
+              :items="filteredItems"
+              class="elevation-1"
+            >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
                 <span>{{ index + 1 }}</span>
@@ -86,21 +92,21 @@
     :typeForm="typeEdit"
   ></edit-dialog>
 </template>
-    
-    <script setup>
-import { ref } from 'vue'
+
+<script setup>
+import { ref, computed } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/ConfForm.vue'
 
 const showEditDialog = ref(false)
-
 const typeEdit = ref(1)
+const searchQuery = ref('') // ตัวแปรสำหรับข้อความค้นหา
 
 const openEditDialog = (type) => {
   typeEdit.value = type
   showEditDialog.value = true
 }
 const handleSave = () => {
-  console.log(save)
+  console.log('save')
 }
 
 const headers = [
@@ -153,13 +159,26 @@ const items = ref([
     document: 'รายงานการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
     file_size: '2960.35 kb',
   },
+  {
+    date: '07/01/2565',
+    document: 'แบบฟอร์มคำร้อง',
+    file_size: '1200.25 kb',
+  },
 ])
+
+const filteredItems = computed(() => {
+  return items.value.filter((item) =>
+    Object.values(item).some((value) =>
+      String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+})
 
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
 </script>
-    
+
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;

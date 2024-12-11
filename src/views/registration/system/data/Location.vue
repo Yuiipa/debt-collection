@@ -10,6 +10,7 @@
       <v-row class="px-13 pr-10">
         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
+            v-model="searchProvince"
             label="ค้นหา"
             variant="outlined"
             density="compact"
@@ -38,7 +39,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersProvince"
-              :items="items"
+              :items="filteredProvinces"
               class="elevation-1"
             >
               <template v-slot:[`item.index`]="{ index }">
@@ -72,12 +73,11 @@
       <v-row class="px-13 pr-10">
         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
+            v-model="searchDistrict"
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
-            
-            
           ></v-text-field>
         </v-col>
         <v-col cols="6" md="2" class="align-center justify-start d-flex">
@@ -102,7 +102,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersDistrict"
-              :items="items"
+              :items="filteredDistricts"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -139,12 +139,11 @@
       <v-row class="px-13 pr-10">
         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
+            v-model="searchSubdistrict"
             label="ค้นหา"
             variant="outlined"
             density="compact"
             hide-details
-            
-            
           ></v-text-field>
         </v-col>
         <v-col cols="6" md="2" class="align-center justify-start d-flex">
@@ -169,7 +168,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headersSubdistrict"
-              :items="items"
+              :items="filteredSubdistricts"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -212,9 +211,12 @@
 </template>
     
     <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/LocationForm.vue'
 
+const searchProvince = ref('')
+const searchDistrict = ref('')
+const searchSubdistrict = ref('')
 const showEditDialog = ref(false)
 const typeEdit = ref(1)
 
@@ -225,7 +227,29 @@ const openEditDialog = (type) => {
 const handleSave = () => {
   console.log(save)
 }
+const filteredProvinces = computed(() =>
+  items.value.filter((item) =>
+    Object.values(item).some((val) =>
+      String(val).toLowerCase().includes(searchProvince.value.toLowerCase())
+    )
+  )
+)
 
+const filteredDistricts = computed(() =>
+  items.value.filter((item) =>
+    Object.values(item).some((val) =>
+      String(val).toLowerCase().includes(searchDistrict.value.toLowerCase())
+    )
+  )
+)
+
+const filteredSubdistricts = computed(() =>
+  items.value.filter((item) =>
+    Object.values(item).some((val) =>
+      String(val).toLowerCase().includes(searchSubdistrict.value.toLowerCase())
+    )
+  )
+)
 const headersProvince = [
   { title: 'รหัสจังหวัด', key: 'code', align: 'center', sortable: true },
   {
@@ -301,22 +325,22 @@ const headersSubdistrict = [
 const items = ref([
   {
     code: 300,
-    thaiName: 8466851084319,
+    thaiName: 'กรุงเทพมหานคร',
     engName: 8466851084319,
   },
   {
     code: 300,
-    thaiName: 8466851084319,
+    thaiName: 'ปทุมธานี',
     engName: 8466851084319,
   },
   {
     code: 300,
-    thaiName: 8466851084319,
+    thaiName: 'นนทบุรี',
     engName: 8466851084319,
   },
   {
     code: 300,
-    thaiName: 8466851084319,
+    thaiName: 'นครปฐม',
     engName: 8466851084319,
   },
 ])

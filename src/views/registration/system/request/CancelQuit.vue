@@ -14,14 +14,8 @@
             variant="outlined"
             density="compact"
             hide-details
+            v-model="searchQuery"
           ></v-text-field>
-        </v-col>
-        <v-col cols="6" md="8" class="align-center justify-start d-flex">
-          <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
-          >
         </v-col>
       </v-row>
       <v-row>
@@ -29,7 +23,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
-              :items="items"
+              :items="filteredItems"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -44,7 +38,7 @@
                   size="small"
                   class="mr-1"
                   style="background-color: #e3f2fd; color: #1565c0"
-                  @click="openEditDialog()"
+                  @click="openEditDialog(item)"
                 >
                   <v-icon left size="18">mdi-pencil-outline</v-icon>
                 </v-btn>
@@ -65,22 +59,26 @@
   </v-card>
   <edit-dialog
     v-model:showDialog="showEditDialog"
-    :item="items"
+    :item="selectedItem"
     @saved="handleSave"
   ></edit-dialog>
 </template>
-  
-  <script setup>
-import { ref } from 'vue'
+
+<script setup>
+import { ref, computed } from 'vue'
 import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
 const showEditDialog = ref(false)
+const selectedItem = ref(null)
+const searchQuery = ref('') // ตัวแปรสำหรับข้อความค้นหา
 
-const openEditDialog = () => {
+const openEditDialog = (item) => {
+  selectedItem.value = item
   showEditDialog.value = true
 }
+
 const handleSave = () => {
-  console.log(save)
+  console.log('save')
 }
 
 const headers = [
@@ -128,20 +126,40 @@ const headers = [
 ]
 
 const items = ref([
-  // {
-  //   date: '10/2/2546',
-  //   register: 'ปท136000',
-  //   name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
-  //   location: 'จังหวัดปทุมธานี',
-  //   status: 1,
-  // },
+  {
+    date: '10/2/2546',
+    register: 'ปท136000',
+    name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด',
+    status: 1,
+  },
+  {
+    date: '11/3/2547',
+    register: 'กร145200',
+    name: 'บริษัท เอ็นเตอร์ไพรส์ จำกัด',
+    status: 0,
+  },
+  {
+    date: '12/4/2548',
+    register: 'ชล113000',
+    name: 'บริษัท ชลบุรีการค้า จำกัด',
+    status: 1,
+  },
 ])
 
-function deleteItem(item) {
+// ฟังก์ชันสำหรับกรองข้อมูล
+const filteredItems = computed(() =>
+  items.value.filter((item) =>
+    ['date', 'register', 'name'].some((key) =>
+      item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+)
+
+const deleteItem = (item) => {
   console.log('ลบ:', item)
 }
 </script>
-  
+
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
@@ -160,4 +178,3 @@ function deleteItem(item) {
   background-color: #f1f1f1e5;
 }
 </style>
-  

@@ -4,13 +4,13 @@
       class="d-flex justify-center ma-2 text-h5 text-md-h4 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
-      <span> จัดการข้อมูลสถานะ
-      </span>
+      <span>จัดการข้อมูลสถานะ</span>
     </v-card-title>
     <div>
       <v-row class="px-13 pr-10">
         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
+            v-model="searchQuery"
             label="ค้นหา"
             variant="outlined"
             density="compact"
@@ -21,8 +21,9 @@
           <v-btn
             prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
           >
+            ค้นหา
+          </v-btn>
         </v-col>
         <v-col cols="6" md="6" class="align-center justify-end d-flex">
           <v-btn
@@ -39,9 +40,8 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
-              :items="items"
+              :items="filteredItems"
               class="elevation-1"
-              
             >
               <!-- ลำดับที่ -->
               <template v-slot:[`item.index`]="{ index }">
@@ -62,15 +62,21 @@
 
               <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn  variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
                   class="mr-1"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="openEditDialog(2)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="openEditDialog(2)"
+                >
                   <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
-                <v-btn variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="deleteItem(item)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
+                >
                   <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
@@ -87,30 +93,36 @@
     :typeForm="typeEdit"
   ></edit-dialog>
 </template>
-    
+
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/StatusForm.vue'
 
 const showEditDialog = ref(false)
 const typeEdit = ref(1)
+const searchQuery = ref('') // เก็บข้อความค้นหา
 
 const openEditDialog = (type) => {
   typeEdit.value = type
   showEditDialog.value = true
 }
 const handleSave = () => {
-  console.log(save)
+  console.log('save')
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true,width: '100px', },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+  },
   {
     title: 'สถานะ',
     key: 'status',
     align: 'start',
     sortable: true,
-    
   },
   {
     title: 'ตัวอย่าง',
@@ -119,7 +131,12 @@ const headers = [
     sortable: true,
     width: '190px',
   },
-  { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
+  {
+    title: 'ดำเนินการ',
+    key: 'process',
+    align: 'center',
+    sortable: false,
+  },
 ]
 
 const items = ref([
@@ -132,20 +149,27 @@ const items = ref([
   { status: 'ไม่รับเรื่อง', form: 2 },
 ])
 
+// กรองข้อมูลเฉพาะสถานะ
+const filteredItems = computed(() => {
+  return items.value.filter((item) =>
+    item.status.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
+
 function deleteItem(item) {
   console.log('ลบ:', item)
 }
 
 const getColor = (number) => {
   const colors = [
-    '#007bff', 
-    '#6c757d', 
-    '#28a745', 
-    '#dc3545', 
-    '#ffc107', 
-    '#17a2b8', 
-    '#f8f9fa', 
-    '#343a40', 
+    '#007bff',
+    '#6c757d',
+    '#28a745',
+    '#dc3545',
+    '#ffc107',
+    '#17a2b8',
+    '#f8f9fa',
+    '#343a40',
   ]
   return colors[number - 1] || '#007bff'
 }
@@ -154,7 +178,7 @@ const getColor = (number) => {
 <style scoped>
 .v-table :deep(th) {
   background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
+  color: white;
   cursor: pointer;
   font-weight: bold;
 }
@@ -169,4 +193,3 @@ const getColor = (number) => {
   background-color: #f1f1f1e5;
 }
 </style>
-    

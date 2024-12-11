@@ -14,14 +14,16 @@
             variant="outlined"
             density="compact"
             hide-details
+            v-model="searchQuery"
           ></v-text-field>
         </v-col>
         <v-col cols="6" md="2" class="align-center justify-start d-flex">
           <v-btn
             prepend-icon="mdi-magnify"
             style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
           >
+            ค้นหา
+          </v-btn>
         </v-col>
       </v-row>
       <v-row>
@@ -29,7 +31,7 @@
           <div class="px-10 rounded-lg pb-2">
             <v-data-table
               :headers="headers"
-              :items="items"
+              :items="filteredItems"
               class="elevation-1"
             >
               <!-- ลำดับที่ -->
@@ -80,17 +82,19 @@
   ></edit-dialog>
 </template>
     
-    <script setup>
-import { ref } from 'vue'
+<script setup>
+import { ref, computed } from 'vue'
 import EditDialog from '@/components/menuRegister/system/reportForm/AppealForm.vue'
 
 const showEditDialog = ref(false)
+const searchQuery = ref('') // เก็บข้อความค้นหา
 
 const openEditDialog = () => {
   showEditDialog.value = true
 }
+
 const handleSave = () => {
-  console.log(save)
+  console.log('save')
 }
 
 const headers = [
@@ -139,22 +143,31 @@ const items = ref([
   {
     date: '10/01/2567',
     no: '10001/2567',
-    name: '	นายadf adf',
+    name: 'นายสมหมาย บุญยง',
     status: 1,
   },
   {
-    date: '10/01/2567',
-    no: '10001/2567',
-    name: 'นายadf adf',
-    status: 1,
+    date: '11/01/2567',
+    no: '10002/2567',
+    name: 'นายสมคิด เพชรพันธ์',
+    status: 0,
   },
   {
-    date: '10/01/2567',
-    no: '10001/2567',
-    name: 'นายadf adf',
+    date: '12/01/2567',
+    no: '10003/2567',
+    name: 'นางสาวสมทรง เพชรพันธ์',
     status: 1,
   },
 ])
+
+// ฟังก์ชันสำหรับกรองข้อมูล
+const filteredItems = computed(() =>
+  items.value.filter((item) =>
+    ['date', 'no', 'name'].some((key) =>
+      item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+  )
+)
 
 function deleteItem(item) {
   console.log('ลบ:', item)
