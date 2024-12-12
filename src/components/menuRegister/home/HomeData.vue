@@ -5,21 +5,18 @@
       style="background-color: white"
     >
       <v-row>
-        <v-col cols="10">
+        <v-col cols="12" md="10" >
           <div class="font-weight-bold text-h6 text-blue-darken-1">
             ข้อมูลแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้ สำนักงาน จันทร์จิรา
             ฟองแก้ว ทนายความ
           </div>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn color="secondary" @click="exportPdf()">
-            พิมพ์
-            <v-icon class="pl-2" right>mdi-printer</v-icon>
-          </v-btn>
+          <ExportMenu :exportPdf="exportPdf" />
         </v-col>
       </v-row>
       <v-divider
-        class="opacity-100 mt-6 mb-10"
+        class="opacity-100 mt-4 mb-6"
         :thickness="2"
         color="grey"
       ></v-divider>
@@ -330,6 +327,7 @@
 import History from './History.vue'
 import Request from './Request.vue'
 import { generatePDF as generateCollectPDF } from '@/prints/register/DataBusiness'
+import ExportMenu from '@/components/widget/ExportMenu.vue'
 
 async function exportPdf() {
   await generateCollectPDF()

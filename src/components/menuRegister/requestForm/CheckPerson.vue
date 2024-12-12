@@ -37,7 +37,7 @@
           hide-details="auto"
           v-mask="'#-####-#####-##-#'"
           ><template #append>
-            <v-btn @click="handleButtonClick" v-tooltip.bottom="'ดึงข้อมูลจากเครื่องอ่านบัตร'">
+            <v-btn v-tooltip.bottom="'ดึงข้อมูลจากเครื่องอ่านบัตร'">
               <v-icon size="26">mdi-card-account-details-outline</v-icon>
             </v-btn>
           </template></v-text-field

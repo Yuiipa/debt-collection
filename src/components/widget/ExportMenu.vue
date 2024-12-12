@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-model="isMenuOpen" offset-y>
+  <v-menu v-model="isMenuOpen" offset-y >
     <template v-slot:activator="{ props }">
       <v-btn
         v-bind="props"
@@ -10,7 +10,7 @@
             ? 'color: white; background-color: #1a237e'
             : 'background-color: white; color: #1a237e'
         "
-        class="rounded-lg"
+        class="rounded-lg px-2 px-md-5"
         size="large"
         id="export"
       >

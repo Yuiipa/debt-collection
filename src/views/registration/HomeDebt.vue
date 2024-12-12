@@ -8,7 +8,7 @@
     </v-card-title>
     <div class="px-7">
       <v-row class="d-flex align-center justify-space-between">
-        <div>
+        <div class="hidden-sm-and-down">
           <v-btn
             variant="outlined"
             append-icon="mdi-book-open"
@@ -40,8 +40,8 @@
         </div>
 
         <v-col
-          md="4"
           cols="12"
+          md="4"
           class="d-flex justify-end px-0 align-center mb-1"
           style="gap: 10px"
         >
@@ -63,7 +63,6 @@
           </v-btn>
         </v-col>
       </v-row>
-
       <v-expand-transition class="mt-6">
         <div v-if="showFilter">
           <v-row>
@@ -167,7 +166,7 @@
 </template>
 
 <script setup>
-import { ref ,reactive} from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
 import { generateExcel } from '@/prints/register/excel/Home_Debt.js'
@@ -295,6 +294,7 @@ const items = reactive([
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {
