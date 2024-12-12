@@ -79,6 +79,7 @@
         persistent-placeholder
         hide-details
         density="compact"
+        v-mask="'#-####-#####-##-#'"
       />
     </v-col>
     <v-col md="4" cols="12">

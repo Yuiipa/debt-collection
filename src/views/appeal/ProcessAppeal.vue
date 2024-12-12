@@ -124,7 +124,7 @@
     </v-card>
   </v-card>
 
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" width="80%">
     <v-card class="pa-0">
       <ProcessAppealDetails v-model="selectItem" />
       <v-divider class="mt-4" :thickness="5" color="#1a237e" />

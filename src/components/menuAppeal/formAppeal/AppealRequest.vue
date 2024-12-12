@@ -267,7 +267,7 @@
             ชื่อธุรกิจ
             <div style="color: red" class="d-inline-flex">*</div>
           </div>
-          <v-text-field
+          <v-autocomplete
             variant="outlined"
             placeholder="ชื่อธุรกิจ"
             persistent-placeholder
