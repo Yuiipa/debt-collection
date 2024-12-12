@@ -6,8 +6,8 @@
     >
       <span> คำสั่งเพิกถอนการจดทะเบียนการประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
-    <div>
-      <v-row class="mx-8">
+    <div class="mx-4">
+      <v-row >
         <v-col cols="12" md="3">
           <v-text-field
             label="ค้นหา"
@@ -46,7 +46,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table :headers="headers" :items="items" class="elevation-1">
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/requestForm/Revoke.vue'
 
 const showEditDialog = ref(false)
@@ -94,7 +94,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -130,7 +130,7 @@ const headers = [
   { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
 ]
 
-const items = ref([])
+const items = reactive([])
 
 function deleteItem(item) {
   console.log('ลบ:', item)

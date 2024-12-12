@@ -1,5 +1,5 @@
 <template>
-  <v-row class="px-13 pt-10">
+  <v-row class="mx-10">
     <v-col>
       <v-row class="d-flex align-center justify-space-between pb-2">
         <!-- Span ที่มีข้อความ -->

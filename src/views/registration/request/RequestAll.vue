@@ -6,8 +6,8 @@
     >
       <span> คำขอทำรายการทั้งหมด </span>
     </v-card-title>
-    <div>
-      <v-row class="mx-8">
+    <div class="mx-4">
+      <v-row >
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">เลขที่คำขอ</div>
           <v-text-field
@@ -25,7 +25,7 @@
             hide-details
             density="compact"
             :items="menuItems"
-            v-model="selectedItem"
+            v-model="selectedMenu"
           ></v-autocomplete>
         </v-col>
         <v-col md="3" cols="12" class="d-flex align-end mb-1">
@@ -38,7 +38,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table :headers="headers" :items="items" class="elevation-1">
               <template v-slot:[`item.note`]="{}">
                 <v-btn
@@ -59,12 +59,12 @@
   </v-card>
   <edit-dialog
     v-model:showDialog="showEditDialog"
-    :item="selectedItem"
+    :item="items"
   ></edit-dialog>
 </template>
       
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
 const showEditDialog = ref(false)
@@ -76,7 +76,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -106,7 +106,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: 8466851084319,
     affiliation: 'นาย',
@@ -128,7 +128,7 @@ const menuItems = [
   'เพิกถอนการจดทะเบียนธุรกิจทวงถามหนี้',
 ]
 
-const selectedItem = ref('ทั้งหมด')
+const selectedMenu = ref('ทั้งหมด')
 </script>
       
 <style scoped>

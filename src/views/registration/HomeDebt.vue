@@ -6,7 +6,7 @@
     >
       <span> ข้อมูลการร้องเรียนตามพระราชบัญญัติการทวงถามหนี้ พ.ศ.๒๕๕๘</span>
     </v-card-title>
-    <div class="px-12 pt-2">
+    <div class="px-7">
       <v-row class="d-flex align-center justify-space-between">
         <div>
           <v-btn
@@ -136,7 +136,7 @@
         </div>
       </v-expand-transition>
 
-      <v-row class="rounded-lg mt-8 mb-6">
+      <v-row class="rounded-lg mt-6 mb-6">
         <v-data-table :headers="headers" :items="items" class="elevation-1">
           <template v-slot:[`item.data`]="{ item }">
             <v-btn
@@ -167,7 +167,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref ,reactive} from 'vue'
 import { useRouter } from 'vue-router'
 import { generatePDF as generateCollectPDF } from '@/prints/register/HomeData'
 import { generateExcel } from '@/prints/register/excel/Home_Debt.js'
@@ -184,11 +184,11 @@ const toggleFilter = () => {
   showFilter.value = !showFilter.value
 }
 const exportPdf = () => {
-  generateCollectPDF(items.value)
+  generateCollectPDF(items)
 }
 
 const exportExcel = () => {
-  generateExcel(items.value)
+  generateExcel(items)
 }
 
 const router = useRouter()
@@ -203,7 +203,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -232,7 +232,7 @@ const headers = [
   { title: 'ข้อมูล', key: 'data', align: 'center', sortable: false },
 ]
 
-const items = ref([
+const items = reactive([
   {
     registerNumber: '1/2559',
     businessName: 'สำนักงานคชเสนาทนายความและธุรกิจ',

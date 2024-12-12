@@ -319,12 +319,11 @@
       </v-row>
     </div>
   </v-form>
-  
+
   <Request />
+  <div class="pb-10"></div>
   <History />
-  <div class="pb-10">
-    
-  </div>
+  <div class="pb-10"></div>
 </template>
     
 <script setup>

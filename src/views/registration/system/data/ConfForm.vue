@@ -6,9 +6,9 @@
     >
       <span>จัดการไฟล์แบบฟอร์ม</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" sm="4" class="d-flex align-center">
           <v-text-field
             v-model="searchQuery"
             label="ค้นหา"
@@ -37,16 +37,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.dowload`]="{ item }">
                 <v-btn
                   variant="outlined"
@@ -94,7 +90,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed ,reactive} from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/ConfForm.vue'
 
 const showEditDialog = ref(false)
@@ -115,7 +111,11 @@ const headers = [
     key: 'index',
     align: 'center',
     sortable: true,
-    width: '120px',
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'วันที่',
@@ -153,7 +153,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: '06/01/2565',
     document: 'รายงานการจดทะเบียนการประกอบธุรกิจทวงถามหนี้',
@@ -167,7 +167,7 @@ const items = ref([
 ])
 
 const filteredItems = computed(() => {
-  return items.value.filter((item) =>
+  return items.filter((item) =>
     Object.values(item).some((value) =>
       String(value).toLowerCase().includes(searchQuery.value.toLowerCase())
     )

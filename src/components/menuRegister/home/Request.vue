@@ -1,5 +1,5 @@
 <template>
-  <v-row class="px-13">
+  <v-row class="mx-10">
     <v-col>
       <v-row class="d-flex align-center justify-space-between pb-2">
         <span color="#1A237E" class="text-h5 text-blue-darken-4">

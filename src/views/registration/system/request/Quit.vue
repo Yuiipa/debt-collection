@@ -6,8 +6,8 @@
     >
       <span>จัดการข้อมูลคำขอเลิกประกอบธุรกิจ</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
+    <div class="mx-4">
+      <v-row>
         <v-col cols="12" md="4" class="pa-0 d-flex align-center">
           <v-text-field
             label="ค้นหา"
@@ -28,7 +28,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-4 rounded-lg px-md-10 pb-2">
+          <div class="prounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
@@ -79,7 +79,7 @@
 </template>
   
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/requestForm/QuitForm.vue'
 
 const showEditDialog = ref(false)
@@ -97,7 +97,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -137,7 +137,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: '20/11/2567',
     register_no: '80590003',
@@ -160,7 +160,7 @@ const items = ref([
 
 // ฟังก์ชันสำหรับกรองข้อมูล
 const filteredItems = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     ['date', 'register_no', 'name'].some((key) =>
       item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
     )

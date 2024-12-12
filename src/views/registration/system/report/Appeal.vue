@@ -6,9 +6,9 @@
     >
       <span> จัดการข้อมูลผู้ใช้งาน</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -28,17 +28,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
               <template v-slot:[`item.status`]="{ item }">
                 <div
                   class="rounded-pill text-center py-1 px-2"
@@ -83,7 +78,7 @@
 </template>
     
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/reportForm/AppealForm.vue'
 
 const showEditDialog = ref(false)
@@ -104,6 +99,11 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+
   },
   {
     title: 'วันที่',
@@ -139,7 +139,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: '10/01/2567',
     no: '10001/2567',
@@ -162,7 +162,7 @@ const items = ref([
 
 // ฟังก์ชันสำหรับกรองข้อมูล
 const filteredItems = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     ['date', 'no', 'name'].some((key) =>
       item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
     )

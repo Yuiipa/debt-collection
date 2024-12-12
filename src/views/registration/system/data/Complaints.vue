@@ -6,8 +6,8 @@
     >
       <span>จัดการข้อร้องเรียน</span>
     </v-card-title>
-    <div>
-      <v-row class="px-10">
+    <div class="mx-4">
+      <v-row>
         <v-col md="4" cols="12">
           <div class="mb-2 font-weight-bold">ประเภทความผิด</div>
           <v-select
@@ -19,7 +19,11 @@
             v-model="selectedType"
           />
         </v-col>
-        <v-col cols="12" md="8" class="align-end justify-end d-flex flex-column">
+        <v-col
+          cols="12"
+          md="8"
+          class="align-end justify-end d-flex flex-column"
+        >
           <div class="mb-2"></div>
 
           <v-btn
@@ -33,29 +37,28 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
-                <v-btn  variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
                   class="mr-1"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="openEditDialog(2)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="openEditDialog(2)"
+                >
                   <v-icon left size="26">mdi-pencil-outline</v-icon>
                 </v-btn>
-                <v-btn  variant="text"
+                <v-btn
+                  variant="text"
                   size="small"
-                  style="background-color: #e3f2fd; color: #1565c0" @click="deleteItem(item)">
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
+                >
                   <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
               </template>
@@ -74,7 +77,7 @@
 </template>
     
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/ComplaintsForm.vue'
 
 const showEditDialog = ref(false)
@@ -90,7 +93,17 @@ const handleSave = () => {
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'ประเภทความผิด',
     key: 'type',
@@ -133,7 +146,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     type: 'โทษทางอาญา',
     offense_section: '๕ วรรคหนึ่ง',
@@ -155,9 +168,9 @@ const selectedType = ref('ทั้งหมด')
 
 const filteredItems = computed(() => {
   if (selectedType.value === 'ทั้งหมด') {
-    return items.value
+    return items
   }
-  return items.value.filter((item) => item.type === selectedType.value)
+  return items.filter((item) => item.type === selectedType.value)
 })
 </script>
     

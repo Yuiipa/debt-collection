@@ -8,8 +8,8 @@
         รายงานคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
       </span>
     </v-card-title>
-
-    <v-row class="mx-8 my-2">
+    <div class="mx-4 my-2">
+    <v-row >
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
         <DatePicker
@@ -56,40 +56,38 @@
     </v-row>
     <v-row>
       <v-col>
-        <div class="px-10 rounded-lg pb-2">
+        <div class="rounded-lg pb-2">
           <v-data-table
             :headers="headers"
             :items="items"
             class="elevation-1 rounded-table"
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
           </v-data-table>
         </div>
       </v-col>
     </v-row>
+    </div>
   </v-card>
-  <v-card class="pt-2 mx-14 my-12 px-2 elevation-3">
+  <v-card class="mx-8 my-6 pa-2 elevation-3 rounded-lg">
     <v-row>
       <v-col
         cols="12"
         class="d-flex justify-center"
         style="background-color: white; height: 400px"
       >
-        <BarChart :data="processedItems" /></v-col
+        <BarChart :data="processedItems"/></v-col
     ></v-row>
   </v-card>
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref , reactive , computed } from 'vue'
 import BarChart from '@/components/charts/barChart.vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountTypeBusiness'
 import { generatePDF } from '@/prints/register/CountTypeBusiness'
 import ExportMenu from '@/components/widget/ExportMenu.vue'
 
+const itemsProvince = ref(['ทั้งหมด', 'กรุงเทพ', 'นนทบุรี'])
 const formSearch = reactive({
   startDate: null,
   endDate: null,
@@ -115,6 +113,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'จังหวัด',
@@ -411,12 +413,6 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

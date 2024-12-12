@@ -5,5 +5,5 @@ import VueTheMask from 'vue-the-mask'
 
 
 export function registerPlugins(app) {
-  app.use(vuetify).use(router).use(DatePicker).use(VueTheMask)
+  app.use(vuetify).use(router).use(DatePicker)
 }

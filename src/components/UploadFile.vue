@@ -124,8 +124,6 @@ export default {
       type: [Array, Object],
       required: false,
     },
-    license: { type: Object, required: true },
-    selectSearchTypegunshop: { required: true, default: 1 },
     maxfile: { type: Number, default: 6 }, // เพิ่ม prop maxfile เพื่อควบคุมจำนวนไฟล์สูงสุด
   },
   data() {

@@ -6,9 +6,9 @@
     >
       <span> จัดการข้อมูลที่อยู่</span>
     </v-card-title>
-    <div class="mb-6">
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4 mb-6">
+      <v-row>
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             v-model="searchProvince"
             label="ค้นหา"
@@ -36,15 +36,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headersProvince"
               :items="filteredProvinces"
               class="elevation-1"
             >
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -69,9 +66,9 @@
         </v-col>
       </v-row>
     </div>
-    <div class="mb-6">
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4 mb-6">
+      <v-row>
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             v-model="searchDistrict"
             label="ค้นหา"
@@ -99,18 +96,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headersDistrict"
               :items="filteredDistricts"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -135,9 +126,9 @@
         </v-col>
       </v-row>
     </div>
-    <div class="mb-6">
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4 mb-6">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             v-model="searchSubdistrict"
             label="ค้นหา"
@@ -165,18 +156,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headersSubdistrict"
               :items="filteredSubdistricts"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -211,7 +196,7 @@
 </template>
     
     <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/LocationForm.vue'
 
 const searchProvince = ref('')
@@ -228,7 +213,7 @@ const handleSave = () => {
   console.log(save)
 }
 const filteredProvinces = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     Object.values(item).some((val) =>
       String(val).toLowerCase().includes(searchProvince.value.toLowerCase())
     )
@@ -236,7 +221,7 @@ const filteredProvinces = computed(() =>
 )
 
 const filteredDistricts = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     Object.values(item).some((val) =>
       String(val).toLowerCase().includes(searchDistrict.value.toLowerCase())
     )
@@ -244,14 +229,24 @@ const filteredDistricts = computed(() =>
 )
 
 const filteredSubdistricts = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     Object.values(item).some((val) =>
       String(val).toLowerCase().includes(searchSubdistrict.value.toLowerCase())
     )
   )
 )
 const headersProvince = [
-  { title: 'รหัสจังหวัด', key: 'code', align: 'center', sortable: true },
+  {
+    title: 'รหัสจังหวัด',
+    key: 'code',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'ชื่อจังหวัดภาษาไทย',
     key: 'thaiName',
@@ -275,7 +270,17 @@ const headersProvince = [
 ]
 
 const headersDistrict = [
-  { title: 'รหัสอำเภอ', key: 'code', align: 'center', sortable: true },
+  {
+    title: 'รหัสอำเภอ',
+    key: 'code',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'ชื่ออำเภอภาษาไทย',
     key: 'thaiName',
@@ -299,7 +304,17 @@ const headersDistrict = [
 ]
 
 const headersSubdistrict = [
-  { title: 'รหัสตำบล', key: 'code', align: 'center', sortable: true },
+  {
+    title: 'รหัสตำบล',
+    key: 'code',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'ชื่อตำบลภาษาไทย',
     key: 'thaiName',
@@ -322,7 +337,7 @@ const headersSubdistrict = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     code: 300,
     thaiName: 'กรุงเทพมหานคร',

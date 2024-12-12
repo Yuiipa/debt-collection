@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="my-4 mx-4 mx-md-12"
+    class="my-4 mx-4 mx-md-10"
     variant="flat"
     style="background-color: #fafafa"
   >
@@ -11,7 +11,6 @@
       <span>จัดการสิทธิ์การใช้งาน </span>
     </v-card-title>
     <v-table>
-      <!-- หัวตาราง -->
       <thead>
         <tr>
           <th id>โปรแกรม</th>
@@ -21,7 +20,6 @@
           <th id class="text-center">สภาทนายความ</th>
         </tr>
       </thead>
-      <!-- เนื้อหาในตาราง -->
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
           <td>{{ item.program }}</td>

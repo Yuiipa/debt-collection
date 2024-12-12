@@ -8,8 +8,8 @@
         รายงานคำขอดำเนินการเกี่ยวกับทะเบียนผู้ประกอบธุรกิจทวงถามหนี้
       </span>
     </v-card-title>
-
-    <v-row class="mx-8 my-2">
+    <div class="mx-4 my-2">
+    <v-row >
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
         <DatePicker
@@ -56,16 +56,12 @@
     </v-row>
     <v-row>
       <v-col>
-        <div class="px-10 rounded-lg pb-2">
+        <div class="rounded-lg pb-2">
           <v-data-table
             :headers="headers"
             :items="items"
-            class="elevation-1 rounded-table"
+            class="elevation-1"
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
             <template v-slot:[`item.total`]="{ item }">
               <span>{{ item.process + item.success }}</span>
             </template>
@@ -73,6 +69,7 @@
         </div>
       </v-col>
     </v-row>
+    </div>
   </v-card>
 </template>
 
@@ -87,6 +84,7 @@ const itemsAgency = ref([
   'จังหวัดนนทบุรี',
   'จังหวัดปทุมธานี',
 ])
+
 const formSearch = reactive({
   startDate: null,
   endDate: null,
@@ -99,6 +97,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'ประเภทคำขอ',

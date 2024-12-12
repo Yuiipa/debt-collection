@@ -6,7 +6,8 @@
     >
       <span> รายงานภาพรวมจำนวนการรายงานผล </span>
     </v-card-title>
-    <v-row class="mx-8 my-2">
+    <div class="mx-4">
+    <v-row >
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ไตรมาส</div>
         <v-select
@@ -55,7 +56,7 @@
     </v-row>
     <v-row>
       <v-col v-if="isSearch">
-        <div class="px-10 rounded-lg pb-2">
+        <div class="rounded-lg pb-2">
           <div
             class="pb-4 text-h6 d-flex flex-column align-center"
             style="color: #1a237e"
@@ -73,12 +74,8 @@
           <v-data-table
             :headers="headers"
             :items="items"
-            class="elevation-1 rounded-table"
+            class="elevation-1 "
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
             <template v-slot:[`item.sum`]="{ item }">
               <span>
                 {{ item.meetting + item.estimate + item.result + item.other }}
@@ -88,6 +85,7 @@
         </div>
       </v-col>
     </v-row>
+  </div>
   </v-card>
 </template>
 
@@ -142,6 +140,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สังกัด/หน่วยงาน',
@@ -396,12 +398,6 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

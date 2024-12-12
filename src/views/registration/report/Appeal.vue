@@ -8,8 +8,9 @@
         รายงานผลการดำเนินการพิจารณาเรื่องร้องเรียนตามพระราชบัญญัติการทวงถามหนี้
         พ.ศ. ๒๕๕๘ ในแต่ละจังหวัด
       </span>
-    </div>
-    <v-row class="mx-8 my-2">
+    </div >
+    <div class="mx-4 my-2">
+    <v-row >
       <v-col md="3" cols="12">
         <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
         <DatePicker
@@ -52,25 +53,22 @@
     </v-row>
     <v-row>
       <v-col>
-        <div class="px-10 rounded-lg pb-2">
+        <div class="rounded-lg pb-2">
           <v-data-table
             :headers="headers"
             :items="items"
-            class="elevation-1 rounded-table"
+            class="elevation-1"
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
           </v-data-table>
         </div>
       </v-col>
     </v-row>
+    </div>
   </v-card>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportAppeal'
 import { generatePDF } from '@/prints/register/Appeal'
 import ExportMenu from '@/components/widget/ExportMenu.vue'
@@ -81,6 +79,10 @@ const formSearch = reactive({
   agency: 'ทั้งหมด',
 })
 
+const itemsAgency = [
+  'ทั้งหมด','หน่วยงาน_1','หน่วยงาน_2'
+]
+
 const headers = [
   {
     title: 'ลำดับที่',
@@ -88,6 +90,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สังกัด/หน่วยงาน',
@@ -309,12 +315,6 @@ const exportPdf = () => {
 </script>
 
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

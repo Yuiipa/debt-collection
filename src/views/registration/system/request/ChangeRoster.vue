@@ -6,9 +6,9 @@
     >
       <span>จัดการข้อมูลบัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -28,7 +28,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
@@ -45,8 +45,6 @@
                   {{ item.status === 1 ? 'ใช้งาน' : 'ไม่ใช้งาน' }}
                 </div>
               </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -80,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/requestForm/ChangeRosterForm.vue'
 
 const showEditDialog = ref(false)
@@ -101,7 +99,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -140,7 +138,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: '20/11/2567',
     name: 'บริษัท ซีบี เซอร์วิส กรุ๊ป จำกัด โดย นายพุทธรักษ์ โสภา กรรมการผู้จัดการ',
@@ -163,7 +161,7 @@ const items = ref([
 
 // ฟังก์ชันสำหรับกรองข้อมูล
 const filteredItems = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     ['date', 'name', 'type'].some((key) =>
       item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
     )

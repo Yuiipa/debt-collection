@@ -6,9 +6,9 @@
     >
       <span> ยกเลิกการเพิกถอนการจดทะเบียนของผู้ประกอบธุรกิจทวงถามหนี้</span>
     </v-card-title>
-    <div>
-      <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -20,7 +20,7 @@
         <v-col
           cols="12"
           md="2"
-          class="align-center justify-md-start justify-end d-flex"
+          class="align-center justify-start d-flex"
         >
           <v-btn
             prepend-icon="mdi-magnify"
@@ -32,7 +32,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed,reactive } from 'vue';
 import EditDialog from '@/components/menuRegister/requestForm/QuitBusiness.vue';
 
 const selectedItem = ref(null);
@@ -87,7 +87,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -127,7 +127,7 @@ const headers = [
   },
 ];
 
-const items = ref([
+const items = reactive([
   {
     refLicId: 8466851084319,
     name: 'นาย',
@@ -158,7 +158,7 @@ const searchQuery = ref(''); // เก็บข้อความค้นหา
 
 // กรองเฉพาะบางฟิลด์
 const filteredItems = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     ['refLicId', 'name', 'type'].some((key) =>
       item[key]?.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
     )

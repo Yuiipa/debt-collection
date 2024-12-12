@@ -8,60 +8,55 @@
         รายงานสถิติข้อหาหรือฐานความผิดตามพระราชบัญญัติการทวงถามหนี้ พ.ศ. ๒๕๕๘
       </span>
     </div>
-    <v-row class="mx-8 my-2">
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
-        <DatePicker
-          v-model="formSearch.startDate"
-          variant="outlined"
-          hide-details
-          persistent-placeholder
-          density="compact"
-        />
-      </v-col>
-      <v-col md="3" cols="12">
-        <div class="mb-2 font-weight-bold">ถึงวันที่</div>
-        <DatePicker
-          v-model="formSearch.endDate"
-          variant="outlined"
-          hide-details
-          persistent-placeholder
-          density="compact"
-        />
-      </v-col>
-      <v-col
-        md="6"
-        cols="12"
-        class="d-flex align-end mb-1 justify-space-between"
-      >
-        <v-btn
-          prepend-icon="mdi-magnify"
-          style="background-color: #1a237e; color: white"
-          >ค้นหา</v-btn
+    <div class="mx-4 my-2">
+      <v-row>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
+          <DatePicker
+            v-model="formSearch.startDate"
+            variant="outlined"
+            hide-details
+            persistent-placeholder
+            density="compact"
+          />
+        </v-col>
+        <v-col md="3" cols="12">
+          <div class="mb-2 font-weight-bold">ถึงวันที่</div>
+          <DatePicker
+            v-model="formSearch.endDate"
+            variant="outlined"
+            hide-details
+            persistent-placeholder
+            density="compact"
+          />
+        </v-col>
+        <v-col
+          md="6"
+          cols="12"
+          class="d-flex align-end mb-1 justify-space-between"
         >
-        <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <div class="px-10 rounded-lg pb-2">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            class="elevation-1 rounded-table"
+          <v-btn
+            prepend-icon="mdi-magnify"
+            style="background-color: #1a237e; color: white"
+            >ค้นหา</v-btn
           >
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
-          </v-data-table>
-        </div>
-      </v-col>
-    </v-row>
+          <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div class="rounded-lg pb-2">
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
+            </v-data-table>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
   </v-card>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportAppeal_Statistic'
 import { generatePDF } from '@/prints/register/AppealStatistic'
 import ExportMenu from '@/components/widget/ExportMenu.vue'
@@ -70,6 +65,7 @@ const formSearch = reactive({
   startDate: null,
   endDate: null,
 })
+const itemsAgency = ['ทั้งหมด', 'หน่วยงาน_1', 'หน่วยงาน_2']
 const headers = [
   {
     title: 'ลำดับที่',
@@ -77,6 +73,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'ข้อหา',
@@ -92,7 +92,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     plaint:
       '๕ วรรคหนึ่ง ประกอบธุรกิจทวงถามหนี้ โดยไม่จดทะเบียนการประกอบธุรกิจทวงถามหนี้ต่อนายทะเบียน',

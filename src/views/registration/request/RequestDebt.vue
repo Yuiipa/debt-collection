@@ -6,9 +6,9 @@
     >
       <span> {{ title_route }}</span>
     </v-card-title>
-    <div>
-      <v-row class="px-10 pl-13">
-        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -20,7 +20,7 @@
         <v-col
           cols="12"
           md="2"
-          class="align-center justify-md-start justify-end d-flex"
+          class="align-center justify-start d-flex"
         >
           <v-btn
             prepend-icon="mdi-magnify"
@@ -32,7 +32,7 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
+import { ref, computed, onMounted, defineAsyncComponent,reactive ,markRaw} from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -86,7 +86,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -113,7 +113,7 @@ const headers = [
   { title: 'เลือก', key: 'select', align: 'center', sortable: true },
 ]
 
-const items = ref([
+const items = reactive([
   {
     refLicId: 8466851084319,
     name: 'นาย',
@@ -141,7 +141,7 @@ const items = ref([
 ])
 
 const filteredItems = computed(() =>
-  items.value.filter((item) =>
+  items.filter((item) =>
     ['refLicId', 'name', 'type', 'location'].some((key) =>
       item[key]
         ?.toString()
@@ -157,35 +157,35 @@ onMounted(() => {
   if (currentPath === '/debt/ChangeBusiness') {
     title_route.value =
       'คำขอเปลี่ยนแปลงรายการจดทะเบียนผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/ChangeForm.vue')
-    )
+    ))
   } else if (currentPath === '/debt/Substitute') {
     title_route.value =
       'คำขอรับใบแทนหนังสือสำคัญแสดงการจดทะเบียนการประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/Substitute.vue')
-    )
+    ))
   } else if (currentPath === '/debt/ChangeRoster') {
     title_route.value = 'บัญชีรายชื่อพนักงานของผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/ChangeRoster.vue')
-    )
+    ))
   } else if (currentPath === '/debt/Quit_Business') {
     title_route.value = 'คำขอเลิกประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/QuitBusiness.vue')
-    )
+    ))
   } else if (currentPath === '/debt/Renew_request') {
     title_route.value = 'ขอต่ออายุประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/QuitBusiness.vue')
-    )
+    ))
   } else if (currentPath === '/debt/Blame_Business') {
     title_route.value = 'ประวัติการกระทำความผิดของผู้ประกอบธุรกิจทวงถามหนี้'
-    editDialogComponent.value = defineAsyncComponent(() =>
+    editDialogComponent.value = markRaw(defineAsyncComponent(() =>
       import('@/components/menuRegister/requestForm/BlameBusiness.vue')
-    )
+    ))
   }
 })
 </script>

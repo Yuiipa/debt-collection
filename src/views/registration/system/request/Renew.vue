@@ -6,9 +6,9 @@
     >
       <span>จัดการข้อมูลคำขอต่ออายุ</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row>
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
             variant="outlined"
@@ -17,10 +17,18 @@
             v-model="searchQuery"
           ></v-text-field>
         </v-col>
+        <v-col cols="12" md="8" class="align-center justify-start d-flex">
+          <v-btn
+            prepend-icon="mdi-magnify"
+            style="background-color: #1a237e; color: white"
+          >
+            ค้นหา
+          </v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
@@ -59,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/user/Dialog.vue'
 
 const showEditDialog = ref(false)
@@ -83,7 +91,7 @@ const headers = [
     sortable: true,
     width: '100px',
     value: (item) => {
-      const index = items.value.indexOf(item)
+      const index = items.indexOf(item)
       return index + 1
     },
   },
@@ -130,7 +138,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     date: '10/2/2567',
     register: 'ปท136000',
@@ -156,7 +164,7 @@ const items = ref([
 
 // กรองข้อมูลตามข้อความค้นหา
 const filteredItems = computed(() => {
-  return items.value.filter((item) =>
+  return items.filter((item) =>
     ['date', 'register', 'name', 'location'].some((key) =>
       item[key]
         ?.toString()

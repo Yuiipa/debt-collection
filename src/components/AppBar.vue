@@ -99,7 +99,7 @@
     :scrim="!subDrawer && $vuetify.display.mobile"
     elevation="0"
     :rail="subDrawer"
-    :width="subDrawer ? 56 : 270"
+    :width="subDrawer ? 60 : 270"
     class="pt-2 position-fixed"
     v-if="!isHomeRoute && !isMenuPage"
   >
@@ -134,7 +134,7 @@
     app
     right
     :permanent="!$vuetify.display.mobile"
-    :width="270"
+    :width="$vuetify.display.mobile ? 300 : 270"
     :class="{ 'pl-12': $vuetify.display.mobile && drawer }"
     v-if="!isHomeRoute && !isMenuPage"
     class="pt-2 position-fixed"

@@ -6,11 +6,12 @@
     >
       <span> รายงานสรุปรายงานตามมาตรา ๒๘ </span>
     </v-card-title>
-    <div>
-      <v-row class="mx-8">
+    <div class="mx-4">
+      <v-row >
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ปี</div>
           <v-text-field
+            v-model="formSearch.years"
             variant="outlined"
             persistent-placeholder
             hide-details
@@ -20,6 +21,7 @@
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ไตรมาส</div>
           <v-text-field
+            v-model="formSearch.quarter"
             variant="outlined"
             persistent-placeholder
             hide-details
@@ -29,6 +31,7 @@
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">สังกัด/หน่วยงาน</div>
           <v-text-field
+            v-model="formSearch.agency"
             variant="outlined"
             persistent-placeholder
             hide-details
@@ -45,16 +48,8 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              class="elevation-1 rounded-table"
-            >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
+          <div class="rounded-lg pb-2">
+            <v-data-table :headers="headers" :items="items" class="elevation-1">
             </v-data-table>
           </div>
         </v-col>
@@ -64,7 +59,7 @@
 </template>
               
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 
 const formSearch = reactive({
   years: null,
@@ -79,6 +74,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สังกัด/หน่วยงาน',
@@ -112,7 +111,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   {
     agency: 'กรุงเทพมหานคร',
     process: 1756,
@@ -128,23 +127,9 @@ const items = ref([
     percentage: 88,
   },
 ])
-
-function editItem(item) {
-  console.log('แก้ไข:', item)
-}
-
-function deleteItem(item) {
-  console.log('ลบ:', item)
-}
 </script>
               
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */

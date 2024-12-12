@@ -6,9 +6,9 @@
     >
       <span>จัดการข้อมูลสถานะ</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" md="4" class="pa-0 d-flex align-center">
+    <div class="mx-4 mb-6">
+      <v-row >
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             v-model="searchQuery"
             label="ค้นหา"
@@ -37,16 +37,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
               <template v-slot:[`item.ex`]="{ item }">
                 <div
                   class="rounded-pill text-white text-center py-1 px-5"
@@ -95,7 +91,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/StatusForm.vue'
 
 const showEditDialog = ref(false)
@@ -117,6 +113,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สถานะ',
@@ -139,7 +139,7 @@ const headers = [
   },
 ]
 
-const items = ref([
+const items = reactive([
   { status: 'จำหน่าย', form: 1 },
   { status: 'ดำเนินการ', form: 6 },
   { status: 'ยุติเรื่อง', form: 3 },
@@ -151,7 +151,7 @@ const items = ref([
 
 // กรองข้อมูลเฉพาะสถานะ
 const filteredItems = computed(() => {
-  return items.value.filter((item) =>
+  return items.filter((item) =>
     item.status.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 })

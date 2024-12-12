@@ -1,134 +1,130 @@
 <template>
-  <v-card class="ma-4 mt-4" variant="flat" style="background-color: #fafafa">
+  <v-card class="ma-4" variant="flat" style="background-color: #fafafa">
     <div
       class="d-flex justify-center ma-2 mt-6 text-md-h4 text-h5 font-weight-bold text-wrap"
       style="color: #1a237e"
     >
       <span> รายงานการดำเนินงานตรวจติดตามผู้ประกอบธุรกิจทวงถามหนี้ </span>
     </div>
-    <v-row class="mx-8">
-      <v-col cols="12" class="d-flex justify-end">
-        <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
-        <v-btn
-          variant="outlined"
-          append-icon="mdi-filter"
-          :style="
-            showFilter
-              ? 'background-color: #1a237e; color: white; border: none'
-              : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
-          "
-          size="large"
-          class="rounded-lg px-2 px-sm-5"
-          id="print"
-          @click="toggleFilter()"
-        >
-          ตัวกรอง
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-expand-transition>
-      <v-row v-if="showFilter" class="mx-8 my-0">
-        <v-col md="12" cols="12">
-          <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
-          <v-text-field
-            v-model="formSearch.agency"
-            class="v-col-md-3 pa-0 pr-5"
-            variant="outlined"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
-          <v-text-field
-            v-model="formSearch.quarter"
-            variant="outlined"
-            placeholder="ไตรมาสที่"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
-          <DatePicker
-            v-model="formSearch.startDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ถึงเดือน</div>
-          <DatePicker
-            v-model="formSearch.endDate"
-            variant="outlined"
-            hide-details
-            persistent-placeholder
-            density="compact"
-          />
-        </v-col>
-        <v-col md="3" cols="12">
-          <div class="mb-2 font-weight-bold">ปี</div>
-          <v-text-field
-            v-model="formSearch.years"
-            variant="outlined"
-            placeholder="ทั้งหมด"
-            persistent-placeholder
-            hide-details
-            density="compact"
-          />
-        </v-col>
-        <v-col md="12" cols="12" class="d-flex justify-end align-end mb-1">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" class="d-flex justify-end">
           <v-btn
-            prepend-icon="mdi-magnify"
-            style="background-color: #1a237e; color: white"
-            >ค้นหา</v-btn
+            variant="outlined"
+            append-icon="mdi-filter"
+            :style="
+              showFilter
+                ? 'background-color: #1a237e; color: white; border: none'
+                : 'background-color: white; color: #1a237e; border: 1px solid #1a237e'
+            "
+            size="large"
+            class="rounded-lg px-2 px-sm-5"
+            id="print"
+            @click="toggleFilter()"
           >
+            ตัวกรอง
+          </v-btn>
         </v-col>
       </v-row>
-    </v-expand-transition>
+      <v-expand-transition>
+        <v-row v-if="showFilter" class="my-0">
+          <v-col md="12" cols="12">
+            <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
+            <v-text-field
+              v-model="formSearch.agency"
+              class="v-col-md-3 pa-0 pr-5"
+              variant="outlined"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ไตรมาสที่</div>
+            <v-text-field
+              v-model="formSearch.quarter"
+              variant="outlined"
+              placeholder="ไตรมาสที่"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ตั้งแต่เดือน</div>
+            <DatePicker
+              v-model="formSearch.startDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ถึงเดือน</div>
+            <DatePicker
+              v-model="formSearch.endDate"
+              variant="outlined"
+              hide-details
+              persistent-placeholder
+              density="compact"
+            />
+          </v-col>
+          <v-col md="3" cols="12">
+            <div class="mb-2 font-weight-bold">ปี</div>
+            <v-text-field
+              v-model="formSearch.years"
+              variant="outlined"
+              placeholder="ทั้งหมด"
+              persistent-placeholder
+              hide-details
+              density="compact"
+            />
+          </v-col>
+          <v-col md="12" cols="12" class="d-flex justify-end align-end mb-1">
+            <v-btn
+              prepend-icon="mdi-magnify"
+              style="background-color: #1a237e; color: white"
+              >ค้นหา</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-expand-transition>
+      <v-row>
+        <v-col>
+          <div class="rounded-lg pb-2">
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              class="elevation-1 rounded-table"
+            >
+              <template v-slot:[`item.dowload`]="{ item }">
+                <v-btn
+                  variant="outlined"
+                  color="blue-lighten-2"
+                  class="rounded-pill"
+                  prepend-icon="mdi-tray-arrow-down"
+                  @click="downloadItem(item)"
+                >
+                  ดาวน์โหลด
+                </v-btn>
+              </template>
 
-    <v-row>
-      <v-col>
-        <div class="px-10 rounded-lg pb-2">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            class="elevation-1 rounded-table"
-          >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
-            <template v-slot:[`item.dowload`]="{ item }">
-              <v-btn
-                variant="outlined"
-                color="blue-lighten-2"
-                class="rounded-pill"
-                prepend-icon="mdi-tray-arrow-down"
-                @click="downloadItem(item)"
-              >
-                ดาวน์โหลด
-              </v-btn>
-            </template>
-
-            <template v-slot:[`item.process`]="{ item }">
-              <v-btn
-                variant="text"
-                size="small"
-                style="background-color: #e3f2fd; color: #1565c0"
-                @click="deleteItem(item)"
-              >
-                <v-icon left size="26">mdi-delete-outline</v-icon>
-              </v-btn>
-            </template>
-          </v-data-table>
-        </div>
-      </v-col>
-    </v-row>
+              <template v-slot:[`item.process`]="{ item }">
+                <v-btn
+                  variant="text"
+                  size="small"
+                  style="background-color: #e3f2fd; color: #1565c0"
+                  @click="deleteItem(item)"
+                >
+                  <v-icon left size="26">mdi-delete-outline</v-icon>
+                </v-btn>
+              </template>
+            </v-data-table>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
   </v-card>
 </template>
                 
@@ -155,6 +151,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สังกัดหน่วยงาน',

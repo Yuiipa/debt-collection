@@ -6,10 +6,9 @@
     >
       <span> รายงานการรายงานผลอื่นๆ </span>
     </div>
-
-    <v-row class="mx-8">
+    <div class="mx-4 mt-4">
+    <v-row >
       <v-col cols="12" class="d-flex justify-end">
-        <ExportMenu :exportExcel="exportExcel" :exportPdf="exportPdf" />
         <v-btn
           variant="outlined"
           append-icon="mdi-filter"
@@ -28,7 +27,7 @@
       </v-col>
     </v-row>
     <v-expand-transition>
-      <v-row v-if="showFilter" class="mx-8 my-0">
+      <v-row v-if="showFilter" class="my-0">
         <v-col md="12" cols="12">
           <div class="mb-2 font-weight-bold">สังกัดหน่วยงาน</div>
           <v-text-field
@@ -94,16 +93,12 @@
 
     <v-row>
       <v-col>
-        <div class="px-10 rounded-lg pb-2">
+        <div class="rounded-lg pb-2">
           <v-data-table
             :headers="headers"
             :items="items"
             class="elevation-1 rounded-table"
           >
-            <!-- ลำดับที่ -->
-            <template v-slot:[`item.index`]="{ index }">
-              <span>{{ index + 1 }}</span>
-            </template>
             <template v-slot:[`item.dowload`]="{ item }">
               <v-btn
                 variant="outlined"
@@ -129,7 +124,9 @@
           </v-data-table>
         </div>
       </v-col>
+
     </v-row>
+    </div>
   </v-card>
 </template>
                   
@@ -156,6 +153,10 @@ const headers = [
     align: 'center',
     sortable: true,
     width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
   },
   {
     title: 'สังกัดหน่วยงาน',

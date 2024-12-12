@@ -6,9 +6,9 @@
     >
       <span>จัดการข้อหาหรือฐานความผิด</span>
     </v-card-title>
-    <div>
-      <v-row class="px-13 pr-10">
-        <v-col cols="12" sm="4" class="pa-0 d-flex align-center">
+    <div class="mx-4">
+      <v-row >
+        <v-col cols="12" sm="4" class="d-flex align-center">
           <v-text-field
             v-model="searchQuery"
             label="ค้นหา"
@@ -37,18 +37,12 @@
       </v-row>
       <v-row>
         <v-col>
-          <div class="px-10 rounded-lg pb-2">
+          <div class="rounded-lg pb-2">
             <v-data-table
               :headers="headers"
               :items="filteredItems"
               class="elevation-1"
             >
-              <!-- ลำดับที่ -->
-              <template v-slot:[`item.index`]="{ index }">
-                <span>{{ index + 1 }}</span>
-              </template>
-
-              <!-- ปุ่มดำเนินการ: แก้ไขและลบ -->
               <template v-slot:[`item.process`]="{ item }">
                 <v-btn
                   variant="text"
@@ -83,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,reactive } from 'vue'
 import EditDialog from '@/components/menuRegister/system/dataForm/BlameForm.vue'
 
 const showEditDialog = ref(false)
@@ -100,7 +94,17 @@ const handleSave = () => {
 }
 
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    width: '100px',
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'ความผิดมาตรา',
     key: 'section',
@@ -111,7 +115,7 @@ const headers = [
   { title: 'ดำเนินการ', key: 'process', align: 'center', sortable: false },
 ]
 
-const items = ref([
+const items = reactive([
   { section: '3' },
   { section: '4' },
   { section: '5' },
@@ -120,7 +124,7 @@ const items = ref([
 
 // ฟิลเตอร์รายการตามข้อความค้นหา
 const filteredItems = computed(() => {
-  return items.value.filter((item) =>
+  return items.filter((item) =>
     item.section.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 })
