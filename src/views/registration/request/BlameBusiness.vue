@@ -148,6 +148,7 @@ function navigate(item) {
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {

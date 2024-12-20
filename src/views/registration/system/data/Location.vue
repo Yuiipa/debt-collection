@@ -241,7 +241,7 @@ const headersProvince = [
     key: 'code',
     align: 'center',
     sortable: true,
-    width: '100px',
+    width: '120px',
     value: (item) => {
       const index = items.indexOf(item)
       return index + 1
@@ -275,7 +275,7 @@ const headersDistrict = [
     key: 'code',
     align: 'center',
     sortable: true,
-    width: '100px',
+    width: '120px',
     value: (item) => {
       const index = items.indexOf(item)
       return index + 1
@@ -309,7 +309,7 @@ const headersSubdistrict = [
     key: 'code',
     align: 'center',
     sortable: true,
-    width: '100px',
+    width: '120px',
     value: (item) => {
       const index = items.indexOf(item)
       return index + 1
@@ -371,6 +371,7 @@ function deleteItem(item) {
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {

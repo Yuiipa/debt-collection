@@ -181,6 +181,7 @@ const getColor = (number) => {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {

@@ -137,6 +137,7 @@ const selectedMenu = ref('ทั้งหมด')
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {

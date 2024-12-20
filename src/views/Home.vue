@@ -12,7 +12,7 @@
           <HomeChart :systems="mockSystems" />
         </div>
       </v-col>
-      <v-col cols="12" md="4" class="d-flex justify-center align-center mt-16 mb-6 mt-sm-14">
+      <v-col cols="12" md="4" class="d-flex justify-center align-center mt-16 mb-6 mt-sm-14 pt-12 pt-md-4">
         <div class="d-flex text-center">
           <v-row justify="center" align="center" >
             <v-col cols="12" md="12" class="d-flex justify-center">

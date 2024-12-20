@@ -55,6 +55,7 @@
                 ></v-switch>
               </template>
               <template v-slot:[`item.process`]="{ item }">
+                <div style="display: flex;">
                 <v-btn
                   class="mr-1"
                   variant="text"
@@ -72,6 +73,7 @@
                 >
                   <v-icon left size="26">mdi-delete-outline</v-icon>
                 </v-btn>
+                </div>
               </template>
             </v-data-table>
           </div>
@@ -202,6 +204,7 @@ function deleteItem(item) {
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {

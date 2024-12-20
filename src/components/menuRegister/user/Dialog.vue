@@ -26,7 +26,7 @@
                   variant="outlined"
                   density="compact"
                   hide-details="auto"
-                  v-mask="'#-####-#####-##-#'"            
+                  v-mask="'#-####-#####-##-#'"
                 ></v-text-field>
               </v-col>
             </v-row>

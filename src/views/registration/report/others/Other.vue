@@ -97,7 +97,7 @@
           <v-data-table
             :headers="headers"
             :items="items"
-            class="elevation-1 rounded-table"
+            class="elevation-1"
           >
             <template v-slot:[`item.dowload`]="{ item }">
               <v-btn
@@ -211,17 +211,12 @@ function deleteItem(item) {
 </script>
                   
 <style scoped>
-.rounded-table {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
-  overflow: hidden;
-}
-
 .v-table :deep(th) {
   background-color: #1a237e;
   color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
   cursor: pointer;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .v-table :deep(table > thead) {
