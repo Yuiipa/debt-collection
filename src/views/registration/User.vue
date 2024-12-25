@@ -7,7 +7,7 @@
       <span> จัดการข้อมูลผู้ใช้งาน</span>
     </v-card-title>
     <div class="mx-4">
-      <v-row >
+      <v-row>
         <v-col cols="12" md="4" class="d-flex align-center">
           <v-text-field
             label="ค้นหา"
@@ -43,6 +43,9 @@
               :items="filteredItems"
               class="elevation-1"
             >
+              <template v-slot:[`item.pid`]="{ item }">
+                {{ formatters.pidFormat(item.pid) }}
+              </template>
               <template v-slot:[`item.status`]="{ item }">
                 <v-switch
                   v-model="item.status"
@@ -55,24 +58,24 @@
                 ></v-switch>
               </template>
               <template v-slot:[`item.process`]="{ item }">
-                <div style="display: flex;">
-                <v-btn
-                  class="mr-1"
-                  variant="text"
-                  size="small"
-                  style="background-color: #e3f2fd; color: #1565c0"
-                  @click="openEditDialog(item)"
-                >
-                  <v-icon left size="26">mdi-pencil-outline</v-icon>
-                </v-btn>
-                <v-btn
-                  variant="text"
-                  size="small"
-                  style="background-color: #e3f2fd; color: #1565c0"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon left size="26">mdi-delete-outline</v-icon>
-                </v-btn>
+                <div style="display: flex">
+                  <v-btn
+                    class="mr-1"
+                    variant="text"
+                    size="small"
+                    style="background-color: #e3f2fd; color: #1565c0"
+                    @click="openEditDialog(item)"
+                  >
+                    <v-icon left size="26">mdi-pencil-outline</v-icon>
+                  </v-btn>
+                  <v-btn
+                    variant="text"
+                    size="small"
+                    style="background-color: #e3f2fd; color: #1565c0"
+                    @click="deleteItem(item)"
+                  >
+                    <v-icon left size="26">mdi-delete-outline</v-icon>
+                  </v-btn>
                 </div>
               </template>
             </v-data-table>
@@ -88,17 +91,18 @@
 </template>
 
 <script setup>
-import { ref, computed ,reactive} from 'vue';
-import EditDialog from '@/components/menuRegister/user/Dialog.vue';
+import { ref, computed, reactive } from 'vue'
+import EditDialog from '@/components/menuRegister/user/Dialog.vue'
+import formatters from '@/helper/formatters'
 
-const showEditDialog = ref(false);
-const selectedItem = ref(null);
-const searchQuery = ref(''); // เก็บข้อความค้นหา
+const showEditDialog = ref(false)
+const selectedItem = ref(null)
+const searchQuery = ref('') // เก็บข้อความค้นหา
 
 const openEditDialog = (item = null) => {
-  selectedItem.value = item ? { ...item } : null;
-  showEditDialog.value = true;
-};
+  selectedItem.value = item ? { ...item } : null
+  showEditDialog.value = true
+}
 
 const headers = [
   {
@@ -138,7 +142,7 @@ const headers = [
     sortable: false,
     width: '140px',
   },
-];
+]
 
 const items = reactive([
   {
@@ -181,7 +185,7 @@ const items = reactive([
     province: 'กรุงเทพมหานคร',
     status: true,
   },
-]);
+])
 
 // กรองข้อมูลตามข้อความค้นหา
 const filteredItems = computed(() =>
@@ -190,31 +194,12 @@ const filteredItems = computed(() =>
       value.toString().toLowerCase().includes(searchQuery.value.toLowerCase())
     )
   )
-);
+)
 
 function deleteItem(item) {
-  console.log('ลบ:', item);
+  console.log('ลบ:', item)
 }
 </script>
 
   
-  <style scoped>
-.v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
-  cursor: pointer;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.v-table :deep(table > thead) {
-  background-color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.v-table :deep(tr:nth-child(even)) {
-  background-color: #f1f1f1e5;
-}
-</style>
   

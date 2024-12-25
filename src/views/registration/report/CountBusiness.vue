@@ -60,7 +60,7 @@
             <v-data-table
               :headers="headers"
               :items="items"
-              class="elevation-1 rounded-table"
+              class="elevation-1"
             >
             </v-data-table>
           </div>
@@ -221,22 +221,4 @@ const exportPdf = () => {
 }
 </script>
 
-<style scoped>
-.v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
-  cursor: pointer;
-  font-weight: bold;
-  white-space: nowrap;
-}
 
-.v-table :deep(table > thead) {
-  background-color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.v-table :deep(tr:nth-child(even)) {
-  background-color: #f1f1f1e5;
-}
-</style>

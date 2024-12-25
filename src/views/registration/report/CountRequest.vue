@@ -9,7 +9,7 @@
       </span>
     </v-card-title>
     <div class="mx-4 my-2">
-      <v-row >
+      <v-row>
         <v-col md="3" cols="12">
           <div class="mb-2 font-weight-bold">ตั้งแต่วันที่</div>
           <DatePicker
@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { generateExcel } from '@/prints/register/excel/ReportCountRequest'
 import { generatePDF } from '@/prints/register/CountRequest'
 import ExportMenu from '@/components/widget/ExportMenu.vue'
@@ -66,7 +66,16 @@ const formSearch = reactive({
   endDate: null,
 })
 const headers = [
-  { title: 'ลำดับที่', key: 'index', align: 'center', sortable: true },
+  {
+    title: 'ลำดับที่',
+    key: 'index',
+    align: 'center',
+    sortable: true,
+    value: (item) => {
+      const index = items.indexOf(item)
+      return index + 1
+    },
+  },
   {
     title: 'หน่วยงาน',
     key: 'agency',
@@ -101,7 +110,7 @@ const headers = [
   { title: 'รวม', key: 'sum', align: 'start', sortable: true },
 ]
 
-const items = ref([
+const items = reactive([
   {
     pid: 1,
     agency: 'จังหวัดสมุทรปราการ',
@@ -323,23 +332,3 @@ const exportPdf = () => {
   generatePDF(items.value)
 }
 </script>
-
-<style scoped>
-.v-table :deep(th) {
-  background-color: #1a237e;
-  color: white; /* เพิ่มสีขาวสำหรับตัวอักษรใน header */
-  cursor: pointer;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.v-table :deep(table > thead) {
-  background-color: #ffffff;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.v-table :deep(tr:nth-child(even)) {
-  background-color: #f1f1f1e5;
-}
-</style>
